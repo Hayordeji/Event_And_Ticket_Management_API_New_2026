@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TicketingSystem.SharedKernel
 {
-     ///<summary>
+    ///<summary>
     /// Base class for all entities with identity
     /// </summary>
     public abstract class Entity

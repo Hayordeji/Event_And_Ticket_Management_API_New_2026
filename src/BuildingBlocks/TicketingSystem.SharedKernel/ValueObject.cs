@@ -5,9 +5,9 @@ using System.Text;
 namespace TicketingSystem.SharedKernel
 {
     ///<summary>
-/// Base class for value objects
-/// Value objects are compared by their values, not identity
-/// </summary>
+    /// Base class for value objects
+    /// Value objects are compared by their values, not identity
+    /// </summary>
     public abstract class ValueObject
     {
         protected abstract IEnumerable<object?> GetEqualityComponents();

@@ -1,4 +1,6 @@
-﻿namespace TicketingSystem.Modules.Finance.Tests;
+﻿using Xunit;
+
+namespace TicketingSystem.Modules.Finance.Tests;
 
 public class UnitTest1
 {

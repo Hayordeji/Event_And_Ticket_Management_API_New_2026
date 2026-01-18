@@ -4,10 +4,10 @@ using System.Text;
 
 namespace TicketingSystem.SharedKernel
 {
-/// <summary>
-/// Marker interface for domain events
-/// Domain events are things that have happened in the domain
-/// </summary>
+    /// <summary>
+    /// Marker interface for domain events
+    /// Domain events are things that have happened in the domain
+    /// </summary>
     public interface IDomainEvent
     {
         Guid EventId { get; }

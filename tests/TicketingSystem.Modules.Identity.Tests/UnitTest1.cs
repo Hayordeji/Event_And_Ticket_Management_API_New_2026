@@ -1,4 +1,6 @@
-﻿namespace TicketingSystem.Modules.Identity.Tests;
+﻿using Xunit;
+
+namespace TicketingSystem.Modules.Identity.Tests;
 
 public class UnitTest1
 {

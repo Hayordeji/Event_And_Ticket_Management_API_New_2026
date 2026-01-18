@@ -5,8 +5,8 @@ using System.Text;
 namespace TicketingSystem.SharedKernel
 {
     ///<summary>
-/// Represents the result of an operation that can succeed or fail
-/// </summary>
+    /// Represents the result of an operation that can succeed or fail
+    /// </summary>
     public class Result
     {
         public bool IsSuccess { get; }
