@@ -1,0 +1,60 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+    <File Path="global.json" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/" />
+  <Folder Name="/src/BuildingBlocks/">
+    <Project Path="src/BuildingBlocks/TicketingSystem.SharedKernel/TicketingSystem.SharedKernel.csproj" />
+  </Folder>
+  <Folder Name="/src/Host/">
+    <Project Path="src/Host/TicketingSystem.Api/TicketingSystem.Api.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/Access/">
+    <Project Path="src/Modules/Access/TicketingSystem.Modules.Access.Api/TicketingSystem.Modules.Access.Api.csproj" />
+    <Project Path="src/Modules/Access/TicketingSystem.Modules.Access.Application/TicketingSystem.Modules.Access.Application.csproj" />
+    <Project Path="src/Modules/Access/TicketingSystem.Modules.Access.Domain/TicketingSystem.Modules.Access.Domain.csproj" />
+    <Project Path="src/Modules/Access/TicketingSystem.Modules.Access.Infrastructure/TicketingSystem.Modules.Access.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Catalog/">
+    <Project Path="src/Modules/Catalog/TicketingSystem.Modules.Catalog.Api/TicketingSystem.Modules.Catalog.Api.csproj" />
+    <Project Path="src/Modules/Catalog/TicketingSystem.Modules.Catalog.Application/TicketingSystem.Modules.Catalog.Application.csproj" />
+    <Project Path="src/Modules/Catalog/TicketingSystem.Modules.Catalog.Domain/TicketingSystem.Modules.Catalog.Domain.csproj" />
+    <Project Path="src/Modules/Catalog/TicketingSystem.Modules.Catalog.Infrastructure/TicketingSystem.Modules.Catalog.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Finance/">
+    <Project Path="src/Modules/Finance/TicketingSystem.Modules.Finance.Api/TicketingSystem.Modules.Finance.Api.csproj" />
+    <Project Path="src/Modules/Finance/TicketingSystem.Modules.Finance.Application/TicketingSystem.Modules.Finance.Application.csproj" />
+    <Project Path="src/Modules/Finance/TicketingSystem.Modules.Finance.Domain/TicketingSystem.Modules.Finance.Domain.csproj" />
+    <Project Path="src/Modules/Finance/TicketingSystem.Modules.Finance.Infrastructure/TicketingSystem.Modules.Finance.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Fulfillment/">
+    <Project Path="src/Modules/Fulfillment/TicketingSystem.Modules.Fulfillment.Api/TicketingSystem.Modules.Fulfillment.Api.csproj" />
+    <Project Path="src/Modules/Fulfillment/TicketingSystem.Modules.Fulfillment.Application/TicketingSystem.Modules.Fulfillment.Application.csproj" />
+    <Project Path="src/Modules/Fulfillment/TicketingSystem.Modules.Fulfillment.Domain/TicketingSystem.Modules.Fulfillment.Domain.csproj" />
+    <Project Path="src/Modules/Fulfillment/TicketingSystem.Modules.Fulfillment.Infrastructure/TicketingSystem.Modules.Fulfillment.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Identity/">
+    <Project Path="src/Modules/Identity/TicketingSystem.Modules.Identity.Api/TicketingSystem.Modules.Identity.Api.csproj" />
+    <Project Path="src/Modules/Identity/TicketingSystem.Modules.Identity.Application/TicketingSystem.Modules.Identity.Application.csproj" />
+    <Project Path="src/Modules/Identity/TicketingSystem.Modules.Identity.Domain/TicketingSystem.Modules.Identity.Domain.csproj" />
+    <Project Path="src/Modules/Identity/TicketingSystem.Modules.Identity.Infrastructure/TicketingSystem.Modules.Identity.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Sales/">
+    <Project Path="src/Modules/Sales/TicketingSystem.Modules.Sales.Api/TicketingSystem.Modules.Sales.Api.csproj" />
+    <Project Path="src/Modules/Sales/TicketingSystem.Modules.Sales.Application/TicketingSystem.Modules.Sales.Application.csproj" />
+    <Project Path="src/Modules/Sales/TicketingSystem.Modules.Sales.Domain/TicketingSystem.Modules.Sales.Domain.csproj" />
+    <Project Path="src/Modules/Sales/TicketingSystem.Modules.Sales.Infrastructure/TicketingSystem.Modules.Sales.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/TicketingSystem.Modules.Access.Tests/TicketingSystem.Modules.Access.Tests.csproj" />
+    <Project Path="tests/TicketingSystem.Modules.Catalog.Tests/TicketingSystem.Modules.Catalog.Tests.csproj" />
+    <Project Path="tests/TicketingSystem.Modules.Finance.Tests/TicketingSystem.Modules.Finance.Tests.csproj" />
+    <Project Path="tests/TicketingSystem.Modules.Fulfillment.Tests/TicketingSystem.Modules.Fulfillment.Tests.csproj" />
+    <Project Path="tests/TicketingSystem.Modules.Identity.Tests/TicketingSystem.Modules.Identity.Tests.csproj" />
+    <Project Path="tests/TicketingSystem.Modules.Sales.Tests/TicketingSystem.Modules.Sales.Tests.csproj" />
+    <Project Path="tests/TicketingSystem.SharedKernel.Tests/TicketingSystem.SharedKernel.Tests.csproj" />
+  </Folder>
+</Solution>
