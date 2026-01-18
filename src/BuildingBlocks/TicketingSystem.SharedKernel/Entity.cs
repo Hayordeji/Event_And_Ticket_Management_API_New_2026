@@ -10,15 +10,73 @@ namespace TicketingSystem.SharedKernel
     public abstract class Entity
     {
         public Guid Id { get; protected set; }
+        /// <summary>
+        /// When the entity was created (UTC)
+        /// </summary>
+        public DateTime CreatedAt { get; protected set; }
+
+        /// <summary>
+        /// When the entity was last updated (UTC)
+        /// </summary>
+        public DateTime? UpdatedAt { get; protected set; }
+
+        /// <summary>
+        /// User ID who created this entity
+        /// </summary>
+        public Guid? CreatedBy { get; protected set; }
+
+        /// <summary>
+        /// User ID who last updated this entity
+        /// </summary>
+        public Guid? UpdatedBy { get; protected set; }
+
+        /// <summary>
+        /// Soft delete flag
+        /// </summary>
+        public bool IsDeleted { get; protected set; }
+
+        /// <summary>
+        /// When the entity was soft deleted (UTC)
+        /// </summary>
+        public DateTime? DeletedAt { get; protected set; }
+
+        /// <summary>
+        /// User ID who deleted this entity
+        /// </summary>
+        public Guid? DeletedBy { get; protected set; }
+
 
         protected Entity()
         {
             Id = Guid.NewGuid();
+            CreatedAt = DateTime.UtcNow;
+            IsDeleted = false;
         }
 
         protected Entity(Guid id)
         {
             Id = id;
+            CreatedAt = DateTime.UtcNow;
+            IsDeleted = false;
+        }
+
+        /// <summary>
+        /// Mark entity as deleted (soft delete)
+        /// </summary>
+        public void MarkAsDeleted(Guid? deletedBy = null)
+        {
+            IsDeleted = true;
+            DeletedAt = DateTime.UtcNow;
+            DeletedBy = deletedBy;
+        }
+
+        /// <summary>
+        /// Mark entity as updated
+        /// </summary>
+        public void MarkAsUpdated(Guid? updatedBy = null)
+        {
+            UpdatedAt = DateTime.UtcNow;
+            UpdatedBy = updatedBy;
         }
 
         public override bool Equals(object? obj)
