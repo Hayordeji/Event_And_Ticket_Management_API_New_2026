@@ -1,0 +1,392 @@
+2026-01-19 04:35:01.588 +01:00 [INF] Starting Ticketing System API {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:35:01.798 +01:00 [FTL] Application failed to start {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+System.IO.InvalidDataException: Failed to load configuration from file 'C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\appsettings.json'.
+ ---> System.FormatException: Could not parse the JSON file.
+ ---> System.Text.Json.JsonReaderException: '{' is invalid after a property name. Expected a ':'. LineNumber: 20 | BytePositionInLine: 9.
+   at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader& json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumePropertyName()
+   at System.Text.Json.Utf8JsonReader.ConsumeNextTokenUntilAfterAllCommentsAreSkipped(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ConsumeNextTokenOrRollback(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb& database, StackRowStack& stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter, Boolean allowDuplicateProperties)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at System.Text.Json.JsonDocument.Parse(String json, JsonDocumentOptions options)
+   at Microsoft.Extensions.Configuration.Json.JsonConfigurationFileParser.ParseStream(Stream input)
+   at Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider.Load(Stream stream)
+   --- End of inner exception stack trace ---
+   at Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider.Load(Stream stream)
+   at Microsoft.Extensions.Configuration.FileConfigurationProvider.Load(Boolean reload)
+   --- End of inner exception stack trace ---
+   at Microsoft.Extensions.Configuration.FileConfigurationProvider.Load(Boolean reload)
+   at Microsoft.Extensions.Configuration.ConfigurationManager.AddSource(IConfigurationSource source)
+   at Microsoft.Extensions.Configuration.ConfigurationManager.Microsoft.Extensions.Configuration.IConfigurationBuilder.Add(IConfigurationSource source)
+   at Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile(IConfigurationBuilder builder, String path, Boolean optional, Boolean reloadOnChange)
+   at Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ApplyDefaultAppConfiguration(HostBuilderContext hostingContext, IConfigurationBuilder appConfigBuilder, String[] args)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder..ctor(HostApplicationBuilderSettings settings)
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder..ctor(WebApplicationOptions options, Action`1 configureDefaults)
+   at Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(String[] args)
+   at Program.<Main>$(String[] args) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Program.cs:line 28
+2026-01-19 04:35:43.682 +01:00 [INF] Starting Ticketing System API {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:35:44.584 +01:00 [INF] Ticketing System API started successfully {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:36:42.456 +01:00 [INF] Starting Ticketing System API {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:36:42.652 +01:00 [INF] Ticketing System API started successfully {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:39:08.876 +01:00 [INF] Starting Ticketing System API {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:39:10.063 +01:00 [INF] Ticketing System API started successfully {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:39:37.030 +01:00 [INF] Starting Ticketing System API {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:39:40.490 +01:00 [INF] Ticketing System API started successfully {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:42:04.156 +01:00 [INF] Starting Ticketing System API {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:42:04.354 +01:00 [INF] Ticketing System API started successfully {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:45:17.773 +01:00 [INF] Starting Ticketing System API {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:45:17.963 +01:00 [INF] Ticketing System API started successfully {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:35.384 +01:00 [INF] Starting Ticketing System API {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:40.255 +01:00 [INF] Ticketing System API started successfully {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:42.262 +01:00 [INF] HTTP GET /swagger started. TraceId: 0HNIN1LDM1155:00000001 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:00000001","RequestPath":"/swagger","ConnectionId":"0HNIN1LDM1155","ThreadId":11,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:42.280 +01:00 [INF] HTTP GET /swagger completed with 301 in 20ms. TraceId: 0HNIN1LDM1155:00000001 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:00000001","RequestPath":"/swagger","ConnectionId":"0HNIN1LDM1155","ThreadId":11,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:42.306 +01:00 [INF] HTTP GET /swagger/index.html started. TraceId: 0HNIN1LDM1155:00000003 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:00000003","RequestPath":"/swagger/index.html","ConnectionId":"0HNIN1LDM1155","ThreadId":11,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:42.386 +01:00 [INF] HTTP GET /swagger/index.html completed with 200 in 80ms. TraceId: 0HNIN1LDM1155:00000003 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:00000003","RequestPath":"/swagger/index.html","ConnectionId":"0HNIN1LDM1155","ThreadId":11,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:42.439 +01:00 [INF] HTTP GET /swagger/swagger-ui.css started. TraceId: 0HNIN1LDM1155:00000005 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:00000005","RequestPath":"/swagger/swagger-ui.css","ConnectionId":"0HNIN1LDM1155","ThreadId":11,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:42.441 +01:00 [INF] HTTP GET /swagger/index.css started. TraceId: 0HNIN1LDM1155:00000007 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:00000007","RequestPath":"/swagger/index.css","ConnectionId":"0HNIN1LDM1155","ThreadId":6,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:42.441 +01:00 [INF] HTTP GET /swagger/swagger-ui-bundle.js started. TraceId: 0HNIN1LDM1155:00000009 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:00000009","RequestPath":"/swagger/swagger-ui-bundle.js","ConnectionId":"0HNIN1LDM1155","ThreadId":8,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:42.451 +01:00 [INF] HTTP GET /swagger/swagger-ui-standalone-preset.js started. TraceId: 0HNIN1LDM1155:0000000B {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:0000000B","RequestPath":"/swagger/swagger-ui-standalone-preset.js","ConnectionId":"0HNIN1LDM1155","ThreadId":9,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:42.442 +01:00 [INF] HTTP GET /swagger/index.js started. TraceId: 0HNIN1LDM1155:0000000D {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:0000000D","RequestPath":"/swagger/index.js","ConnectionId":"0HNIN1LDM1155","ThreadId":13,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:42.536 +01:00 [INF] HTTP GET /swagger/index.js completed with 200 in 93ms. TraceId: 0HNIN1LDM1155:0000000D {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:0000000D","RequestPath":"/swagger/index.js","ConnectionId":"0HNIN1LDM1155","ThreadId":13,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:42.502 +01:00 [INF] HTTP GET /swagger/swagger-ui.css completed with 200 in 62ms. TraceId: 0HNIN1LDM1155:00000005 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:00000005","RequestPath":"/swagger/swagger-ui.css","ConnectionId":"0HNIN1LDM1155","ThreadId":18,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:42.533 +01:00 [INF] HTTP GET /swagger/swagger-ui-standalone-preset.js completed with 200 in 81ms. TraceId: 0HNIN1LDM1155:0000000B {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:0000000B","RequestPath":"/swagger/swagger-ui-standalone-preset.js","ConnectionId":"0HNIN1LDM1155","ThreadId":8,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:42.500 +01:00 [INF] HTTP GET /swagger/index.css completed with 200 in 58ms. TraceId: 0HNIN1LDM1155:00000007 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:00000007","RequestPath":"/swagger/index.css","ConnectionId":"0HNIN1LDM1155","ThreadId":6,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:42.539 +01:00 [INF] HTTP GET /swagger/swagger-ui-bundle.js completed with 200 in 97ms. TraceId: 0HNIN1LDM1155:00000009 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:00000009","RequestPath":"/swagger/swagger-ui-bundle.js","ConnectionId":"0HNIN1LDM1155","ThreadId":9,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:43.925 +01:00 [INF] HTTP GET /swagger/favicon-32x32.png started. TraceId: 0HNIN1LDM1155:00000013 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:00000013","RequestPath":"/swagger/favicon-32x32.png","ConnectionId":"0HNIN1LDM1155","ThreadId":11,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:43.947 +01:00 [INF] HTTP GET /swagger/favicon-32x32.png completed with 200 in 22ms. TraceId: 0HNIN1LDM1155:00000013 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:00000013","RequestPath":"/swagger/favicon-32x32.png","ConnectionId":"0HNIN1LDM1155","ThreadId":11,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:47.715 +01:00 [INF] HTTP GET /swagger/v1/swagger.json started. TraceId: 0HNIN1LDM1155:00000015 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:00000015","RequestPath":"/swagger/v1/swagger.json","ConnectionId":"0HNIN1LDM1155","ThreadId":18,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:46:47.735 +01:00 [INF] HTTP GET /swagger/v1/swagger.json completed with 200 in 19ms. TraceId: 0HNIN1LDM1155:00000015 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1LDM1155:00000015","RequestPath":"/swagger/v1/swagger.json","ConnectionId":"0HNIN1LDM1155","ThreadId":18,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:47:21.821 +01:00 [INF] Starting Ticketing System API {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:47:22.355 +01:00 [INF] Ticketing System API started successfully {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:47:30.946 +01:00 [INF] Starting Ticketing System API {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:47:31.137 +01:00 [INF] Ticketing System API started successfully {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:47:53.265 +01:00 [INF] Starting Ticketing System API {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:47:53.979 +01:00 [INF] Ticketing System API started successfully {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:48:00.300 +01:00 [INF] HTTP GET /swagger/v1/swagger.json started. TraceId: 0HNIN1M3GN692:00000005 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1M3GN692:00000005","RequestPath":"/swagger/v1/swagger.json","ConnectionId":"0HNIN1M3GN692","ThreadId":9,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:48:00.415 +01:00 [INF] HTTP GET /swagger/v1/swagger.json completed with 200 in 119ms. TraceId: 0HNIN1M3GN692:00000005 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1M3GN692:00000005","RequestPath":"/swagger/v1/swagger.json","ConnectionId":"0HNIN1M3GN692","ThreadId":9,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:48:16.482 +01:00 [INF] HTTP GET /health started. TraceId: 0HNIN1M3GN694:00000001 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1M3GN694:00000001","RequestPath":"/health","ConnectionId":"0HNIN1M3GN694","ThreadId":8,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:48:16.554 +01:00 [INF] HTTP GET /health completed with 200 in 71ms. TraceId: 0HNIN1M3GN694:00000001 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1M3GN694:00000001","RequestPath":"/health","ConnectionId":"0HNIN1M3GN694","ThreadId":8,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:48:35.034 +01:00 [INF] HTTP GET /health started. TraceId: 0HNIN1M3GN694:00000002 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1M3GN694:00000002","RequestPath":"/health","ConnectionId":"0HNIN1M3GN694","ThreadId":15,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:48:35.043 +01:00 [INF] HTTP GET /health completed with 200 in 8ms. TraceId: 0HNIN1M3GN694:00000002 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1M3GN694:00000002","RequestPath":"/health","ConnectionId":"0HNIN1M3GN694","ThreadId":15,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:48:41.232 +01:00 [INF] HTTP GET /health started. TraceId: 0HNIN1M3GN694:00000003 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1M3GN694:00000003","RequestPath":"/health","ConnectionId":"0HNIN1M3GN694","ThreadId":14,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:48:41.242 +01:00 [INF] HTTP GET /health completed with 200 in 9ms. TraceId: 0HNIN1M3GN694:00000003 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1M3GN694:00000003","RequestPath":"/health","ConnectionId":"0HNIN1M3GN694","ThreadId":14,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:55:53.806 +01:00 [INF] Starting Ticketing System API {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:55:54.727 +01:00 [INF] Ticketing System API started successfully {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:56:04.592 +01:00 [INF] HTTP GET /swagger/v1/swagger.json started. TraceId: 0HNIN1QINI14Q:00000005 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:00000005","RequestPath":"/swagger/v1/swagger.json","ConnectionId":"0HNIN1QINI14Q","ThreadId":10,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:56:04.615 +01:00 [INF] HTTP GET /swagger/v1/swagger.json completed with 200 in 26ms. TraceId: 0HNIN1QINI14Q:00000005 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:00000005","RequestPath":"/swagger/v1/swagger.json","ConnectionId":"0HNIN1QINI14Q","ThreadId":10,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:56:21.809 +01:00 [INF] HTTP GET /api/Test/success started. TraceId: 0HNIN1QINI14Q:00000007 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:00000007","RequestPath":"/api/Test/success","ConnectionId":"0HNIN1QINI14Q","ThreadId":9,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:56:21.867 +01:00 [INF] HTTP GET /api/Test/success completed with 200 in 57ms. TraceId: 0HNIN1QINI14Q:00000007 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:00000007","RequestPath":"/api/Test/success","ConnectionId":"0HNIN1QINI14Q","ThreadId":9,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:56:26.916 +01:00 [INF] HTTP GET /api/Test/validation-error started. TraceId: 0HNIN1QINI14Q:00000009 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:00000009","RequestPath":"/api/Test/validation-error","ConnectionId":"0HNIN1QINI14Q","ThreadId":10,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:56:55.275 +01:00 [ERR] HTTP GET /api/Test/validation-error failed in 28358ms. TraceId: 0HNIN1QINI14Q:00000009 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:00000009","RequestPath":"/api/Test/validation-error","ConnectionId":"0HNIN1QINI14Q","ThreadId":10,"MachineName":"AYODEJI_PC"}
+TicketingSystem.SharedKernel.Exceptions.ValidationException: One or more validation errors occurred.
+   at TicketingSystem.Api.Controllers.TestController.TestValidationError() in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\TestController.cs:line 41
+   at lambda_method7(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+2026-01-19 04:56:55.410 +01:00 [ERR] An error occurred. TraceId: 0HNIN1QINI14Q:00000009. Path: /api/Test/validation-error {"SourceContext":"TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware","RequestId":"0HNIN1QINI14Q:00000009","RequestPath":"/api/Test/validation-error","ConnectionId":"0HNIN1QINI14Q","ThreadId":10,"MachineName":"AYODEJI_PC"}
+TicketingSystem.SharedKernel.Exceptions.ValidationException: One or more validation errors occurred.
+   at TicketingSystem.Api.Controllers.TestController.TestValidationError() in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\TestController.cs:line 41
+   at lambda_method7(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+   at TicketingSystem.Api.Middleware.SecurityHeadersMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\SecurityHeadersMiddleware.cs:line 38
+   at TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\ExceptionHandlingMiddleware.cs:line 33
+2026-01-19 04:57:08.438 +01:00 [INF] HTTP GET /api/Test/not-found started. TraceId: 0HNIN1QINI14Q:0000000B {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:0000000B","RequestPath":"/api/Test/not-found","ConnectionId":"0HNIN1QINI14Q","ThreadId":10,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:57:13.764 +01:00 [ERR] HTTP GET /api/Test/not-found failed in 5325ms. TraceId: 0HNIN1QINI14Q:0000000B {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:0000000B","RequestPath":"/api/Test/not-found","ConnectionId":"0HNIN1QINI14Q","ThreadId":10,"MachineName":"AYODEJI_PC"}
+TicketingSystem.SharedKernel.Exceptions.NotFoundException: User with key '1bfd1594-3702-4e32-ba79-923341001844' was not found.
+   at TicketingSystem.Api.Controllers.TestController.TestNotFound() in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\TestController.cs:line 50
+   at lambda_method9(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+2026-01-19 04:57:13.828 +01:00 [ERR] An error occurred. TraceId: 0HNIN1QINI14Q:0000000B. Path: /api/Test/not-found {"SourceContext":"TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware","RequestId":"0HNIN1QINI14Q:0000000B","RequestPath":"/api/Test/not-found","ConnectionId":"0HNIN1QINI14Q","ThreadId":10,"MachineName":"AYODEJI_PC"}
+TicketingSystem.SharedKernel.Exceptions.NotFoundException: User with key '1bfd1594-3702-4e32-ba79-923341001844' was not found.
+   at TicketingSystem.Api.Controllers.TestController.TestNotFound() in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\TestController.cs:line 50
+   at lambda_method9(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+   at TicketingSystem.Api.Middleware.SecurityHeadersMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\SecurityHeadersMiddleware.cs:line 38
+   at TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\ExceptionHandlingMiddleware.cs:line 33
+2026-01-19 04:57:37.102 +01:00 [INF] HTTP GET /api/Test/unauthorized started. TraceId: 0HNIN1QINI14Q:0000000D {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:0000000D","RequestPath":"/api/Test/unauthorized","ConnectionId":"0HNIN1QINI14Q","ThreadId":15,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:57:39.617 +01:00 [ERR] HTTP GET /api/Test/unauthorized failed in 2515ms. TraceId: 0HNIN1QINI14Q:0000000D {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:0000000D","RequestPath":"/api/Test/unauthorized","ConnectionId":"0HNIN1QINI14Q","ThreadId":15,"MachineName":"AYODEJI_PC"}
+TicketingSystem.SharedKernel.Exceptions.UnauthorizedException: You must be logged in to access this resource
+   at TicketingSystem.Api.Controllers.TestController.TestUnauthorized() in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\TestController.cs:line 59
+   at lambda_method11(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+2026-01-19 04:57:39.708 +01:00 [ERR] An error occurred. TraceId: 0HNIN1QINI14Q:0000000D. Path: /api/Test/unauthorized {"SourceContext":"TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware","RequestId":"0HNIN1QINI14Q:0000000D","RequestPath":"/api/Test/unauthorized","ConnectionId":"0HNIN1QINI14Q","ThreadId":15,"MachineName":"AYODEJI_PC"}
+TicketingSystem.SharedKernel.Exceptions.UnauthorizedException: You must be logged in to access this resource
+   at TicketingSystem.Api.Controllers.TestController.TestUnauthorized() in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\TestController.cs:line 59
+   at lambda_method11(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+   at TicketingSystem.Api.Middleware.SecurityHeadersMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\SecurityHeadersMiddleware.cs:line 38
+   at TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\ExceptionHandlingMiddleware.cs:line 33
+2026-01-19 04:57:58.787 +01:00 [INF] HTTP GET /api/Test/forbidden started. TraceId: 0HNIN1QINI14Q:0000000F {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:0000000F","RequestPath":"/api/Test/forbidden","ConnectionId":"0HNIN1QINI14Q","ThreadId":18,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:58:01.707 +01:00 [ERR] HTTP GET /api/Test/forbidden failed in 2920ms. TraceId: 0HNIN1QINI14Q:0000000F {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:0000000F","RequestPath":"/api/Test/forbidden","ConnectionId":"0HNIN1QINI14Q","ThreadId":18,"MachineName":"AYODEJI_PC"}
+TicketingSystem.SharedKernel.Exceptions.ForbiddenException: You don't have permission to access this resource
+   at TicketingSystem.Api.Controllers.TestController.TestForbidden() in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\TestController.cs:line 68
+   at lambda_method13(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+2026-01-19 04:58:01.783 +01:00 [ERR] An error occurred. TraceId: 0HNIN1QINI14Q:0000000F. Path: /api/Test/forbidden {"SourceContext":"TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware","RequestId":"0HNIN1QINI14Q:0000000F","RequestPath":"/api/Test/forbidden","ConnectionId":"0HNIN1QINI14Q","ThreadId":18,"MachineName":"AYODEJI_PC"}
+TicketingSystem.SharedKernel.Exceptions.ForbiddenException: You don't have permission to access this resource
+   at TicketingSystem.Api.Controllers.TestController.TestForbidden() in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\TestController.cs:line 68
+   at lambda_method13(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+   at TicketingSystem.Api.Middleware.SecurityHeadersMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\SecurityHeadersMiddleware.cs:line 38
+   at TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\ExceptionHandlingMiddleware.cs:line 33
+2026-01-19 04:58:11.068 +01:00 [INF] HTTP GET /api/Test/conflict started. TraceId: 0HNIN1QINI14Q:00000011 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:00000011","RequestPath":"/api/Test/conflict","ConnectionId":"0HNIN1QINI14Q","ThreadId":18,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:58:21.007 +01:00 [ERR] HTTP GET /api/Test/conflict failed in 9938ms. TraceId: 0HNIN1QINI14Q:00000011 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:00000011","RequestPath":"/api/Test/conflict","ConnectionId":"0HNIN1QINI14Q","ThreadId":18,"MachineName":"AYODEJI_PC"}
+TicketingSystem.SharedKernel.Exceptions.ConflictException: A user with this email already exists
+   at TicketingSystem.Api.Controllers.TestController.TestConflict() in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\TestController.cs:line 77
+   at lambda_method15(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+2026-01-19 04:58:21.072 +01:00 [ERR] An error occurred. TraceId: 0HNIN1QINI14Q:00000011. Path: /api/Test/conflict {"SourceContext":"TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware","RequestId":"0HNIN1QINI14Q:00000011","RequestPath":"/api/Test/conflict","ConnectionId":"0HNIN1QINI14Q","ThreadId":18,"MachineName":"AYODEJI_PC"}
+TicketingSystem.SharedKernel.Exceptions.ConflictException: A user with this email already exists
+   at TicketingSystem.Api.Controllers.TestController.TestConflict() in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\TestController.cs:line 77
+   at lambda_method15(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+   at TicketingSystem.Api.Middleware.SecurityHeadersMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\SecurityHeadersMiddleware.cs:line 38
+   at TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\ExceptionHandlingMiddleware.cs:line 33
+2026-01-19 04:58:28.431 +01:00 [INF] HTTP GET /api/Test/server-error started. TraceId: 0HNIN1QINI14Q:00000013 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:00000013","RequestPath":"/api/Test/server-error","ConnectionId":"0HNIN1QINI14Q","ThreadId":18,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:58:35.162 +01:00 [ERR] HTTP GET /api/Test/server-error failed in 6730ms. TraceId: 0HNIN1QINI14Q:00000013 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:00000013","RequestPath":"/api/Test/server-error","ConnectionId":"0HNIN1QINI14Q","ThreadId":18,"MachineName":"AYODEJI_PC"}
+System.Exception: Something went catastrophically wrong!
+   at TicketingSystem.Api.Controllers.TestController.TestServerError() in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\TestController.cs:line 86
+   at lambda_method17(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+2026-01-19 04:58:35.228 +01:00 [ERR] An error occurred. TraceId: 0HNIN1QINI14Q:00000013. Path: /api/Test/server-error {"SourceContext":"TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware","RequestId":"0HNIN1QINI14Q:00000013","RequestPath":"/api/Test/server-error","ConnectionId":"0HNIN1QINI14Q","ThreadId":18,"MachineName":"AYODEJI_PC"}
+System.Exception: Something went catastrophically wrong!
+   at TicketingSystem.Api.Controllers.TestController.TestServerError() in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\TestController.cs:line 86
+   at lambda_method17(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+   at TicketingSystem.Api.Middleware.SecurityHeadersMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\SecurityHeadersMiddleware.cs:line 38
+   at TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\ExceptionHandlingMiddleware.cs:line 33
+2026-01-19 04:58:57.497 +01:00 [INF] HTTP GET /swagger/index.html started. TraceId: 0HNIN1QINI14Q:00000015 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:00000015","RequestPath":"/swagger/index.html","ConnectionId":"0HNIN1QINI14Q","ThreadId":20,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:58:57.570 +01:00 [INF] HTTP GET /swagger/index.html completed with 200 in 73ms. TraceId: 0HNIN1QINI14Q:00000015 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:00000015","RequestPath":"/swagger/index.html","ConnectionId":"0HNIN1QINI14Q","ThreadId":20,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:59:02.238 +01:00 [INF] HTTP GET /swagger/v1/swagger.json started. TraceId: 0HNIN1QINI14Q:0000001B {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:0000001B","RequestPath":"/swagger/v1/swagger.json","ConnectionId":"0HNIN1QINI14Q","ThreadId":20,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:59:02.248 +01:00 [INF] HTTP GET /swagger/v1/swagger.json completed with 200 in 10ms. TraceId: 0HNIN1QINI14Q:0000001B {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:0000001B","RequestPath":"/swagger/v1/swagger.json","ConnectionId":"0HNIN1QINI14Q","ThreadId":20,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:59:10.637 +01:00 [INF] HTTP GET /api/Test/server-error started. TraceId: 0HNIN1QINI14Q:0000001D {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:0000001D","RequestPath":"/api/Test/server-error","ConnectionId":"0HNIN1QINI14Q","ThreadId":20,"MachineName":"AYODEJI_PC"}
+2026-01-19 04:59:14.032 +01:00 [ERR] HTTP GET /api/Test/server-error failed in 3394ms. TraceId: 0HNIN1QINI14Q:0000001D {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:0000001D","RequestPath":"/api/Test/server-error","ConnectionId":"0HNIN1QINI14Q","ThreadId":20,"MachineName":"AYODEJI_PC"}
+System.Exception: An unexpected error occured
+   at TicketingSystem.Api.Controllers.TestController.TestServerError()
+   at lambda_method21(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context)
+2026-01-19 04:59:14.116 +01:00 [ERR] An error occurred. TraceId: 0HNIN1QINI14Q:0000001D. Path: /api/Test/server-error {"SourceContext":"TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware","RequestId":"0HNIN1QINI14Q:0000001D","RequestPath":"/api/Test/server-error","ConnectionId":"0HNIN1QINI14Q","ThreadId":20,"MachineName":"AYODEJI_PC"}
+System.Exception: An unexpected error occured
+   at TicketingSystem.Api.Controllers.TestController.TestServerError()
+   at lambda_method21(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context)
+   at TicketingSystem.Api.Middleware.SecurityHeadersMiddleware.InvokeAsync(HttpContext context)
+   at TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context)
+2026-01-19 05:00:25.251 +01:00 [INF] HTTP GET /api/Test/logging started. TraceId: 0HNIN1QINI14Q:0000001F {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:0000001F","RequestPath":"/api/Test/logging","ConnectionId":"0HNIN1QINI14Q","ThreadId":16,"MachineName":"AYODEJI_PC"}
+2026-01-19 05:00:25.262 +01:00 [INF] This is an information message {"SourceContext":"TicketingSystem.Api.Controllers.TestController","ActionId":"d004ad60-692c-4766-b07c-97d329dcb370","ActionName":"TicketingSystem.Api.Controllers.TestController.TestLogging (TicketingSystem.Api)","RequestId":"0HNIN1QINI14Q:0000001F","RequestPath":"/api/Test/logging","ConnectionId":"0HNIN1QINI14Q","ThreadId":16,"MachineName":"AYODEJI_PC"}
+2026-01-19 05:00:25.274 +01:00 [WRN] This is a warning message {"SourceContext":"TicketingSystem.Api.Controllers.TestController","ActionId":"d004ad60-692c-4766-b07c-97d329dcb370","ActionName":"TicketingSystem.Api.Controllers.TestController.TestLogging (TicketingSystem.Api)","RequestId":"0HNIN1QINI14Q:0000001F","RequestPath":"/api/Test/logging","ConnectionId":"0HNIN1QINI14Q","ThreadId":16,"MachineName":"AYODEJI_PC"}
+2026-01-19 05:00:25.284 +01:00 [ERR] This is an error message {"SourceContext":"TicketingSystem.Api.Controllers.TestController","ActionId":"d004ad60-692c-4766-b07c-97d329dcb370","ActionName":"TicketingSystem.Api.Controllers.TestController.TestLogging (TicketingSystem.Api)","RequestId":"0HNIN1QINI14Q:0000001F","RequestPath":"/api/Test/logging","ConnectionId":"0HNIN1QINI14Q","ThreadId":16,"MachineName":"AYODEJI_PC"}
+2026-01-19 05:00:25.297 +01:00 [INF] HTTP GET /api/Test/logging completed with 200 in 45ms. TraceId: 0HNIN1QINI14Q:0000001F {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:0000001F","RequestPath":"/api/Test/logging","ConnectionId":"0HNIN1QINI14Q","ThreadId":16,"MachineName":"AYODEJI_PC"}
