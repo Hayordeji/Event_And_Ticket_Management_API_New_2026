@@ -2,9 +2,9 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ master, dev ]
+    branches: [ master,dev]
   pull_request:
-    branches: [ master, dev ]
+    branches: [ master,dev]
 
 env:
   DOTNET_VERSION: '10.0.x'
