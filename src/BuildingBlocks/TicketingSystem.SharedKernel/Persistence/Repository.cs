@@ -33,7 +33,6 @@ namespace TicketingSystem.SharedKernel.Persistence
         public virtual async Task AddAsync(T entity, CancellationToken cancellationToken = default)
         {
             await _dbSet.AddAsync(entity, cancellationToken);
-            await _context.SaveChangesAsync(cancellationToken);
         }
 
         public virtual void Update(T entity)

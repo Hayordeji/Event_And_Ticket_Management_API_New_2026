@@ -6,6 +6,7 @@ using TicketingSystem.Modules.Finance.Application.DTOs;
 using TicketingSystem.Modules.Finance.Domain.Entities;
 using TicketingSystem.Modules.Finance.Domain.Repositories;
 using TicketingSystem.Modules.Finance.Domain.ValueObjects;
+using TicketingSystem.Modules.Finance.Infrastructure.Persistence;
 using TicketingSystem.SharedKernel;
 using TicketingSystem.SharedKernel.Exceptions;
 
@@ -16,15 +17,19 @@ namespace TicketingSystem.Modules.Finance.Application.Commands
         private readonly ILedgerTransactionRepository _transactionRepository;
         private readonly ILedgerAccountRepository _accountRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly FinanceDbContext _context;
+
 
         public RecordTransactionCommandHandler(
             ILedgerTransactionRepository transactionRepository,
             ILedgerAccountRepository accountRepository,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            FinanceDbContext context)
         {
             _transactionRepository = transactionRepository;
             _accountRepository = accountRepository;
             _unitOfWork = unitOfWork;
+            _context = context;
         }
 
         public async Task<Result<TransactionResponse>> Handle(RecordTransactionCommand request, CancellationToken cancellationToken)
@@ -70,7 +75,7 @@ namespace TicketingSystem.Modules.Finance.Application.Commands
                 if (addResult.IsFailure)
                     return Result.Failure<TransactionResponse>(addResult.Error);
             }
-
+            
             // Validate transaction balances
             var validationResult = transaction.Validate();
             if (validationResult.IsFailure)
@@ -95,7 +100,7 @@ namespace TicketingSystem.Modules.Finance.Application.Commands
             }
 
             // Save all changes in one transaction
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
 
             // Build response
             var response = new TransactionResponse(

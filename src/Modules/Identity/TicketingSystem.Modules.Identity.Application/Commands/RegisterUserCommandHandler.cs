@@ -8,6 +8,7 @@ using TicketingSystem.Modules.Identity.Application.Services;
 using TicketingSystem.Modules.Identity.Domain.Entities;
 using TicketingSystem.Modules.Identity.Domain.Repositories;
 using TicketingSystem.Modules.Identity.Domain.ValueObjects;
+using TicketingSystem.Modules.Identity.Infrastructure.Persistence;
 using TicketingSystem.SharedKernel;
 using TicketingSystem.SharedKernel.Exceptions;
 using TicketingSystem.SharedKernel.Persistence;
@@ -19,16 +20,18 @@ namespace TicketingSystem.Modules.Identity.Application.Commands
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
-        private readonly BaseDbContext _dbContext;
+        private readonly IdentityDbContext _context;
 
         public RegisterUserCommandHandler(
             IUserRepository userRepository,
             IUnitOfWork unitOfWork,
-            IJwtTokenGenerator jwtTokenGenerator)
+            IJwtTokenGenerator jwtTokenGenerator,
+            IdentityDbContext context)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
             _jwtTokenGenerator = jwtTokenGenerator;
+            _context = context;
         }
 
         public async Task<Result<AuthResponse>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -44,7 +47,7 @@ namespace TicketingSystem.Modules.Identity.Application.Commands
 
             var emailExists = await _userRepository.EmailExistsAsync(emailResult.Value, cancellationToken);
             if (emailExists)
-                throw new ConflictException("A user with this email already exists");
+                return Result.Failure<AuthResponse>("A user with this email already exists");
 
             // Create user
             var userResult = User.Create(
@@ -61,7 +64,6 @@ namespace TicketingSystem.Modules.Identity.Application.Commands
           
             // Save user
             await _userRepository.AddAsync(user, cancellationToken);
-            //await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             // Generate tokens
             var deviceFingerprint = DeviceFingerprint.Create(request.UserAgent, request.IpAddress);
@@ -69,7 +71,7 @@ namespace TicketingSystem.Modules.Identity.Application.Commands
 
             // Add refresh token to user
             user.AddRefreshToken(refreshToken, expiresAt.AddDays(7), deviceFingerprint);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
 
             var response = new AuthResponse(
                 user.Id,

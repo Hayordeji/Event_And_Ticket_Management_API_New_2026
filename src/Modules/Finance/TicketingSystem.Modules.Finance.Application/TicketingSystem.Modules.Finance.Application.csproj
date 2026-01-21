@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TicketingSystem.Modules.Finance.Domain\TicketingSystem.Modules.Finance.Domain.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\TicketingSystem.SharedKernel\TicketingSystem.SharedKernel.csproj" />
+    <ProjectReference Include="..\TicketingSystem.Modules.Finance.Infrastructure\TicketingSystem.Modules.Finance.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
