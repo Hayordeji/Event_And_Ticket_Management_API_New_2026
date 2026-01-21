@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TicketingSystem.SharedKernel.ApiResponses
 {
@@ -49,6 +50,19 @@ namespace TicketingSystem.SharedKernel.ApiResponses
             {
                 Success = true,
                 Data = data,
+                TraceId = traceId
+            };
+        }
+
+        /// <summary>
+        /// Create a error response
+        /// </summary>
+        public static ApiResponse<T> ErrorResponse(string error, string? traceId = null)
+        {
+            return new ApiResponse<T>
+            {
+                Success = false,
+                Error = error,
                 TraceId = traceId
             };
         }

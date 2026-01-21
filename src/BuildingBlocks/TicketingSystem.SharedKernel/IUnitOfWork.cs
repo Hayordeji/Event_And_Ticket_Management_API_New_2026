@@ -5,8 +5,8 @@ using System.Text;
 namespace TicketingSystem.SharedKernel
 {
      ///<summary>
-/// Unit of Work pattern for managing transactions
-/// </summary>
+    /// Unit of Work pattern for managing transactions
+    /// </summary>
     public interface IUnitOfWork
     {
         /// <summary>

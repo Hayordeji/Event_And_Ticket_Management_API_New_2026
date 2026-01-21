@@ -1,12 +1,15 @@
-using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Events;
-using Swashbuckle.AspNetCore.Swagger; 
-using Swashbuckle.AspNetCore.SwaggerGen; 
-using Swashbuckle.AspNetCore.SwaggerUI;
+using System.Text;
 using TicketingSystem.Api.Middleware;
-using TicketingSystem.Modules.Identity.Infrastructure;
+using TicketingSystem.Modules.Finance.Api;
+using TicketingSystem.Modules.Finance.Infrastructure.Persistence;
+using TicketingSystem.Modules.Identity.Api;
+using TicketingSystem.Modules.Identity.Infrastructure.Persistence;
+using static System.Net.Mime.MediaTypeNames;
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
@@ -32,8 +35,8 @@ try
     builder.Host.UseSerilog();
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
-    builder.Services.AddOpenApi();
+ 
+    //builder.Services.AddOpenApi();
     builder.Services.AddDbContext<IdentityDbContext>(options =>
         options.UseSqlServer(
             builder.Configuration.GetConnectionString("IdentityDb"),
@@ -45,76 +48,163 @@ try
                     maxRetryDelay: TimeSpan.FromSeconds(5),
                     errorNumbersToAdd: null);
             }));
-    builder.Services.AddDbContext<IdentityDbContext>(options =>
-       options.UseSqlServer(
-           builder.Configuration.GetConnectionString("FinanceDb"),
-           sqlOptions =>
-           {
-               sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName);
-               sqlOptions.EnableRetryOnFailure(
-                   maxRetryCount: 3,
-                   maxRetryDelay: TimeSpan.FromSeconds(5),
-                   errorNumbersToAdd: null);
-           }));
-    builder.Services.AddDbContext<IdentityDbContext>(options =>
-       options.UseSqlServer(
-           builder.Configuration.GetConnectionString("CatalogDb"),
-           sqlOptions =>
-           {
-               sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName);
-               sqlOptions.EnableRetryOnFailure(
-                   maxRetryCount: 3,
-                   maxRetryDelay: TimeSpan.FromSeconds(5),
-                   errorNumbersToAdd: null);
-           }));
-    builder.Services.AddDbContext<IdentityDbContext>(options =>
-       options.UseSqlServer(
-           builder.Configuration.GetConnectionString("SalesDb"),
-           sqlOptions =>
-           {
-               sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName);
-               sqlOptions.EnableRetryOnFailure(
-                   maxRetryCount: 3,
-                   maxRetryDelay: TimeSpan.FromSeconds(5),
-                   errorNumbersToAdd: null);
-           }));
-    builder.Services.AddDbContext<IdentityDbContext>(options =>
-       options.UseSqlServer(
-           builder.Configuration.GetConnectionString("FulfillmentDb"),
-           sqlOptions =>
-           {
-               sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName);
-               sqlOptions.EnableRetryOnFailure(
-                   maxRetryCount: 3,
-                   maxRetryDelay: TimeSpan.FromSeconds(5),
-                   errorNumbersToAdd: null);
-           }));
-    builder.Services.AddDbContext<IdentityDbContext>(options =>
-       options.UseSqlServer(
-           builder.Configuration.GetConnectionString("AccessDb"),
-           sqlOptions =>
-           {
-               sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName);
-               sqlOptions.EnableRetryOnFailure(
-                   maxRetryCount: 3,
-                   maxRetryDelay: TimeSpan.FromSeconds(5),
-                   errorNumbersToAdd: null);
-           }));
+
+    builder.Services.AddDbContext<FinanceDbContext>(options =>
+        options.UseSqlServer(
+            builder.Configuration.GetConnectionString("FinanceDb"),
+            sqlOptions =>
+            {
+                sqlOptions.MigrationsAssembly(typeof(FinanceDbContext).Assembly.FullName);
+                sqlOptions.EnableRetryOnFailure(
+                    maxRetryCount: 3,
+                    maxRetryDelay: TimeSpan.FromSeconds(5),
+                    errorNumbersToAdd: null);
+            }));
+
+    builder.Services.AddSwaggerGen(options =>
+    {
+        options.SwaggerDoc("v1", new()
+        {
+            Title = "Ticketing System API",
+            Version = "v1",
+            Description = "Enterprise event ticketing and management system"
+        }); 
+
+        options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+        {
+            Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'your token in the text input below.\r\n\r\nExample: \"12345abcdef\"",
+            Name = "Authorization",
+            In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+            Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+            Scheme = "bearer"
+        });
+
+        options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+        {
+            {
+                new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                {
+                    Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                    {
+                        Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                },
+                new string[] { }
+            }
+        });
+    });
+
+    builder.Services.AddIdentityModule(builder.Configuration);
+    builder.Services.AddFinanceModule(builder.Configuration);
+
+    //builder.Services.AddDbContext<IdentityDbContext>(options =>
+    //   options.UseSqlServer(
+    //       builder.Configuration.GetConnectionString("FinanceDb"),
+    //       sqlOptions =>
+    //       {
+    //           sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName);
+    //           sqlOptions.EnableRetryOnFailure(
+    //               maxRetryCount: 3,
+    //               maxRetryDelay: TimeSpan.FromSeconds(5),
+    //               errorNumbersToAdd: null);
+    //       }));
+    //builder.Services.AddDbContext<IdentityDbContext>(options =>
+    //   options.UseSqlServer(
+    //       builder.Configuration.GetConnectionString("CatalogDb"),
+    //       sqlOptions =>
+    //       {
+    //           sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName);
+    //           sqlOptions.EnableRetryOnFailure(
+    //               maxRetryCount: 3,
+    //               maxRetryDelay: TimeSpan.FromSeconds(5),
+    //               errorNumbersToAdd: null);
+    //       }));
+    //builder.Services.AddDbContext<IdentityDbContext>(options =>
+    //   options.UseSqlServer(
+    //       builder.Configuration.GetConnectionString("SalesDb"),
+    //       sqlOptions =>
+    //       {
+    //           sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName);
+    //           sqlOptions.EnableRetryOnFailure(
+    //               maxRetryCount: 3,
+    //               maxRetryDelay: TimeSpan.FromSeconds(5),
+    //               errorNumbersToAdd: null);
+    //       }));
+    //builder.Services.AddDbContext<IdentityDbContext>(options =>
+    //   options.UseSqlServer(
+    //       builder.Configuration.GetConnectionString("FulfillmentDb"),
+    //       sqlOptions =>
+    //       {
+    //           sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName);
+    //           sqlOptions.EnableRetryOnFailure(
+    //               maxRetryCount: 3,
+    //               maxRetryDelay: TimeSpan.FromSeconds(5),
+    //               errorNumbersToAdd: null);
+    //       }));
+    //builder.Services.AddDbContext<IdentityDbContext>(options =>
+    //   options.UseSqlServer(
+    //       builder.Configuration.GetConnectionString("AccessDb"),
+    //       sqlOptions =>
+    //       {
+    //           sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName);
+    //           sqlOptions.EnableRetryOnFailure(
+    //               maxRetryCount: 3,
+    //               maxRetryDelay: TimeSpan.FromSeconds(5),
+    //               errorNumbersToAdd: null);
+    //       }));
 
     //CORS CONFIG
     builder.Services.AddCors(options =>
     {
         options.AddPolicy("AllowFrontend", policy =>
         {
-            policy.WithOrigins("http://localhost:3000", "https://localhost:3000") // React/Next.js typical ports
+            policy.WithOrigins("http://localhost:3000", "https://localhost:3000") 
                   .AllowAnyMethod()
                   .AllowAnyHeader()
                   .AllowCredentials();
         });
     });
 
+    var jwtSecret = builder.Configuration["Jwt:Secret"]
+        ?? throw new InvalidOperationException("JWT Secret not configured");
 
+    builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                ValidAudience = builder.Configuration["Jwt:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret)),
+                ClockSkew = TimeSpan.Zero // Remove default 5 min clock skew
+            };
 
+            options.Events = new JwtBearerEvents
+            {
+                OnAuthenticationFailed = context =>
+                {
+                    Log.Warning("JWT authentication failed: {Error}", context.Exception.Message);
+                    return Task.CompletedTask;
+                },
+                OnTokenValidated = context =>
+                {
+                    var userId = context.Principal?.FindFirst("userId")?.Value;
+                    Log.Information("JWT validated for user: {UserId}", userId);
+                    return Task.CompletedTask;
+                }
+            };
+        });
+    builder.Services.AddAuthorization();
+    builder.Services.AddIdentityModule(builder.Configuration);
 
 
 
@@ -132,11 +222,16 @@ try
     {
         app.MapOpenApi();
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Ticketing System API v1");
+            options.RoutePrefix = string.Empty; // Swagger at root URL
+        });
     }
 
     app.UseHttpsRedirection();
     app.UseCors("AllowFrontend");
+    app.UseAuthentication();
     app.UseAuthorization();
 
     //HEALTH CHECK
