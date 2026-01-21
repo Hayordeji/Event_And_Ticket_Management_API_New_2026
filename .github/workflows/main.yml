@@ -1,4 +1,4 @@
-name: CI Pipeline
+﻿name: CI Pipeline
 
 on:
   push:
@@ -36,6 +36,11 @@ jobs:
     # Step 4: Build solution
     - name: Build solution
       run: dotnet build --configuration Release --no-restore
+
+    - name: 🗄️ Validate EF Core setup
+      run: |
+        dotnet ef --version || dotnet tool install --global dotnet-ef
+        echo "EF Core tools ready"
     
     # Step 5: Run tests
     - name: Run tests
