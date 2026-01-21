@@ -390,3 +390,574 @@ System.Exception: An unexpected error occured
 2026-01-19 05:00:25.274 +01:00 [WRN] This is a warning message {"SourceContext":"TicketingSystem.Api.Controllers.TestController","ActionId":"d004ad60-692c-4766-b07c-97d329dcb370","ActionName":"TicketingSystem.Api.Controllers.TestController.TestLogging (TicketingSystem.Api)","RequestId":"0HNIN1QINI14Q:0000001F","RequestPath":"/api/Test/logging","ConnectionId":"0HNIN1QINI14Q","ThreadId":16,"MachineName":"AYODEJI_PC"}
 2026-01-19 05:00:25.284 +01:00 [ERR] This is an error message {"SourceContext":"TicketingSystem.Api.Controllers.TestController","ActionId":"d004ad60-692c-4766-b07c-97d329dcb370","ActionName":"TicketingSystem.Api.Controllers.TestController.TestLogging (TicketingSystem.Api)","RequestId":"0HNIN1QINI14Q:0000001F","RequestPath":"/api/Test/logging","ConnectionId":"0HNIN1QINI14Q","ThreadId":16,"MachineName":"AYODEJI_PC"}
 2026-01-19 05:00:25.297 +01:00 [INF] HTTP GET /api/Test/logging completed with 200 in 45ms. TraceId: 0HNIN1QINI14Q:0000001F {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNIN1QINI14Q:0000001F","RequestPath":"/api/Test/logging","ConnectionId":"0HNIN1QINI14Q","ThreadId":16,"MachineName":"AYODEJI_PC"}
+2026-01-19 06:02:46.265 +01:00 [INF] Starting Ticketing System API {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+2026-01-19 06:02:46.396 +01:00 [FTL] Application failed to start {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Program.cs:line 123
+2026-01-19 06:03:18.183 +01:00 [INF] Starting Ticketing System API {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 06:03:19.016 +01:00 [INF] Ticketing System API started successfully {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 06:03:57.305 +01:00 [INF] Starting Ticketing System API {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+2026-01-19 06:03:57.432 +01:00 [FTL] Application failed to start {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Program.cs:line 123
+2026-01-19 06:05:23.011 +01:00 [INF] Starting Ticketing System API {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+2026-01-19 06:05:23.135 +01:00 [FTL] Application failed to start {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Program.cs:line 123
+2026-01-19 06:06:32.065 +01:00 [INF] Starting Ticketing System API {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+2026-01-19 06:06:32.190 +01:00 [FTL] Application failed to start {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Program.cs:line 123
+2026-01-19 13:04:19.241 +01:00 [INF] Starting Ticketing System API {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+2026-01-19 13:04:19.832 +01:00 [FTL] Application failed to start {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Program.cs:line 123
+2026-01-19 13:09:29.195 +01:00 [INF] Starting Ticketing System API {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+2026-01-19 13:09:29.388 +01:00 [FTL] Application failed to start {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Program.cs:line 123
+2026-01-19 13:10:13.316 +01:00 [INF] Starting Ticketing System API {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+2026-01-19 13:10:13.533 +01:00 [FTL] Application failed to start {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Program.cs:line 123
+2026-01-19 13:10:57.713 +01:00 [INF] Starting Ticketing System API {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+2026-01-19 13:10:57.921 +01:00 [FTL] Application failed to start {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Program.cs:line 123
+2026-01-19 18:31:57.484 +01:00 [INF] Starting Ticketing System API {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:31:57.717 +01:00 [FTL] Application failed to start {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Program.cs:line 196
+2026-01-19 18:32:48.675 +01:00 [INF] Starting Ticketing System API {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:32:48.822 +01:00 [FTL] Application failed to start {"ThreadId":4,"MachineName":"AYODEJI_PC"}
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Program.cs:line 196
+2026-01-19 18:33:18.188 +01:00 [INF] Starting Ticketing System API {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:33:19.562 +01:00 [INF] Ticketing System API started successfully {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:33:21.306 +01:00 [INF] HTTP GET /_framework/aspnetcore-browser-refresh.js started. TraceId: 0HNING3B9CP3R:00000001 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3R:00000001","RequestPath":"/_framework/aspnetcore-browser-refresh.js","ConnectionId":"0HNING3B9CP3R","ThreadId":12,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:33:21.521 +01:00 [INF] HTTP GET /_framework/aspnetcore-browser-refresh.js completed with 404 in 232ms. TraceId: 0HNING3B9CP3R:00000001 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3R:00000001","RequestPath":"/_framework/aspnetcore-browser-refresh.js","ConnectionId":"0HNING3B9CP3R","ThreadId":12,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:33:33.372 +01:00 [INF] HTTP GET /swagger/v1/swagger.json started. TraceId: 0HNING3B9CP3R:00000005 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3R:00000005","RequestPath":"/swagger/v1/swagger.json","ConnectionId":"0HNING3B9CP3R","ThreadId":15,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:33:33.408 +01:00 [INF] HTTP GET /swagger/v1/swagger.json completed with 200 in 35ms. TraceId: 0HNING3B9CP3R:00000005 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3R:00000005","RequestPath":"/swagger/v1/swagger.json","ConnectionId":"0HNING3B9CP3R","ThreadId":12,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:36:26.167 +01:00 [INF] HTTP POST /api/auth/register started. TraceId: 0HNING3B9CP3R:00000007 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3R:00000007","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":8,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:36:26.251 +01:00 [WRN] You do not have a valid license key for the Lucky Penny software MediatR. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license. {"SourceContext":"LuckyPennySoftware.MediatR.License","ActionId":"e70fbf85-217c-47d6-b28a-cd372112cf49","ActionName":"TicketingSystem.Api.Controllers.AuthController.Register (TicketingSystem.Api)","RequestId":"0HNING3B9CP3R:00000007","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":8,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:36:52.394 +01:00 [ERR] HTTP POST /api/auth/register failed in 26226ms. TraceId: 0HNING3B9CP3R:00000007 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3R:00000007","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":16,"MachineName":"AYODEJI_PC"}
+Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException: The database operation was expected to affect 1 row(s), but actually affected 0 row(s); data may have been modified or deleted since entities were loaded. See https://go.microsoft.com/fwlink/?LinkId=527962 for information on understanding and handling optimistic concurrency exceptions.
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ThrowAggregateUpdateConcurrencyExceptionAsync(RelationalDataReader reader, Int32 commandIndex, Int32 expectedRowsAffected, Int32 rowsAffected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at TicketingSystem.SharedKernel.Persistence.BaseDbContext.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\BuildingBlocks\TicketingSystem.SharedKernel\Persistence\BaseDbContext.cs:line 63
+   at TicketingSystem.Modules.Identity.Infrastructure.Persistence.IdentityUnitOfWork.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Infrastructure\Persistence\IdentityUnitOfWork.cs:line 21
+   at TicketingSystem.Modules.Identity.Application.Commands.RegisterUserCommandHandler.Handle(RegisterUserCommand request, CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Application\Commands\RegisterUserCommandHandler.cs:line 69
+   at TicketingSystem.Api.Controllers.AuthController.Register(RegisterRequest request) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\AuthController.cs:line 41
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+2026-01-19 18:36:52.783 +01:00 [ERR] An error occurred. TraceId: 0HNING3B9CP3R:00000007. Path: /api/auth/register {"SourceContext":"TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware","RequestId":"0HNING3B9CP3R:00000007","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":16,"MachineName":"AYODEJI_PC"}
+Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException: The database operation was expected to affect 1 row(s), but actually affected 0 row(s); data may have been modified or deleted since entities were loaded. See https://go.microsoft.com/fwlink/?LinkId=527962 for information on understanding and handling optimistic concurrency exceptions.
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ThrowAggregateUpdateConcurrencyExceptionAsync(RelationalDataReader reader, Int32 commandIndex, Int32 expectedRowsAffected, Int32 rowsAffected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at TicketingSystem.SharedKernel.Persistence.BaseDbContext.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\BuildingBlocks\TicketingSystem.SharedKernel\Persistence\BaseDbContext.cs:line 63
+   at TicketingSystem.Modules.Identity.Infrastructure.Persistence.IdentityUnitOfWork.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Infrastructure\Persistence\IdentityUnitOfWork.cs:line 21
+   at TicketingSystem.Modules.Identity.Application.Commands.RegisterUserCommandHandler.Handle(RegisterUserCommand request, CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Application\Commands\RegisterUserCommandHandler.cs:line 69
+   at TicketingSystem.Api.Controllers.AuthController.Register(RegisterRequest request) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\AuthController.cs:line 41
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+   at TicketingSystem.Api.Middleware.SecurityHeadersMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\SecurityHeadersMiddleware.cs:line 38
+   at TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\ExceptionHandlingMiddleware.cs:line 33
+2026-01-19 18:37:22.122 +01:00 [INF] HTTP POST /api/auth/register started. TraceId: 0HNING3B9CP3R:00000009 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3R:00000009","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":13,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:38:11.708 +01:00 [ERR] HTTP POST /api/auth/register failed in 49585ms. TraceId: 0HNING3B9CP3R:00000009 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3R:00000009","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":21,"MachineName":"AYODEJI_PC"}
+TicketingSystem.SharedKernel.Exceptions.ConflictException: A user with this email already exists
+   at TicketingSystem.Modules.Identity.Application.Commands.RegisterUserCommandHandler.Handle(RegisterUserCommand request, CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Application\Commands\RegisterUserCommandHandler.cs:line 44
+   at TicketingSystem.Api.Controllers.AuthController.Register(RegisterRequest request) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\AuthController.cs:line 41
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+2026-01-19 18:38:11.877 +01:00 [ERR] An error occurred. TraceId: 0HNING3B9CP3R:00000009. Path: /api/auth/register {"SourceContext":"TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware","RequestId":"0HNING3B9CP3R:00000009","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":21,"MachineName":"AYODEJI_PC"}
+TicketingSystem.SharedKernel.Exceptions.ConflictException: A user with this email already exists
+   at TicketingSystem.Modules.Identity.Application.Commands.RegisterUserCommandHandler.Handle(RegisterUserCommand request, CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Application\Commands\RegisterUserCommandHandler.cs:line 44
+   at TicketingSystem.Api.Controllers.AuthController.Register(RegisterRequest request) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\AuthController.cs:line 41
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+   at TicketingSystem.Api.Middleware.SecurityHeadersMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\SecurityHeadersMiddleware.cs:line 38
+   at TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\ExceptionHandlingMiddleware.cs:line 33
+2026-01-19 18:38:29.024 +01:00 [INF] HTTP POST /api/auth/register started. TraceId: 0HNING3B9CP3R:0000000B {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3R:0000000B","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":21,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:39:04.131 +01:00 [ERR] HTTP POST /api/auth/register failed in 35107ms. TraceId: 0HNING3B9CP3R:0000000B {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3R:0000000B","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":21,"MachineName":"AYODEJI_PC"}
+TicketingSystem.SharedKernel.Exceptions.ConflictException: A user with this email already exists
+   at TicketingSystem.Modules.Identity.Application.Commands.RegisterUserCommandHandler.Handle(RegisterUserCommand request, CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Application\Commands\RegisterUserCommandHandler.cs:line 44
+   at TicketingSystem.Api.Controllers.AuthController.Register(RegisterRequest request) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\AuthController.cs:line 41
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+2026-01-19 18:39:04.325 +01:00 [ERR] An error occurred. TraceId: 0HNING3B9CP3R:0000000B. Path: /api/auth/register {"SourceContext":"TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware","RequestId":"0HNING3B9CP3R:0000000B","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":21,"MachineName":"AYODEJI_PC"}
+TicketingSystem.SharedKernel.Exceptions.ConflictException: A user with this email already exists
+   at TicketingSystem.Modules.Identity.Application.Commands.RegisterUserCommandHandler.Handle(RegisterUserCommand request, CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Application\Commands\RegisterUserCommandHandler.cs:line 44
+   at TicketingSystem.Api.Controllers.AuthController.Register(RegisterRequest request) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\AuthController.cs:line 41
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+   at TicketingSystem.Api.Middleware.SecurityHeadersMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\SecurityHeadersMiddleware.cs:line 38
+   at TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\ExceptionHandlingMiddleware.cs:line 33
+2026-01-19 18:39:09.571 +01:00 [INF] HTTP POST /api/auth/register started. TraceId: 0HNING3B9CP3R:0000000D {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3R:0000000D","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":24,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:39:16.709 +01:00 [INF] HTTP POST /api/auth/register completed with 400 in 7138ms. TraceId: 0HNING3B9CP3R:0000000D {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3R:0000000D","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":24,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:39:27.755 +01:00 [INF] HTTP POST /api/auth/register started. TraceId: 0HNING3B9CP3R:0000000F {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3R:0000000F","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":21,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:39:36.842 +01:00 [ERR] HTTP POST /api/auth/register failed in 9087ms. TraceId: 0HNING3B9CP3R:0000000F {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3R:0000000F","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":21,"MachineName":"AYODEJI_PC"}
+TicketingSystem.SharedKernel.Exceptions.ConflictException: A user with this email already exists
+   at TicketingSystem.Modules.Identity.Application.Commands.RegisterUserCommandHandler.Handle(RegisterUserCommand request, CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Application\Commands\RegisterUserCommandHandler.cs:line 44
+   at TicketingSystem.Api.Controllers.AuthController.Register(RegisterRequest request) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\AuthController.cs:line 41
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+2026-01-19 18:39:37.071 +01:00 [ERR] An error occurred. TraceId: 0HNING3B9CP3R:0000000F. Path: /api/auth/register {"SourceContext":"TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware","RequestId":"0HNING3B9CP3R:0000000F","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":21,"MachineName":"AYODEJI_PC"}
+TicketingSystem.SharedKernel.Exceptions.ConflictException: A user with this email already exists
+   at TicketingSystem.Modules.Identity.Application.Commands.RegisterUserCommandHandler.Handle(RegisterUserCommand request, CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Application\Commands\RegisterUserCommandHandler.cs:line 44
+   at TicketingSystem.Api.Controllers.AuthController.Register(RegisterRequest request) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\AuthController.cs:line 41
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+   at TicketingSystem.Api.Middleware.SecurityHeadersMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\SecurityHeadersMiddleware.cs:line 38
+   at TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\ExceptionHandlingMiddleware.cs:line 33
+2026-01-19 18:39:41.920 +01:00 [INF] HTTP POST /api/auth/register started. TraceId: 0HNING3B9CP3R:00000011 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3R:00000011","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":24,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:57:37.547 +01:00 [ERR] HTTP POST /api/auth/register failed in 1075626ms. TraceId: 0HNING3B9CP3R:00000011 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3R:00000011","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":21,"MachineName":"AYODEJI_PC"}
+Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException: The database operation was expected to affect 1 row(s), but actually affected 0 row(s); data may have been modified or deleted since entities were loaded. See https://go.microsoft.com/fwlink/?LinkId=527962 for information on understanding and handling optimistic concurrency exceptions.
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ThrowAggregateUpdateConcurrencyExceptionAsync(RelationalDataReader reader, Int32 commandIndex, Int32 expectedRowsAffected, Int32 rowsAffected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at TicketingSystem.SharedKernel.Persistence.BaseDbContext.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\BuildingBlocks\TicketingSystem.SharedKernel\Persistence\BaseDbContext.cs:line 63
+   at TicketingSystem.Modules.Identity.Infrastructure.Persistence.IdentityUnitOfWork.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Infrastructure\Persistence\IdentityUnitOfWork.cs:line 21
+   at TicketingSystem.Modules.Identity.Application.Commands.RegisterUserCommandHandler.Handle(RegisterUserCommand request, CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Application\Commands\RegisterUserCommandHandler.cs:line 69
+   at TicketingSystem.Api.Controllers.AuthController.Register(RegisterRequest request) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\AuthController.cs:line 41
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+2026-01-19 18:57:38.462 +01:00 [ERR] An error occurred. TraceId: 0HNING3B9CP3R:00000011. Path: /api/auth/register {"SourceContext":"TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware","RequestId":"0HNING3B9CP3R:00000011","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3R","ThreadId":21,"MachineName":"AYODEJI_PC"}
+Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException: The database operation was expected to affect 1 row(s), but actually affected 0 row(s); data may have been modified or deleted since entities were loaded. See https://go.microsoft.com/fwlink/?LinkId=527962 for information on understanding and handling optimistic concurrency exceptions.
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ThrowAggregateUpdateConcurrencyExceptionAsync(RelationalDataReader reader, Int32 commandIndex, Int32 expectedRowsAffected, Int32 rowsAffected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at TicketingSystem.SharedKernel.Persistence.BaseDbContext.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\BuildingBlocks\TicketingSystem.SharedKernel\Persistence\BaseDbContext.cs:line 63
+   at TicketingSystem.Modules.Identity.Infrastructure.Persistence.IdentityUnitOfWork.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Infrastructure\Persistence\IdentityUnitOfWork.cs:line 21
+   at TicketingSystem.Modules.Identity.Application.Commands.RegisterUserCommandHandler.Handle(RegisterUserCommand request, CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Application\Commands\RegisterUserCommandHandler.cs:line 69
+   at TicketingSystem.Api.Controllers.AuthController.Register(RegisterRequest request) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\AuthController.cs:line 41
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+   at TicketingSystem.Api.Middleware.SecurityHeadersMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\SecurityHeadersMiddleware.cs:line 38
+   at TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\ExceptionHandlingMiddleware.cs:line 33
+2026-01-19 18:57:45.491 +01:00 [INF] HTTP POST /api/auth/register started. TraceId: 0HNING3B9CP3S:00000001 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3S:00000001","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3S","ThreadId":21,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:57:45.526 +01:00 [INF] HTTP POST /api/auth/register completed with 400 in 35ms. TraceId: 0HNING3B9CP3S:00000001 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3S:00000001","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3S","ThreadId":21,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:57:56.086 +01:00 [INF] HTTP POST /api/auth/register started. TraceId: 0HNING3B9CP3S:00000003 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3S:00000003","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3S","ThreadId":18,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:57:56.112 +01:00 [INF] HTTP POST /api/auth/register completed with 400 in 25ms. TraceId: 0HNING3B9CP3S:00000003 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3S:00000003","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3S","ThreadId":18,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:58:00.823 +01:00 [INF] HTTP POST /api/auth/register started. TraceId: 0HNING3B9CP3S:00000005 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3S:00000005","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3S","ThreadId":15,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:58:00.844 +01:00 [INF] HTTP POST /api/auth/register completed with 400 in 20ms. TraceId: 0HNING3B9CP3S:00000005 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3S:00000005","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3S","ThreadId":15,"MachineName":"AYODEJI_PC"}
+2026-01-19 18:58:29.435 +01:00 [INF] HTTP POST /api/auth/register started. TraceId: 0HNING3B9CP3S:00000007 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNING3B9CP3S:00000007","RequestPath":"/api/auth/register","ConnectionId":"0HNING3B9CP3S","ThreadId":15,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:00:23.357 +01:00 [INF] Starting Ticketing System API {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:00:25.214 +01:00 [INF] Ticketing System API started successfully {"ThreadId":2,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:00:27.599 +01:00 [INF] HTTP GET /_framework/aspnetcore-browser-refresh.js started. TraceId: 0HNINGIFTBV73:00000001 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV73:00000001","RequestPath":"/_framework/aspnetcore-browser-refresh.js","ConnectionId":"0HNINGIFTBV73","ThreadId":13,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:00:27.749 +01:00 [INF] HTTP GET /_framework/aspnetcore-browser-refresh.js completed with 404 in 168ms. TraceId: 0HNINGIFTBV73:00000001 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV73:00000001","RequestPath":"/_framework/aspnetcore-browser-refresh.js","ConnectionId":"0HNINGIFTBV73","ThreadId":13,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:00:36.033 +01:00 [INF] HTTP GET /swagger/v1/swagger.json started. TraceId: 0HNINGIFTBV73:00000005 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV73:00000005","RequestPath":"/swagger/v1/swagger.json","ConnectionId":"0HNINGIFTBV73","ThreadId":12,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:00:36.072 +01:00 [INF] HTTP GET /swagger/v1/swagger.json completed with 200 in 38ms. TraceId: 0HNINGIFTBV73:00000005 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV73:00000005","RequestPath":"/swagger/v1/swagger.json","ConnectionId":"0HNINGIFTBV73","ThreadId":8,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:02:49.794 +01:00 [INF] HTTP POST //api/auth/register started. TraceId: 0HNINGIFTBV75:00000001 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV75:00000001","RequestPath":"//api/auth/register","ConnectionId":"0HNINGIFTBV75","ThreadId":17,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:02:49.814 +01:00 [INF] HTTP POST //api/auth/register completed with 404 in 19ms. TraceId: 0HNINGIFTBV75:00000001 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV75:00000001","RequestPath":"//api/auth/register","ConnectionId":"0HNINGIFTBV75","ThreadId":17,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:02:56.364 +01:00 [INF] HTTP POST /api/auth/register started. TraceId: 0HNINGIFTBV75:00000002 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV75:00000002","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV75","ThreadId":20,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:02:56.538 +01:00 [WRN] You do not have a valid license key for the Lucky Penny software MediatR. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license. {"SourceContext":"LuckyPennySoftware.MediatR.License","ActionId":"f3a66af9-b1b0-43b2-bda0-e658a40583f6","ActionName":"TicketingSystem.Api.Controllers.AuthController.Register (TicketingSystem.Api)","RequestId":"0HNINGIFTBV75:00000002","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV75","ThreadId":20,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:02:56.750 +01:00 [INF] HTTP POST /api/auth/register completed with 400 in 385ms. TraceId: 0HNINGIFTBV75:00000002 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV75:00000002","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV75","ThreadId":20,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:03:15.143 +01:00 [INF] HTTP POST /api/auth/register started. TraceId: 0HNINGIFTBV75:00000003 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV75:00000003","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV75","ThreadId":20,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:03:38.405 +01:00 [ERR] HTTP POST /api/auth/register failed in 23261ms. TraceId: 0HNINGIFTBV75:00000003 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV75:00000003","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV75","ThreadId":3,"MachineName":"AYODEJI_PC"}
+Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException: The database operation was expected to affect 1 row(s), but actually affected 0 row(s); data may have been modified or deleted since entities were loaded. See https://go.microsoft.com/fwlink/?LinkId=527962 for information on understanding and handling optimistic concurrency exceptions.
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ThrowAggregateUpdateConcurrencyExceptionAsync(RelationalDataReader reader, Int32 commandIndex, Int32 expectedRowsAffected, Int32 rowsAffected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at TicketingSystem.SharedKernel.Persistence.BaseDbContext.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\BuildingBlocks\TicketingSystem.SharedKernel\Persistence\BaseDbContext.cs:line 63
+   at TicketingSystem.Modules.Identity.Infrastructure.Persistence.IdentityUnitOfWork.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Infrastructure\Persistence\IdentityUnitOfWork.cs:line 21
+   at TicketingSystem.Modules.Identity.Application.Commands.RegisterUserCommandHandler.Handle(RegisterUserCommand request, CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Application\Commands\RegisterUserCommandHandler.cs:line 69
+   at TicketingSystem.Api.Controllers.AuthController.Register(RegisterRequest request) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\AuthController.cs:line 41
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+2026-01-19 19:03:39.266 +01:00 [ERR] An error occurred. TraceId: 0HNINGIFTBV75:00000003. Path: /api/auth/register {"SourceContext":"TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware","RequestId":"0HNINGIFTBV75:00000003","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV75","ThreadId":3,"MachineName":"AYODEJI_PC"}
+Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException: The database operation was expected to affect 1 row(s), but actually affected 0 row(s); data may have been modified or deleted since entities were loaded. See https://go.microsoft.com/fwlink/?LinkId=527962 for information on understanding and handling optimistic concurrency exceptions.
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ThrowAggregateUpdateConcurrencyExceptionAsync(RelationalDataReader reader, Int32 commandIndex, Int32 expectedRowsAffected, Int32 rowsAffected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at TicketingSystem.SharedKernel.Persistence.BaseDbContext.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\BuildingBlocks\TicketingSystem.SharedKernel\Persistence\BaseDbContext.cs:line 63
+   at TicketingSystem.Modules.Identity.Infrastructure.Persistence.IdentityUnitOfWork.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Infrastructure\Persistence\IdentityUnitOfWork.cs:line 21
+   at TicketingSystem.Modules.Identity.Application.Commands.RegisterUserCommandHandler.Handle(RegisterUserCommand request, CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Application\Commands\RegisterUserCommandHandler.cs:line 69
+   at TicketingSystem.Api.Controllers.AuthController.Register(RegisterRequest request) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\AuthController.cs:line 41
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+   at TicketingSystem.Api.Middleware.SecurityHeadersMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\SecurityHeadersMiddleware.cs:line 38
+   at TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\ExceptionHandlingMiddleware.cs:line 33
+2026-01-19 19:03:50.679 +01:00 [INF] HTTP POST /api/auth/register started. TraceId: 0HNINGIFTBV75:00000004 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV75:00000004","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV75","ThreadId":22,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:04:27.763 +01:00 [INF] User registered successfully: Cierra3@gmail.com {"SourceContext":"TicketingSystem.Api.Controllers.AuthController","ActionId":"b0a9eeab-4fc7-4545-a130-6caac12504dc","ActionName":"TicketingSystem.Api.Controllers.AuthController.Register (TicketingSystem.Api)","RequestId":"0HNINGIFTBV75:00000004","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV75","ThreadId":3,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:04:27.827 +01:00 [INF] HTTP POST /api/auth/register completed with 200 in 37147ms. TraceId: 0HNINGIFTBV75:00000004 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV75:00000004","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV75","ThreadId":3,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:04:52.769 +01:00 [INF] HTTP POST /api/auth/register started. TraceId: 0HNINGIFTBV77:00000001 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV77:00000001","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV77","ThreadId":12,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:05:00.740 +01:00 [INF] User registered successfully: Kaden.Veum98@gmail.com {"SourceContext":"TicketingSystem.Api.Controllers.AuthController","ActionId":"ad419288-aed5-4b56-ac59-c3cc8dc3c30c","ActionName":"TicketingSystem.Api.Controllers.AuthController.Register (TicketingSystem.Api)","RequestId":"0HNINGIFTBV77:00000001","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV77","ThreadId":8,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:05:00.790 +01:00 [INF] HTTP POST /api/auth/register completed with 200 in 8020ms. TraceId: 0HNINGIFTBV77:00000001 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV77:00000001","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV77","ThreadId":8,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:05:34.866 +01:00 [INF] HTTP POST /api/auth/register started. TraceId: 0HNINGIFTBV77:00000002 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV77:00000002","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV77","ThreadId":18,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:05:42.674 +01:00 [INF] User registered successfully: Verlie_Goldner39@hotmail.com {"SourceContext":"TicketingSystem.Api.Controllers.AuthController","ActionId":"e9f4b18e-c294-45a8-aa03-d1f8f6b57286","ActionName":"TicketingSystem.Api.Controllers.AuthController.Register (TicketingSystem.Api)","RequestId":"0HNINGIFTBV77:00000002","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV77","ThreadId":5,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:05:42.694 +01:00 [INF] HTTP POST /api/auth/register completed with 200 in 7827ms. TraceId: 0HNINGIFTBV77:00000002 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV77:00000002","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV77","ThreadId":5,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:06:04.691 +01:00 [INF] HTTP POST /api/auth/register started. TraceId: 0HNINGIFTBV77:00000003 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV77:00000003","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV77","ThreadId":5,"MachineName":"AYODEJI_PC"}
+2026-01-19 19:06:49.433 +01:00 [ERR] HTTP POST /api/auth/register failed in 44741ms. TraceId: 0HNINGIFTBV77:00000003 {"SourceContext":"TicketingSystem.Api.Middleware.RequestLoggingMiddleware","RequestId":"0HNINGIFTBV77:00000003","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV77","ThreadId":8,"MachineName":"AYODEJI_PC"}
+Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException: The database operation was expected to affect 1 row(s), but actually affected 0 row(s); data may have been modified or deleted since entities were loaded. See https://go.microsoft.com/fwlink/?LinkId=527962 for information on understanding and handling optimistic concurrency exceptions.
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ThrowAggregateUpdateConcurrencyExceptionAsync(RelationalDataReader reader, Int32 commandIndex, Int32 expectedRowsAffected, Int32 rowsAffected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at TicketingSystem.SharedKernel.Persistence.BaseDbContext.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\BuildingBlocks\TicketingSystem.SharedKernel\Persistence\BaseDbContext.cs:line 63
+   at TicketingSystem.Modules.Identity.Infrastructure.Persistence.IdentityUnitOfWork.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Infrastructure\Persistence\IdentityUnitOfWork.cs:line 21
+   at TicketingSystem.Modules.Identity.Application.Commands.RegisterUserCommandHandler.Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+   at TicketingSystem.Api.Controllers.AuthController.Register(RegisterRequest request) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\AuthController.cs:line 41
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+2026-01-19 19:06:50.694 +01:00 [ERR] An error occurred. TraceId: 0HNINGIFTBV77:00000003. Path: /api/auth/register {"SourceContext":"TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware","RequestId":"0HNINGIFTBV77:00000003","RequestPath":"/api/auth/register","ConnectionId":"0HNINGIFTBV77","ThreadId":8,"MachineName":"AYODEJI_PC"}
+Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException: The database operation was expected to affect 1 row(s), but actually affected 0 row(s); data may have been modified or deleted since entities were loaded. See https://go.microsoft.com/fwlink/?LinkId=527962 for information on understanding and handling optimistic concurrency exceptions.
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ThrowAggregateUpdateConcurrencyExceptionAsync(RelationalDataReader reader, Int32 commandIndex, Int32 expectedRowsAffected, Int32 rowsAffected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at TicketingSystem.SharedKernel.Persistence.BaseDbContext.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\BuildingBlocks\TicketingSystem.SharedKernel\Persistence\BaseDbContext.cs:line 63
+   at TicketingSystem.Modules.Identity.Infrastructure.Persistence.IdentityUnitOfWork.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Modules\Identity\TicketingSystem.Modules.Identity.Infrastructure\Persistence\IdentityUnitOfWork.cs:line 21
+   at TicketingSystem.Modules.Identity.Application.Commands.RegisterUserCommandHandler.Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+   at TicketingSystem.Api.Controllers.AuthController.Register(RegisterRequest request) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Controllers\AuthController.cs:line 41
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at TicketingSystem.Api.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\RequestLoggingMiddleware.cs:line 32
+   at TicketingSystem.Api.Middleware.SecurityHeadersMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\SecurityHeadersMiddleware.cs:line 38
+   at TicketingSystem.Api.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\ayode\source\repos\EventAndTicketManagementAPI\src\Host\TicketingSystem.Api\Middleware\ExceptionHandlingMiddleware.cs:line 33

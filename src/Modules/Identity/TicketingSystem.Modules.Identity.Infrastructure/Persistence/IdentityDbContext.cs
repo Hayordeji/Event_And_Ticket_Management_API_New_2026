@@ -2,9 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TicketingSystem.Modules.Identity.Domain.Entities;
 using TicketingSystem.SharedKernel.Persistence;
 
-namespace TicketingSystem.Modules.Identity.Infrastructure
+namespace TicketingSystem.Modules.Identity.Infrastructure.Persistence
 {
     ///<summary>
 /// Database context for Identity module
@@ -17,10 +18,8 @@ namespace TicketingSystem.Modules.Identity.Infrastructure
         {
         }
 
-        // DbSets will be added here as we create entities
-        // Example:
-        // public DbSet<User> Users => Set<User>();
-        // public DbSet<DeviceFingerprint> DeviceFingerprints => Set<DeviceFingerprint>();
+        public DbSet<User> Users => Set<User>();
+        public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
