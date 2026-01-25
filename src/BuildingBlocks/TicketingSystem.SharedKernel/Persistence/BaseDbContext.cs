@@ -61,6 +61,7 @@ namespace TicketingSystem.SharedKernel.Persistence
             await DispatchDomainEventsAsync(cancellationToken);
 
             return await base.SaveChangesAsync(cancellationToken);
+            //return await base.SaveChangesAsync(cancellationToken);
         }
 
         private void UpdateAuditFields()

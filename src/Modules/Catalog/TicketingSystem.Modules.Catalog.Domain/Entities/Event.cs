@@ -283,7 +283,8 @@ namespace TicketingSystem.Modules.Catalog.Domain.Entities
             DateTime? saleStartDate = null,
             DateTime? saleEndDate = null,
             int? minPurchaseQuantity = null,
-            int? maxPurchaseQuantity = null)
+            int? maxPurchaseQuantity = null
+            )
         {
             if (Status == EventStatus.Cancelled)
                 return Result.Failure<TicketType>("Cannot add ticket types to a cancelled event");
@@ -312,7 +313,8 @@ namespace TicketingSystem.Modules.Catalog.Domain.Entities
                 saleStartDate,
                 saleEndDate,
                 minPurchaseQuantity,
-                maxPurchaseQuantity);
+                maxPurchaseQuantity
+                );
 
             if (!ticketTypeResult.IsSuccess)
                 return Result.Failure<TicketType>(ticketTypeResult.Error);

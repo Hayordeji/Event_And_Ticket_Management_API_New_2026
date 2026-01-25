@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Migrations
+namespace TicketingSystem.Modules.Catalog.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -77,7 +77,6 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Migrations
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     SnapshotCreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EventId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -92,13 +91,6 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_EventSnapshots_Events_EventId",
                         column: x => x.EventId,
-                        principalSchema: "catalog",
-                        principalTable: "Events",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_EventSnapshots_Events_EventId1",
-                        column: x => x.EventId1,
                         principalSchema: "catalog",
                         principalTable: "Events",
                         principalColumn: "Id",
@@ -124,7 +116,6 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Migrations
                     MinPurchaseQuantity = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
                     MaxPurchaseQuantity = table.Column<int>(type: "int", nullable: false, defaultValue: 10),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    EventId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -139,13 +130,6 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_TicketTypes_Events_EventId",
                         column: x => x.EventId,
-                        principalSchema: "catalog",
-                        principalTable: "Events",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_TicketTypes_Events_EventId1",
-                        column: x => x.EventId1,
                         principalSchema: "catalog",
                         principalTable: "Events",
                         principalColumn: "Id",
@@ -183,12 +167,6 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Migrations
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EventSnapshots_EventId1",
-                schema: "catalog",
-                table: "EventSnapshots",
-                column: "EventId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_EventSnapshots_SnapshotCreatedAt",
                 schema: "catalog",
                 table: "EventSnapshots",
@@ -206,12 +184,6 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Migrations
                 schema: "catalog",
                 table: "TicketTypes",
                 column: "EventId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TicketTypes_EventId1",
-                schema: "catalog",
-                table: "TicketTypes",
-                column: "EventId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TicketTypes_IsActive",

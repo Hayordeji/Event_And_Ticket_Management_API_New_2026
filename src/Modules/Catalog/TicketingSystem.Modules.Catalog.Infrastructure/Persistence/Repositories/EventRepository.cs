@@ -25,6 +25,7 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Repositorie
         public async Task<Event?> GetByIdWithTicketTypesAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await _context.Events
+                .AsNoTracking()
                 .Include(e => e.TicketTypes)
                 .FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
         }
@@ -124,7 +125,7 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Repositorie
         public async Task<List<TicketType>> GetTicketTypesByEventIdAsync(Guid eventId, CancellationToken cancellationToken = default)
         {
             return await _context.TicketTypes
-                .Where(t => EF.Property<Guid>(t, "EventId") == eventId)
+                .Where(t => t.EventId == eventId)
                 .OrderByDescending(t => t.CreatedAt)
                 .ThenBy(t => t.Name)
                 .ToListAsync(cancellationToken);

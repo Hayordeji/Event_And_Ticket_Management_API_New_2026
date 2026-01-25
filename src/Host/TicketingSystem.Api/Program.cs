@@ -174,11 +174,7 @@ try
     {
         app.MapOpenApi();
         app.UseSwagger();
-        app.UseSwaggerUI(options =>
-        {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Ticketing System API v1");
-            options.RoutePrefix = string.Empty; // Swagger at root URL
-        });
+        app.UseSwaggerUI();
     }
 
     app.UseHttpsRedirection();

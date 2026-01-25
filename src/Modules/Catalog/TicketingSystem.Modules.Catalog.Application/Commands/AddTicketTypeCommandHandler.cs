@@ -35,6 +35,9 @@ namespace TicketingSystem.Modules.Catalog.Application.Commands
             if (@event.HostId != command.HostId)
                 throw new ForbiddenException("You can only add ticket types to your own events");
 
+            if (@event.TicketTypes.Count() >= 5)
+                return Result.Failure<Guid>("You can not create more than 5 ticket types");
+
             // Create Money value object
             var priceResult = Money.Create(command.Request.Price, command.Request.Currency);
 
@@ -56,7 +59,7 @@ namespace TicketingSystem.Modules.Catalog.Application.Commands
                 return Result.Failure<Guid>(ticketTypeResult.Error);
 
             var ticketType = ticketTypeResult.Value;
-
+            await _context.TicketTypes.AddAsync(ticketType, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
 
             return Result.Success(ticketType.Id);

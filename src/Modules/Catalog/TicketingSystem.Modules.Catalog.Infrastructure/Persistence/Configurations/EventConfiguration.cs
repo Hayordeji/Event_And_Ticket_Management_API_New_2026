@@ -95,15 +95,15 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Configurati
 
             // Navigation Properties
             // Use Restrict for TicketTypes to avoid SQL Server cascade path conflicts with soft delete
-            builder.HasMany(e => e.TicketTypes)
-                .WithOne()
-                .HasForeignKey("EventId")
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder.HasMany(e => e.TicketTypes)
+            //    .WithOne()
+            //    .HasForeignKey("EventId")
+            //    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasMany(e => e.Snapshots)
-                .WithOne()
-                .HasForeignKey("EventId")
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder.HasMany(e => e.Snapshots)
+            //    .WithOne()
+            //    .HasForeignKey("EventId")
+            //    .OnDelete(DeleteBehavior.Restrict);
 
             // Indexes
             builder.HasIndex(e => e.HostId)

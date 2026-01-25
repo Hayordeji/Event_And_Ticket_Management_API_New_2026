@@ -23,6 +23,7 @@ namespace TicketingSystem.Modules.Catalog.Application.Queries
             GetTicketTypesByEventQuery query,
             CancellationToken cancellationToken)
         {
+            var result = new List<TicketTypeResponse>();
 
             // Verify event exists
             var eventExists = await _eventRepository.ExistsAsync(query.EventId, cancellationToken);
@@ -34,7 +35,7 @@ namespace TicketingSystem.Modules.Catalog.Application.Queries
                 query.EventId,
                 cancellationToken);
 
-            return Result<TicketTypeResponse>.Success(ticketTypes.Select(t => new TicketTypeResponse(
+            result = ticketTypes.Select(t => new TicketTypeResponse(
                 t.Id,
                 t.EventId,
                 t.Name,
@@ -50,7 +51,27 @@ namespace TicketingSystem.Modules.Catalog.Application.Queries
                 t.SaleEndDate,
                 t.MinPurchaseQuantity,
                 t.MaxPurchaseQuantity,
-                t.IsActive)).ToList());
+                t.IsActive)).ToList();
+
+
+            return Result<List<TicketTypeResponse>>.Success(result);
+            //return Result<List<TicketTypeResponse>>.Success(ticketTypes.Select(t => new TicketTypeResponse(
+            //    t.Id,
+            //    t.EventId,
+            //    t.Name,
+            //    t.Description,
+            //    t.Price.Amount,
+            //    t.Price.Currency,
+            //    t.TotalCapacity,
+            //    t.SoldCount,
+            //    t.ReservedCount,
+            //    t.AvailableCount,
+            //    t.IsSoldOut,
+            //    t.SaleStartDate,
+            //    t.SaleEndDate,
+            //    t.MinPurchaseQuantity,
+            //    t.MaxPurchaseQuantity,
+            //    t.IsActive)).ToList());
 
 
         }

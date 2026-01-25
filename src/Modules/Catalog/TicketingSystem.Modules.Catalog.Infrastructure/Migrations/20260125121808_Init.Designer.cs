@@ -9,11 +9,11 @@ using TicketingSystem.Modules.Catalog.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Migrations
+namespace TicketingSystem.Modules.Catalog.Infrastructure.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    [Migration("20260125083526_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260125121808_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -151,9 +151,6 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("EventId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("EventId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("ImageUrl")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
@@ -185,8 +182,6 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("EventId")
                         .HasDatabaseName("IX_EventSnapshots_EventId");
-
-                    b.HasIndex("EventId1");
 
                     b.HasIndex("SnapshotCreatedAt")
                         .HasDatabaseName("IX_EventSnapshots_SnapshotCreatedAt");
@@ -221,9 +216,6 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<Guid>("EventId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("EventId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsActive")
@@ -276,8 +268,6 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("EventId")
                         .HasDatabaseName("IX_TicketTypes_EventId");
-
-                    b.HasIndex("EventId1");
 
                     b.HasIndex("IsActive")
                         .HasDatabaseName("IX_TicketTypes_IsActive");
@@ -358,15 +348,9 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("TicketingSystem.Modules.Catalog.Domain.Entities.EventSnapshot", b =>
                 {
-                    b.HasOne("TicketingSystem.Modules.Catalog.Domain.Entities.Event", null)
+                    b.HasOne("TicketingSystem.Modules.Catalog.Domain.Entities.Event", "Event")
                         .WithMany("Snapshots")
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("TicketingSystem.Modules.Catalog.Domain.Entities.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -436,15 +420,9 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("TicketingSystem.Modules.Catalog.Domain.Entities.TicketType", b =>
                 {
-                    b.HasOne("TicketingSystem.Modules.Catalog.Domain.Entities.Event", null)
+                    b.HasOne("TicketingSystem.Modules.Catalog.Domain.Entities.Event", "Event")
                         .WithMany("TicketTypes")
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("TicketingSystem.Modules.Catalog.Domain.Entities.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

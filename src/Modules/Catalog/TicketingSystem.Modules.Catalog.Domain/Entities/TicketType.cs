@@ -117,6 +117,7 @@ namespace TicketingSystem.Modules.Catalog.Domain.Entities
                 saleEndDate,
                 minPurchaseQuantity,
                 maxPurchaseQuantity);
+            
 
             return Result.Success(ticketType);
         }

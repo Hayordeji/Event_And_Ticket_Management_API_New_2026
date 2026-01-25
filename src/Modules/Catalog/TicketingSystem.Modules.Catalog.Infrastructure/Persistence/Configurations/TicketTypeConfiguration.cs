@@ -16,7 +16,7 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Configurati
             // Primary Key
             builder.HasKey(t => t.Id);
 
-            // Foreign Key to Event (explicit configuration)
+            //// Foreign Key to Event (explicit configuration)
             builder.Property<Guid>("EventId")
                 .IsRequired();
 
@@ -72,6 +72,8 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Configurati
                     .HasColumnName("PriceCurrency");
             });
 
+             
+
             // Unique Constraint: One ticket type name per event
             builder.HasIndex("EventId", nameof(TicketType.Name))
                 .IsUnique()
@@ -91,13 +93,8 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Configurati
             builder.HasIndex(t => new { t.SaleStartDate, t.SaleEndDate })
                 .HasDatabaseName("IX_TicketTypes_SalesWindow");
 
-            // Foreign Key Configuration
-            // Use Restrict instead of Cascade to avoid SQL Server multiple cascade path error
-            // When soft delete is enabled on both parent and child entities
-            builder.HasOne<Event>()
-                .WithMany(e => e.TicketTypes)
-                .HasForeignKey("EventId")
-                .OnDelete(DeleteBehavior.Restrict);
+           
+           
         }
     }
 }
