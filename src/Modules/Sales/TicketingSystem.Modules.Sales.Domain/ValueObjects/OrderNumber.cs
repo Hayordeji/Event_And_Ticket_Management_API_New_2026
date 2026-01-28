@@ -9,7 +9,7 @@ namespace TicketingSystem.Modules.Sales.Domain.ValueObjects
     /// Order number value object - unique, human-readable order identifier
     /// Format: ORD-YYYYMMDD-XXXX (e.g., ORD-20260125-A3F9)
     /// </summary>
-    internal class OrderNumber : ValueObject
+    public class OrderNumber : ValueObject
     {
         public string Value { get; private set; }
 

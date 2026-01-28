@@ -7,9 +7,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TicketingSystem.Modules.Finance.Application\TicketingSystem.Modules.Finance.Application.csproj" />
-    <ProjectReference Include="..\TicketingSystem.Modules.Finance.Infrastructure\TicketingSystem.Modules.Finance.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\TicketingSystem.SharedKernel\TicketingSystem.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\Sales\TicketingSystem.Modules.Sales.Application\TicketingSystem.Modules.Sales.Application.csproj" />
+    <ProjectReference Include="..\..\Sales\TicketingSystem.Modules.Sales.Domain\TicketingSystem.Modules.Sales.Domain.csproj" />
+    <ProjectReference Include="..\..\Sales\TicketingSystem.Modules.Sales.Infrastructure\TicketingSystem.Modules.Sales.Infrastructure.csproj" />
+    <ProjectReference Include="..\TicketingSystem.Modules.Finance.Application\TicketingSystem.Modules.Finance.Application.csproj" />
+    <ProjectReference Include="..\TicketingSystem.Modules.Finance.Domain\TicketingSystem.Modules.Finance.Domain.csproj" />
+    <ProjectReference Include="..\TicketingSystem.Modules.Finance.Infrastructure\TicketingSystem.Modules.Finance.Infrastructure.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

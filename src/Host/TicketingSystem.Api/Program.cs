@@ -14,6 +14,7 @@ using TicketingSystem.Modules.Catalog.Application;
 using TicketingSystem.Modules.Catalog.Api;
 using TicketingSystem.Modules.Identity.Infrastructure.Persistence;
 using static System.Net.Mime.MediaTypeNames;
+using TicketingSystem.Modules.Sales.Api;
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
@@ -105,7 +106,9 @@ try
     builder.Services.AddIdentityModule(builder.Configuration);
     builder.Services.AddFinanceModule(builder.Configuration);
     builder.Services.AddCatalogModule(builder.Configuration);
+    builder.Services.AddSalesModule(builder.Configuration);
     builder.Services.AddIdentityModule(builder.Configuration);
+
 
     //CORS CONFIG
     builder.Services.AddCors(options =>
