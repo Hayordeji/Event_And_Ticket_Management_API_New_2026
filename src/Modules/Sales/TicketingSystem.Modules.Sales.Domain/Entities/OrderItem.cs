@@ -9,8 +9,6 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
 {
     public class OrderItem : Entity
     {
-        public Guid EventId { get; private set; }
-        public OrderNumber OrderNumber { get; set; }
         public Guid TicketTypeId { get; private set; }
         public string EventName { get; private set; } = string.Empty;
         public string TicketTypeName { get; private set; } = string.Empty;
@@ -37,7 +35,6 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             string venueName,
             string venueCity)
         {
-            EventId = eventId;
             TicketTypeId = ticketTypeId;
             EventName = eventName;
             TicketTypeName = ticketTypeName;

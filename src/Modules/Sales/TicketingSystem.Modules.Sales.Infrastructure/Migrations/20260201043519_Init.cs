@@ -21,6 +21,7 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OrderNumber = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CustomerEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -58,8 +59,6 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderNumber = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     TicketTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EventName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TicketTypeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -71,6 +70,7 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
                     EventStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     VenueName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     VenueCity = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -126,12 +126,6 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderItems_EventId",
-                schema: "sales",
-                table: "OrderItems",
-                column: "EventId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItems_OrderId",

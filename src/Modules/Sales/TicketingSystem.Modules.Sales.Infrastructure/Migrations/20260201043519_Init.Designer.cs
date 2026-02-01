@@ -12,7 +12,7 @@ using TicketingSystem.Modules.Sales.Infrastructure.Persistence;
 namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
 {
     [DbContext(typeof(SalesDbContext))]
-    [Migration("20260128144039_Init")]
+    [Migration("20260201043519_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -63,6 +63,9 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("EventId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("ExpiresAt")
@@ -164,8 +167,6 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EventId");
 
                     b.HasIndex("OrderId");
 
@@ -276,25 +277,6 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
                                 .HasForeignKey("OrderId");
                         });
 
-                    b.OwnsOne("TicketingSystem.Modules.Sales.Domain.ValueObjects.OrderNumber", "OrderNumber", b1 =>
-                        {
-                            b1.Property<Guid>("OrderId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("varchar(50)")
-                                .HasColumnName("OrderNumber");
-
-                            b1.HasKey("OrderId");
-
-                            b1.ToTable("Orders", "sales");
-
-                            b1.WithOwner()
-                                .HasForeignKey("OrderId");
-                        });
-
                     b.OwnsOne("TicketingSystem.Modules.Finance.Domain.ValueObjects.Money", "PlatformFee", b1 =>
                         {
                             b1.Property<Guid>("OrderId")
@@ -341,6 +323,25 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
                                 .HasForeignKey("OrderId");
                         });
 
+                    b.OwnsOne("TicketingSystem.Modules.Sales.Domain.ValueObjects.OrderNumber", "OrderNumber", b1 =>
+                        {
+                            b1.Property<Guid>("OrderId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .HasColumnType("varchar(50)")
+                                .HasColumnName("OrderNumber");
+
+                            b1.HasKey("OrderId");
+
+                            b1.ToTable("Orders", "sales");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+                        });
+
                     b.Navigation("GrandTotal")
                         .IsRequired();
 
@@ -359,25 +360,6 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
                     b.HasOne("TicketingSystem.Modules.Sales.Domain.Entities.Order", null)
                         .WithMany("Items")
                         .HasForeignKey("OrderId");
-
-                    b.OwnsOne("TicketingSystem.Modules.Sales.Domain.ValueObjects.OrderNumber", "OrderNumber", b1 =>
-                        {
-                            b1.Property<Guid>("OrderItemId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("varchar(50)")
-                                .HasColumnName("OrderNumber");
-
-                            b1.HasKey("OrderItemId");
-
-                            b1.ToTable("OrderItems", "sales");
-
-                            b1.WithOwner()
-                                .HasForeignKey("OrderItemId");
-                        });
 
                     b.OwnsOne("TicketingSystem.Modules.Finance.Domain.ValueObjects.Money", "Subtotal", b1 =>
                         {
@@ -424,9 +406,6 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("OrderItemId");
                         });
-
-                    b.Navigation("OrderNumber")
-                        .IsRequired();
 
                     b.Navigation("Subtotal")
                         .IsRequired();

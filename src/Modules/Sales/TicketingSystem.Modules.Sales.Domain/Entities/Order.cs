@@ -15,6 +15,7 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
         private readonly List<Payment> _payments = new();
 
         public OrderNumber OrderNumber { get; private set; } = null!;
+        public Guid EventId { get; set; }
         public Guid CustomerId { get; private set; }
         public string CustomerEmail { get; private set; } = string.Empty;
         public string CustomerName { get; private set; } = string.Empty;
@@ -42,6 +43,7 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
 
         private Order(
             Guid customerId,
+            Guid eventId,
             string customerEmail,
             string customerName,
             string? customerPhone)
@@ -49,12 +51,14 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             Id = Guid.NewGuid();
             OrderNumber = OrderNumber.Generate();
             CustomerId = customerId;
+            EventId = eventId;
             CustomerEmail = customerEmail;
             CustomerName = customerName;
             CustomerPhone = customerPhone;
             Status = OrderStatus.Pending;
             ExpiresAt = DateTime.UtcNow.AddMinutes(30); // 30 min to complete payment
             CreatedAt = DateTime.UtcNow;
+            CreatedBy = customerId;
         }
 
         /// <summary>
@@ -62,6 +66,7 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
         /// </summary>
         public static Result<Order> Create(
             Guid customerId,
+            Guid eventId,
             string customerEmail,
             string customerName,
             string? customerPhone = null)
@@ -69,6 +74,9 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             // Validation
             if (customerId == Guid.Empty)
                 return Result.Failure<Order>("Customer ID is required");
+
+            if (eventId == Guid.Empty)
+                return Result.Failure<Order>("Event ID is required");
 
             if (string.IsNullOrWhiteSpace(customerEmail))
                 return Result.Failure<Order>("Customer email is required");
@@ -80,14 +88,15 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             if (string.IsNullOrWhiteSpace(customerName))
                 return Result.Failure<Order>("Customer name is required");
 
-            var order = new Order(customerId, customerEmail.Trim(), customerName.Trim(), customerPhone?.Trim());
+            var order = new Order(customerId,eventId, customerEmail.Trim(), customerName.Trim(), customerPhone?.Trim());
 
             order.RaiseDomainEvent(new OrderCreatedEvent(
                 order.Id,
+                eventId,
                 customerId,
                 order.OrderNumber.Value,
-                order.TotalAmount.Amount,
-                order.TotalAmount.Currency,
+                //order.TotalAmount.Amount,
+                //order.TotalAmount.Currency,
                 DateTime.UtcNow));
 
             return Result.Success(order);
@@ -115,7 +124,7 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
         /// Calculate order totals with platform fee
         /// Platform fee: 10% of subtotal
         /// </summary>
-        private void RecalculateTotals()
+        public void RecalculateTotals()
         {
             if (_items.Count == 0)
             {

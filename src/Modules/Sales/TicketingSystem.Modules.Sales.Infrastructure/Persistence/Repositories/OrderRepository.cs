@@ -18,11 +18,11 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Persistence.Repositories
         public async Task<Order?> GetByOrderNumberAsync(
             string orderNumber,
             CancellationToken cancellationToken = default)
-        {
+        {   
             return await _dbSet
                 .Include(o => o.Items)
                 .Include(o => o.Payments)
-                .FirstOrDefaultAsync(o => o.OrderNumber == orderNumber, cancellationToken);
+                .FirstOrDefaultAsync(o => o.OrderNumber.Value == orderNumber, cancellationToken);
         }
 
         public async Task<Order?> GetByIdWithItemsAsync(
@@ -47,16 +47,16 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Persistence.Repositories
                 .ToListAsync(cancellationToken);
         }
 
-        //public async Task<IEnumerable<Order>> GetByEventIdAsync(
-        //    Guid eventId,
-        //    CancellationToken cancellationToken = default)
-        //{
-        //    return await _dbSet
-        //        .Include(o => o.Items)
-        //        .Where(o => o.Items.Select(x => x.EventId).FirstOrDefault())
-        //        .OrderByDescending(o => o.CreatedAt)
-        //        .ToListAsync(cancellationToken);
-        //}
+        public async Task<IEnumerable<Order>> GetByEventIdAsync(
+            Guid eventId,
+            CancellationToken cancellationToken = default)
+        {
+            return await _dbSet
+                .Include(o => o.Items)
+                .Where(o => o.EventId == eventId)
+                .OrderByDescending(o => o.CreatedAt)
+                .ToListAsync(cancellationToken);
+        }
 
         public async Task<IEnumerable<Order>> GetExpiredOrdersAsync(
             DateTime expirationThreshold,
@@ -70,15 +70,17 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Persistence.Repositories
 
         public async Task<bool> ExistsAsync(
             Guid customerId,
-            Guid orderId,
+            Guid eventId,
             CancellationToken cancellationToken = default)
         {
             return await _dbSet
                 .AnyAsync(o => o.CustomerId == customerId
-                            && o.Id == orderId
+                            && o.EventId == eventId
                             && o.Status != OrderStatus.Cancelled
                             && o.Status != OrderStatus.Expired,
                          cancellationToken);
         }
+
+       
     }
 }

@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using TicketingSystem.Modules.Sales.Domain.Repositories;
 using TicketingSystem.Modules.Sales.Infrastructure.Persistence;
+using TicketingSystem.Modules.Sales.Infrastructure.Persistence.Repositories;
 
 namespace TicketingSystem.Modules.Sales.Api
 {
@@ -29,7 +31,8 @@ namespace TicketingSystem.Modules.Sales.Api
                     }));
 
             // Repositories
-            
+            services.AddScoped<IOrderRepository, OrderRepository>();
+
 
             // MediatR (Commands & Queries)
             services.AddMediatR(cfg =>

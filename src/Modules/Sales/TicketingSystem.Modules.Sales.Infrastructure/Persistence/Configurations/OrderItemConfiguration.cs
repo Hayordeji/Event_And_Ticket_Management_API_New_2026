@@ -19,23 +19,11 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Persistence.Configuration
             builder.Property<Guid>("EventId")
                 .IsRequired();
 
-            builder.OwnsOne(o => o.OrderNumber, priceBuilder =>
-            {
-                priceBuilder.Property(p => p.Value)
-                    .IsRequired()
-                    .HasColumnType("varchar(50)")
-                    .HasColumnName("OrderNumber")
-                    .HasMaxLength(50);
-            });
 
             builder.Property(i => i.TicketTypeId)
                 .IsRequired();
 
-            builder.Property(o => o.EventId)
-                            .IsRequired();
-
-            builder.HasIndex(o => o.EventId);
-
+           
             builder.HasIndex(i => i.TicketTypeId);
 
             builder.Property(i => i.Quantity)
