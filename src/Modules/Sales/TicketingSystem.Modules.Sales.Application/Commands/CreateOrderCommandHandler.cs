@@ -10,7 +10,7 @@ using TicketingSystem.SharedKernel;
 
 namespace TicketingSystem.Modules.Sales.Application.Commands
 {
-    public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Result<Guid>>
+    public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Result<string>>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly SalesDbContext _context;
@@ -24,7 +24,7 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
             _context = context;
         }
 
-        public async Task<Result<Guid>> Handle(
+        public async Task<Result<string>> Handle(
             CreateOrderCommand request,
             CancellationToken cancellationToken)
         {
@@ -32,7 +32,7 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
             {
                 // Validate items
                 if (request.Items == null || !request.Items.Any())
-                    return Result.Failure<Guid>("Order must contain at least one item.");
+                    return Result.Failure<string>("Order must contain at least one item.");
 
                 // Check for duplicate order (idempotency)
                 var orderExists = await _orderRepository.ExistsAsync(
@@ -40,7 +40,7 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
                     cancellationToken);
 
                 if (orderExists)
-                    return Result.Failure<Guid>("An active order already exists for this event.");
+                    return Result.Failure<string>("An active order already exists for this event.");
 
                 // Create order
                 var order = Order.Create(
@@ -56,10 +56,10 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
                 foreach (var item in request.Items)
                 {
                     if (item.Quantity <= 0)
-                        return Result.Failure<Guid>("Item quantity must be greater than zero.");
+                        return Result.Failure<string>("Item quantity must be greater than zero.");
 
                     if (item.UnitPrice <= 0)
-                        return Result.Failure<Guid>("Item unit price must be greater than zero.");
+                        return Result.Failure<string>("Item unit price must be greater than zero.");
 
                     var unitPrice = Money.Create(item.UnitPrice);
 
@@ -87,7 +87,7 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
                 await _orderRepository.AddAsync(order.Value, cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return Result.Success(order.Value.Id);
+                return Result.Success(order.Value.OrderNumber.Value);
             }
             catch (Exception ex)
             {

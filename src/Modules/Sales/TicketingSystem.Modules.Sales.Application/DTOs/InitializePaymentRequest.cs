@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TicketingSystem.Modules.Sales.Application.DTOs
 {
-    internal class InitializePaymentRequest
-    {
-    }
+    public record InitializePaymentRequest(
+    string Gateway  // "Paystack" or "Flutterwave"
+    );
 }

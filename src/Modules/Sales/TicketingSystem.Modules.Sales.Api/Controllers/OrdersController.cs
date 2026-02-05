@@ -57,7 +57,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
             return CreatedAtAction(
                 nameof(GetOrderByNumber),
                 new { orderNumber = result.Value },
-                ApiResponse<Guid>.SuccessResponse(result.Value, "Order created successfully.")
+                ApiResponse<string>.SuccessResponse(result.Value, "Order created successfully.")
             );
         }
 
@@ -163,6 +163,42 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
             };
         }
 
+        ///<summary>
+        /// Initialize payment for an order
+        /// </summary>
+        [HttpPost("{orderNumber}/initialize-payment")]
+        [ProducesResponseType(typeof(ApiResponse<PaymentInitializationResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> InitializePayment(
+            string orderNumber,
+            [FromBody] InitializePaymentRequest request,
+            CancellationToken cancellationToken)
+        {
+            var customerId = GetCurrentUserId();
+
+            // Get customer email (you'll need to fetch this from Identity module)
+            // For now, using a placeholder
+            var customerEmail = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value ?? "customer@example.com";
+
+            var callbackUrl = $"{Request.Scheme}://{Request.Host}/payment-callback";
+
+            var command = new InitializePaymentCommand(
+                orderNumber,
+                request.Gateway,
+                customerEmail,
+                callbackUrl
+            );
+
+            var result = await _mediator.Send(command, cancellationToken);
+
+            if (!result.IsSuccess)
+                return BadRequest(ApiResponse.ErrorResponse(result.Error));
+
+            return Ok(ApiResponse<PaymentInitializationResponse>.SuccessResponse(
+                result.Value,
+                "Payment initialized successfully. Redirect user to authorization URL."));
+        }
 
         private class UserInfo
         {

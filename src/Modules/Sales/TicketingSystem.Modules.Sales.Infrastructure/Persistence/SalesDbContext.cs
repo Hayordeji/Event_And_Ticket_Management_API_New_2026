@@ -13,6 +13,7 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Persistence
         public DbSet<Order> Orders => Set<Order>();
         public DbSet<OrderItem> OrderItems => Set<OrderItem>();
         public DbSet<Payment> Payments => Set<Payment>();
+        public DbSet<WebhookEvent> WebhookEvents => Set<WebhookEvent>();  
 
         public SalesDbContext(DbContextOptions<SalesDbContext> options) : base(options, "sales")
         {

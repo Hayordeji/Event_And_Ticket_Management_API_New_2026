@@ -5,7 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using TicketingSystem.Modules.Sales.Application.Commands;
+using TicketingSystem.Modules.Sales.Application.Services;
+using TicketingSystem.Modules.Sales.Application.Services.Flutterwave;
+using TicketingSystem.Modules.Sales.Application.Services.Paystack;
 using TicketingSystem.Modules.Sales.Domain.Repositories;
+using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Flutterwave;
+using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Paystack;
 using TicketingSystem.Modules.Sales.Infrastructure.Persistence;
 using TicketingSystem.Modules.Sales.Infrastructure.Persistence.Repositories;
 
@@ -32,13 +38,18 @@ namespace TicketingSystem.Modules.Sales.Api
 
             // Repositories
             services.AddScoped<IOrderRepository, OrderRepository>();
+            
 
+            
+            
 
             // MediatR (Commands & Queries)
             services.AddMediatR(cfg =>
             {
-                cfg.RegisterServicesFromAssembly(
-                    Assembly.Load("TicketingSystem.Modules.Sales.Application"));
+                cfg.RegisterServicesFromAssembly(typeof(CreateOrderCommand).Assembly);
+
+                //cfg.RegisterServicesFromAssembly(
+                //    Assembly.Load("TicketingSystem.Modules.Sales.Application"));
             });
 
             return services;

@@ -12,6 +12,6 @@ namespace TicketingSystem.Modules.Sales.Domain.Events
      string Currency,
      DateTime PaidAt,
      Guid CustomerId,
-     Guid PaymentReference
+     string PaymentReference
  ) : DomainEvent;
 }

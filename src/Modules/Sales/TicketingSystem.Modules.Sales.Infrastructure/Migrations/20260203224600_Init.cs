@@ -54,6 +54,32 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "WebhookEvents",
+                schema: "sales",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GatewayEventId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Gateway = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    EventType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PaymentReference = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    IsProcessed = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    ProcessedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    RawPayload = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WebhookEvents", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderItems",
                 schema: "sales",
                 columns: table => new
@@ -156,6 +182,19 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
                 schema: "sales",
                 table: "Payments",
                 column: "PaymentReference");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WebhookEvents_Gateway_GatewayEventId",
+                schema: "sales",
+                table: "WebhookEvents",
+                columns: new[] { "Gateway", "GatewayEventId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WebhookEvents_PaymentReference",
+                schema: "sales",
+                table: "WebhookEvents",
+                column: "PaymentReference");
         }
 
         /// <inheritdoc />
@@ -167,6 +206,10 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Payments",
+                schema: "sales");
+
+            migrationBuilder.DropTable(
+                name: "WebhookEvents",
                 schema: "sales");
 
             migrationBuilder.DropTable(

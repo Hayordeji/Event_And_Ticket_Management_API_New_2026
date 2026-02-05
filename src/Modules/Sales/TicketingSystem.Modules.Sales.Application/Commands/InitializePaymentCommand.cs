@@ -7,15 +7,10 @@ using TicketingSystem.SharedKernel;
 
 namespace TicketingSystem.Modules.Sales.Application.Commands
 {
-    public record CreateOrderCommand(
-    Guid CustomerId,
-    Guid EventId,
-    string EventName,
+    public record InitializePaymentCommand(
+    string OrderNumber,
+    string Gateway,  // "Paystack" or "Flutterwave"
     string CustomerEmail,
-    string CustomerName,
-    DateTime eventStartDate,
-    string VenueName,
-    string VenueCity,
-    List<OrderItemDto> Items
-) : IRequest<Result<string>>;
+    string CallbackUrl
+) : IRequest<Result<PaymentInitializationResponse>>;
 }

@@ -47,7 +47,7 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
                 return Result.Failure("Order has expired.");
             }
 
-            var payment = Payment.Create(order.Id, order.GrandTotal.Amount, order.GrandTotal.Currency, request.PaymentMethod);
+            var payment = Payment.Create(order.Id, order.GrandTotal.Amount, order.GrandTotal.Currency, request.PaymentMethod,request.PaymentReference, request.GatewayResponse);
             // Add payment record
             order.AddPayment(
                payment
@@ -55,7 +55,7 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
 
             // Mark order as paid
             order.MarkAsPaid(
-                payment.Id
+                payment.PaymentReference
             );
 
             // Save changes

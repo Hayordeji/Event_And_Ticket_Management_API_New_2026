@@ -14,6 +14,9 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Persistence.Configuration
             builder.ToTable("Payments");
 
             builder.HasKey(p => p.Id);
+            
+            builder.Property(p => p.Id)
+                .ValueGeneratedOnAdd();
 
             builder.Property(p => p.OrderId)
                 .IsRequired();
@@ -63,6 +66,8 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Persistence.Configuration
                 .HasDefaultValue(false);
 
             builder.Property(p => p.DeletedAt);
+
+           
 
             // Query filter for soft delete
             builder.HasQueryFilter(p => !p.IsDeleted);

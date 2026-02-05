@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
 using TicketingSystem.Modules.Finance.Domain.ValueObjects;
 using TicketingSystem.Modules.Sales.Domain.Enums;
 using TicketingSystem.Modules.Sales.Domain.Events;
@@ -165,7 +166,7 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
         /// <summary>
         /// Mark order as paid (called when payment succeeds)
         /// </summary>
-        public Result MarkAsPaid(Guid paymentId)
+        public Result MarkAsPaid(string paymentReference)
         {
             if (Status == OrderStatus.Paid)
                 return Result.Failure("Order is already paid");
@@ -176,7 +177,7 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             if (Status == OrderStatus.Expired)
                 return Result.Failure("Cannot mark expired order as paid");
 
-            var payment = _payments.FirstOrDefault(p => p.Id == paymentId);
+            var payment = _payments.FirstOrDefault(p => p.PaymentReference == paymentReference);
             if (payment == null)
                 return Result.Failure("Payment not found in order");
 
@@ -193,7 +194,7 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
                 GrandTotal.Currency,
                 DateTime.UtcNow,
                 CustomerId,
-                paymentId
+                paymentReference
                 ));
 
             return Result.Success();

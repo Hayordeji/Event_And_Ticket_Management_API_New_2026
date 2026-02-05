@@ -105,6 +105,12 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Persistence.Configuration
             //    .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(o => o.Payments)
+               .WithOne()
+               .HasForeignKey("OrderId") // shadow FK if not exposed
+               .IsRequired()
+               .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(o => o.Payments)
                 .WithOne(p => p.Order)
                 .HasForeignKey(p => p.OrderId)
                 .OnDelete(DeleteBehavior.Cascade);

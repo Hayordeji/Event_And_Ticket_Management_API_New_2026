@@ -30,13 +30,21 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             Guid orderId,
             decimal amount,
             string currency,
-            PaymentMethod method)
+            PaymentMethod method,
+            string paymentReference,
+            string gatewayResponse)
         {
             if (amount <= 0)
                 throw new DomainException("Payment amount must be greater than zero.");
 
             if (string.IsNullOrWhiteSpace(currency))
                 throw new DomainException("Currency is required.");
+
+            if (string.IsNullOrWhiteSpace(gatewayResponse))
+                throw new DomainException("Gateway Response is required.");
+
+            if (string.IsNullOrWhiteSpace(paymentReference))
+                throw new DomainException("Payement Reference is required.");
 
             return new Payment
             {
@@ -46,8 +54,22 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
                 Currency = currency,
                 Method = method,
                 Status = PaymentStatus.Pending,
-                CreatedAt = DateTime.UtcNow
+                PaymentReference = paymentReference,
+                CreatedAt = DateTime.UtcNow,
+                GatewayResponse = gatewayResponse
             };
+        }
+
+        public void SetPaymentReference(string paymentReference)
+        {
+            if (string.IsNullOrWhiteSpace(paymentReference))
+                throw new ArgumentNullException(nameof(paymentReference));
+
+            if (!string.IsNullOrEmpty(PaymentReference))
+                throw new DomainException("Payment reference already set.");
+
+            PaymentReference = paymentReference;
+            UpdatedAt = DateTime.UtcNow;
         }
 
         public void MarkAsCompleted(string paymentReference, string gatewayResponse)
