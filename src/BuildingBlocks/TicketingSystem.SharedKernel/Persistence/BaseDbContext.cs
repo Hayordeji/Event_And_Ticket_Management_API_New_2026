@@ -57,6 +57,7 @@ namespace TicketingSystem.SharedKernel.Persistence
             // Automatically set audit fields before saving
             UpdateAuditFields();
 
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
             // Dispatch domain events before saving
             await DispatchDomainEventsAsync(cancellationToken);
 

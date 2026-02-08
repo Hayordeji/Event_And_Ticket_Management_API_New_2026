@@ -48,7 +48,6 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
 
             return new Payment
             {
-                Id = Guid.NewGuid(),
                 OrderId = orderId,
                 Amount = amount,
                 Currency = currency,

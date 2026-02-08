@@ -106,9 +106,9 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
 
             // Use reflection to set PaymentReference (since it's private set)
             var paymentReferenceProperty = typeof(Payment).GetProperty(nameof(Payment.PaymentReference));
-
             var addResult = order.AddPayment(payment);
-            await _context.Payments.AddAsync(payment);
+
+
             if (!addResult.IsSuccess)
                 return Result.Failure<PaymentInitializationResponse>(addResult.Error);
 
@@ -118,6 +118,7 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
             var paymentEntry = _context.Payments.Entry(payment);
             Console.WriteLine($"Payment state: {paymentEntry.State}");
 
+            //_context.Attach(payment);
             await _context.SaveChangesAsync(cancellationToken);
 
             return Result.Success(initializationResult.Value);

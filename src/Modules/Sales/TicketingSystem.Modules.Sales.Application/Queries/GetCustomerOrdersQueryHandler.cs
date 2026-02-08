@@ -33,6 +33,7 @@ namespace TicketingSystem.Modules.Sales.Application.Queries
 
         private static OrderResponse MapToOrderResponse(Order order)
         {
+
             return new OrderResponse(
                 Id: order.Id,
                 OrderNumber: order.OrderNumber,
@@ -63,6 +64,8 @@ namespace TicketingSystem.Modules.Sales.Application.Queries
                     PaidAt: p.PaidAt
                 )).ToList()
             );
+
+
         }
     }
 }

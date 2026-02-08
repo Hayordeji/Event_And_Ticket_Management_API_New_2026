@@ -58,6 +58,7 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
                 payment.PaymentReference
             );
 
+            _context.Attach(payment);
             // Save changes
             await _context.SaveChangesAsync(cancellationToken);
 

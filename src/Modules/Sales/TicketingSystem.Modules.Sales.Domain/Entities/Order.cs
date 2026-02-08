@@ -158,7 +158,6 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
 
             if (Status == OrderStatus.Expired)
                 return Result.Failure("Order has expired");
-
             _payments.Add(payment);
             return Result.Success();
         }
