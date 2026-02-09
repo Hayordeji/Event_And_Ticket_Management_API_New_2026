@@ -10,7 +10,6 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
     public class OrderItem : Entity
     {
         public Guid TicketTypeId { get; private set; }
-        public string EventName { get; private set; } = string.Empty;
 
         // Snapshot of ticket details at purchase time (immutability)
         public string TicketTypeName { get; private set; } = string.Empty;
@@ -26,7 +25,6 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
         private OrderItem(
             Guid eventId,
             Guid ticketTypeId,
-            string eventName,
             string ticketTypeName,
             string ticketTypeDescription,
             Money unitPrice,
@@ -34,7 +32,6 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             )
         {
             TicketTypeId = ticketTypeId;
-            EventName = eventName;
             TicketTypeName = ticketTypeName;
             TicketTypeDescription = ticketTypeDescription;
             UnitPrice = unitPrice;
@@ -48,7 +45,6 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
         public static Result<OrderItem> Create(
             Guid eventId,
             Guid ticketTypeId,
-            string eventName,
             string ticketTypeName,
             string ticketTypeDescription,
             Money unitPrice,
@@ -60,9 +56,6 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
 
             if (ticketTypeId == Guid.Empty)
                 return Result.Failure<OrderItem>("Ticket type ID is required");
-
-            if (string.IsNullOrWhiteSpace(eventName))
-                return Result.Failure<OrderItem>("Event name is required");
 
             if (string.IsNullOrWhiteSpace(ticketTypeDescription))
                 return Result.Failure<OrderItem>("Ticket description is required");
@@ -83,7 +76,6 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             var orderItem = new OrderItem(
                 eventId,
                 ticketTypeId,
-                eventName.Trim(),
                 ticketTypeName.Trim(),
                 ticketTypeDescription.Trim(),
                 unitPrice,

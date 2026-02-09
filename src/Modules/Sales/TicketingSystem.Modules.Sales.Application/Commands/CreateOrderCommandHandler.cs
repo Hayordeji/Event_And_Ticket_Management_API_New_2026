@@ -61,7 +61,19 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
                     SubmittedUnitPrice = i.UnitPrice
                 }).ToList();
 
-                // Step 3: Comprehensive validation (capacity, pricing, availability)
+                // Step 3: Get event data for snapshot
+                var eventResult = await _eventValidationService.ValidateEventAsync(request.EventId, cancellationToken);
+
+                if (!eventResult.IsValid || eventResult.EventData == null)
+                {
+                    _logger.LogError(
+                        "Event validation failed unexpectedly after order items validation for event {EventId}",
+                        request.EventId);
+
+                    return Result.Failure<string>("Event validation failed unexpectedly");
+                }
+
+                // Step 4: Comprehensive validation (capacity, pricing, availability)
                 var (isValid, errors) = await _eventValidationService.ValidateOrderItemsAsync(
                     request.EventId,
                     orderItems,
@@ -77,17 +89,7 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
                 }
 
 
-                // Step 4: Get event data for snapshot
-                var eventResult = await _eventValidationService.ValidateEventAsync(request.EventId, cancellationToken);
-
-                if (!eventResult.IsValid || eventResult.EventData == null)
-                {
-                    _logger.LogError(
-                        "Event validation failed unexpectedly after order items validation for event {EventId}",
-                        request.EventId);
-
-                    return Result.Failure<string>("Event validation failed unexpectedly");
-                }
+                
 
                 var eventData = eventResult.EventData;
 
@@ -99,16 +101,16 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
 
                 var ticketTypeIds = request.Items.Select(i => i.TicketTypeId).ToList();
 
-                var validationResult = await _eventValidationService.ValidateEventAndTicketTypesAsync(
-                    request.EventId,
-                    ticketTypeIds,
-                    cancellationToken);
+                //var validationResult = await _eventValidationService.ValidateEventAndTicketTypesAsync(
+                //    request.EventId,
+                //    ticketTypeIds,
+                //    cancellationToken);
 
-                if (!validationResult.IsSuccess)
-                    return Result.Failure<string>(validationResult.Error);
+                //if (!validationResult.IsSuccess)
+                //    return Result.Failure<string>(validationResult.Error);
 
-                if (!validationResult.Value.IsValid)
-                    return Result.Failure<string>(validationResult.Value.ErrorMessage!);
+                //if (!validationResult.Value.IsValid)
+                //    return Result.Failure<string>(validationResult.Value.ErrorMessage!);
 
                 
 
@@ -145,7 +147,6 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
                     var newItem = OrderItem.Create(
                         request.EventId,
                         item.TicketTypeId,
-                        request.EventName,
                         ticketType.Name,
                         ticketType.Description,
                         unitPrice.Value,

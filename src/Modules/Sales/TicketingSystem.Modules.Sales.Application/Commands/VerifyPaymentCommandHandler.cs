@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TicketingSystem.Modules.Sales.Application.Helpers;
 using TicketingSystem.Modules.Sales.Application.Services;
 using TicketingSystem.Modules.Sales.Domain.Enums;
 using TicketingSystem.Modules.Sales.Infrastructure.Persistence;
@@ -14,26 +16,35 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
     {
         private readonly SalesDbContext _context;
         private readonly IEnumerable<IPaymentGatewayService> _gatewayServices;
+        private readonly ILogger<VerifyPaymentCommandHandler> _logger;
 
         public VerifyPaymentCommandHandler(
             SalesDbContext context,
-            IEnumerable<IPaymentGatewayService> gatewayServices)
+            IEnumerable<IPaymentGatewayService> gatewayServices,
+            ILogger<VerifyPaymentCommandHandler> logger)
         {
             _context = context;
             _gatewayServices = gatewayServices;
+            _logger = logger;
         }
 
         public async Task<Result> Handle(
             VerifyPaymentCommand request,
             CancellationToken cancellationToken)
         {
+            var maskedRef = Helper.MaskRefNumber(request.PaymentReference);
+            _logger.LogInformation("Verifying payment of reference {refNum}", maskedRef);
+
             // IDEMPOTENCY: Check if payment already verified
             var existingPayment = await _context.Payments
                 .Include(p => p.Order)
                 .FirstOrDefaultAsync(p => p.PaymentReference == request.PaymentReference, cancellationToken);
 
             if (existingPayment == null)
+            {
+                _logger.LogWarning("Payment with reference {refNum} was not found", maskedRef);
                 return Result.Failure("Payment not found.");
+            }
 
             // IDEMPOTENCY: If already completed, return success
             if (existingPayment.Status == PaymentStatus.Successful)
@@ -44,7 +55,11 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
                 .FirstOrDefault(g => g.GatewayName.Equals(request.Gateway, StringComparison.OrdinalIgnoreCase));
 
             if (gatewayService == null)
+            {
+                _logger.LogWarning("Payment gateway {gateway} is not supported.",request.Gateway);
+
                 return Result.Failure($"Payment gateway '{request.Gateway}' is not supported.");
+            }
 
             // Verify payment with gateway (double-check, don't trust webhook blindly)
             var verificationResult = await gatewayService.VerifyPaymentAsync(
@@ -71,7 +86,11 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
                         cancellationToken);
 
                 if (existingPayment == null)
+                {
+                    _logger.LogWarning("Payment with ref is not found in the database.", request.PaymentReference);
+
                     return Result.Failure("Payment not found.");
+                }
 
                 if (existingPayment.Status == PaymentStatus.Successful)
                     return Result.Success();
@@ -108,57 +127,7 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
             });
 
 
-            //try
-            //{
-            //    await strategy.ExecuteAsync(async () =>
-            //    {
-            //        var order = existingPayment.Order;
-
-            //        // IDEMPOTENCY: Check order status before updating
-            //        if (order.Status == OrderStatus.Paid)
-            //        {
-            //            await transaction.CommitAsync(cancellationToken);
-            //            return Result.Success(); // Already paid (idempotent)
-            //        }
-
-            //        if (verification.IsSuccessful)
-            //        {
-            //            // Mark payment as completed
-            //            existingPayment.MarkAsCompleted(
-            //                request.PaymentReference,
-            //                verification.RawResponse
-            //            );
-
-            //            // Mark order as paid (raises OrderPaidEvent)
-            //            order.MarkAsPaid(
-            //                request.PaymentReference
-            //            //verification.RawResponse
-            //            );
-            //        }
-            //        else
-            //        {
-            //            // Mark payment as failed
-            //            existingPayment.MarkAsFailed(
-            //                "Payment verification failed",
-            //                verification.RawResponse
-            //            );
-            //        }
-
-            //        await _context.SaveChangesAsync(cancellationToken);
-            //        await transaction.CommitAsync(cancellationToken);
-
-                    
-
-            //    });
-            //    return verification.IsSuccessful
-            //            ? Result.Success()
-            //            : Result.Failure("Payment verification failed.");
-            //}
-            //catch (Exception ex)
-            //{
-            //    await transaction.RollbackAsync(cancellationToken);
-            //    throw;
-            //}
+           
         }
     }
 }

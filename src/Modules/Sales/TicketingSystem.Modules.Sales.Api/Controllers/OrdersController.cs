@@ -40,12 +40,8 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
             var command = new CreateOrderCommand(
                 customer.CustomerId,
                 request.EventId,
-                request.EventName,
                 customer.Email,
                 customer.Name,
-                request.eventStartDate,
-                request.VenueName,
-                request.VenueCity,
                 request.Items
             );
 

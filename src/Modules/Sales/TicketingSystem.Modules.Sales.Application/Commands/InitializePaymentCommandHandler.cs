@@ -54,8 +54,7 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
             // Validate order can accept payment
             if (order.Status != OrderStatus.Pending)
             {
-                _logger.LogWarning("Order {OrderNumber} not found", request.OrderNumber);
-
+                _logger.LogWarning("Cannot initialize payment for order {OrderNumber}. Order status is {Status}",order.OrderNumber, order.Status);
                 return Result.Failure<PaymentInitializationResponse>(
                     $"Cannot initialize payment for order with status: {order.Status}");
             }
@@ -78,6 +77,11 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
             {
                 var gatewayResponseObject = JsonSerializer.Deserialize<PaymentInitializationResponse>(existingPendingPayment.GatewayResponse);
                 // Return existing payment session (idempotent)
+
+                _logger.LogInformation(
+                  "Returning existing payment session for order {OrderNumber}. PaymentReference={PaymentReference}",
+                  order.OrderNumber, existingPendingPayment.PaymentReference);
+
                 return Result.Success(new PaymentInitializationResponse(
                     PaymentReference: existingPendingPayment.PaymentReference,
                     AuthorizationUrl: gatewayResponseObject.AuthorizationUrl,
@@ -106,6 +110,11 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
             if (!initializationResult.IsSuccess)
                 return Result.Failure<PaymentInitializationResponse>(initializationResult.Error);
 
+            _logger.LogInformation(
+               "Payment gateway initialization successful. PaymentReference={PaymentReference}",
+               initializationResult.Value.PaymentReference);
+
+
             string gatewayResponse = JsonSerializer.Serialize(initializationResult.Value);
             // Create pending payment record
             var payment = Payment.Create(
@@ -120,19 +129,16 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
             // Use reflection to set PaymentReference (since it's private set)
             var paymentReferenceProperty = typeof(Payment).GetProperty(nameof(Payment.PaymentReference));
             var addResult = order.AddPayment(payment);
-
+            _logger.LogInformation(
+                "Payment record created for order {OrderNumber}. PaymentId={PaymentId}, PaymentReference={PaymentReference}",
+                order.OrderNumber, payment.Id, payment.PaymentReference);
 
             if (!addResult.IsSuccess)
                 return Result.Failure<PaymentInitializationResponse>(addResult.Error);
 
-            // Update the last payment's reference
-            var lastPayment = order.Payments.OrderByDescending(p => p.CreatedAt).First();
-
-            var paymentEntry = _context.Payments.Entry(payment);
-            Console.WriteLine($"Payment state: {paymentEntry.State}");
-
             //_context.Attach(payment);
             await _context.SaveChangesAsync(cancellationToken);
+
 
             return Result.Success(initializationResult.Value);
         }

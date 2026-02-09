@@ -12,7 +12,7 @@ using TicketingSystem.Modules.Sales.Infrastructure.Persistence;
 namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
 {
     [DbContext(typeof(SalesDbContext))]
-    [Migration("20260209065607_EventAndTicketSnapshot")]
+    [Migration("20260209073458_EventAndTicketSnapshot")]
     partial class EventAndTicketSnapshot
     {
         /// <inheritdoc />
@@ -157,10 +157,6 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
 
                     b.Property<Guid>("EventId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("EventName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()

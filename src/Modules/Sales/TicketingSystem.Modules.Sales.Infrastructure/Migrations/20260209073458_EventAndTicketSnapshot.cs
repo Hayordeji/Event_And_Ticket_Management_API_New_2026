@@ -12,6 +12,11 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
+                name: "EventName",
+                schema: "sales",
+                table: "OrderItems");
+
+            migrationBuilder.DropColumn(
                 name: "EventStartDate",
                 schema: "sales",
                 table: "OrderItems");
@@ -159,6 +164,14 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Migrations
                 oldClrType: typeof(string),
                 oldType: "nvarchar(200)",
                 oldMaxLength: 200);
+
+            migrationBuilder.AddColumn<string>(
+                name: "EventName",
+                schema: "sales",
+                table: "OrderItems",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "EventStartDate",
