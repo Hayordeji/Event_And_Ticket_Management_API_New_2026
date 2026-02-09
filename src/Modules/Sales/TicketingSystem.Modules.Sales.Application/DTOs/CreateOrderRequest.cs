@@ -19,6 +19,7 @@ namespace TicketingSystem.Modules.Sales.Application.DTOs
     public record OrderItemDto(
         Guid TicketTypeId,
         string TicketTypeName,
+        string TicketTypeDescription,
         int Quantity,
         decimal UnitPrice
     );

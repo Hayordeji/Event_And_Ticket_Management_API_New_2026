@@ -23,7 +23,14 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Persistence.Configuration
             builder.Property(i => i.TicketTypeId)
                 .IsRequired();
 
-           
+            builder.Property(i => i.TicketTypeName)
+          .IsRequired()
+          .HasMaxLength(200);
+
+            builder.Property(i => i.TicketTypeDescription)
+                .HasMaxLength(1000);
+
+
             builder.HasIndex(i => i.TicketTypeId);
 
             builder.Property(i => i.Quantity)

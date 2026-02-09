@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -6,11 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TicketingSystem.Modules.Sales.Application.Commands;
+using TicketingSystem.Modules.Sales.Application.DTOs;
 using TicketingSystem.Modules.Sales.Application.Services;
 using TicketingSystem.Modules.Sales.Domain.Entities;
 using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Flutterwave;
 using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Paystack;
 using TicketingSystem.Modules.Sales.Infrastructure.Persistence;
+using TicketingSystem.SharedKernel.ApiResponses;
 
 namespace TicketingSystem.Modules.Sales.Api.Controllers
 {
@@ -35,6 +38,32 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
             _logger = logger;
         }
 
+
+
+        /// <summary>
+        /// Process payment for an order
+        /// </summary>
+        [HttpGet("verify-payment")]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> VerifyPayment(
+            [FromQuery] VerifyPaymentRequest request,
+            CancellationToken cancellationToken)
+        {
+            var command = new VerifyPaymentCommand(
+                request.trxref,
+                "Paystack"
+            );
+
+            var result = await _mediator.Send(command, cancellationToken);
+
+            if (!result.IsSuccess)
+                return BadRequest(ApiResponse.ErrorResponse(result.Error));
+
+            return Ok(ApiResponse.SuccessResponse("Payment processed successfully."));
+        }
+
+
         /// <summary>
         /// Paystack webhook endpoint
         /// </summary>
@@ -44,7 +73,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
             try
             {
                 // Get request body for signature verification
-                Request.Body.Position = 0;
+                //Request.Body.Position = 0;
                 using var reader = new StreamReader(Request.Body, Encoding.UTF8);
                 var requestBody = await reader.ReadToEndAsync();
 

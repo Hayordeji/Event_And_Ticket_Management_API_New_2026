@@ -22,6 +22,15 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
         public string CustomerName { get; private set; } = string.Empty;
         public string? CustomerPhone { get; private set; }
 
+
+        public string EventName { get; private set; } = string.Empty;
+        public string EventDescription { get; private set; } = string.Empty;
+        public DateTime EventStartDate { get; private set; }
+        public DateTime EventEndDate { get; private set; }
+        public string VenueName { get; private set; } = string.Empty;
+        public string VenueAddress { get; private set; } = string.Empty;
+        public string VenueCity { get; private set; } = string.Empty;
+
         public OrderStatus Status { get; private set; }
         public Money TotalAmount { get; private set; } = null!;
         public Money PlatformFee { get; private set; } = null!;
@@ -47,7 +56,14 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             Guid eventId,
             string customerEmail,
             string customerName,
-            string? customerPhone)
+            string? customerPhone,
+            string eventName,
+            string eventDescription,
+            DateTime eventStartDate,
+            DateTime eventEndDate,
+            string venueName,
+            string venueAddress,
+            string venueCity)
         {
             Id = Guid.NewGuid();
             OrderNumber = OrderNumber.Generate();
@@ -60,6 +76,13 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             ExpiresAt = DateTime.UtcNow.AddMinutes(30); // 30 min to complete payment
             CreatedAt = DateTime.UtcNow;
             CreatedBy = customerId;
+            EventName = eventName;
+            EventDescription = eventDescription;
+            EventStartDate = eventStartDate;
+            EventEndDate = eventEndDate;
+            VenueName = venueName;
+            VenueAddress = venueAddress;
+            VenueCity = venueCity;
         }
 
         /// <summary>
@@ -70,6 +93,13 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             Guid eventId,
             string customerEmail,
             string customerName,
+            string eventName,
+            string eventDescription,
+            DateTime eventStartDate,
+            DateTime eventEndDate,
+            string venueName,
+            string venueAddress,
+            string venueCity,
             string? customerPhone = null)
         {
             // Validation
@@ -89,7 +119,9 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             if (string.IsNullOrWhiteSpace(customerName))
                 return Result.Failure<Order>("Customer name is required");
 
-            var order = new Order(customerId,eventId, customerEmail.Trim(), customerName.Trim(), customerPhone?.Trim());
+            var order = new Order(customerId,eventId, customerEmail.Trim(), customerName.Trim(), 
+                customerPhone?.Trim(),eventName.Trim(),eventDescription.Trim()
+                ,eventStartDate,eventEndDate,venueName,venueCity,venueAddress);
 
             order.RaiseDomainEvent(new OrderCreatedEvent(
                 order.Id,

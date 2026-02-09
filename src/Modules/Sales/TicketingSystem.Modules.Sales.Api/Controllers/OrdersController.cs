@@ -119,6 +119,8 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
             return Ok(ApiResponse.SuccessResponse("Payment processed successfully."));
         }
 
+
+       
         /// <summary>
         /// Cancel an order
         /// </summary>
@@ -181,7 +183,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
             // For now, using a placeholder
             var customerEmail = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value ?? "customer@example.com";
 
-            var callbackUrl = $"{Request.Scheme}://{Request.Host}/payment-callback";
+            var callbackUrl = $"{Request.Scheme}://{Request.Host}/api/webhooks/verify-payment";
 
             var command = new InitializePaymentCommand(
                 orderNumber,

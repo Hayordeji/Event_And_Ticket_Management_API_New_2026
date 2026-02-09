@@ -38,10 +38,11 @@ namespace TicketingSystem.Modules.Sales.Api
 
             // Repositories
             services.AddScoped<IOrderRepository, OrderRepository>();
-            
+            services.AddScoped<IEventValidationService, EventValidationService>();
 
-            
-            
+
+
+
 
             // MediatR (Commands & Queries)
             services.AddMediatR(cfg =>

@@ -49,16 +49,28 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
 
             var payment = Payment.Create(order.Id, order.GrandTotal.Amount, order.GrandTotal.Currency, request.PaymentMethod,request.PaymentReference, request.GatewayResponse);
             // Add payment record
-            order.AddPayment(
+            var isPaymentAdded = order.AddPayment(
                payment
             );
 
+            if (!isPaymentAdded.IsSuccess)
+            {
+                return Result.Failure(isPaymentAdded.Error);
+
+            }
+
             // Mark order as paid
-            order.MarkAsPaid(
+            var isMarkedAsPaid = order.MarkAsPaid(
                 payment.PaymentReference
             );
 
-            _context.Attach(payment);
+            if (!isMarkedAsPaid.IsSuccess)
+            {
+                return Result.Failure(isMarkedAsPaid.Error);
+
+            }
+
+            //_context.Attach(payment);
             // Save changes
             await _context.SaveChangesAsync(cancellationToken);
 

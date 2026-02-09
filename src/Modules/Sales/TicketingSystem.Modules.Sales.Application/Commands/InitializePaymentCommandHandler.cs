@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,33 +20,45 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
         private readonly IOrderRepository _orderRepository;
         private readonly SalesDbContext _context;
         private readonly IEnumerable<IPaymentGatewayService> _gatewayServices;
+        private readonly ILogger<InitializePaymentCommandHandler> _logger;
 
         public InitializePaymentCommandHandler(
             IOrderRepository orderRepository,
             SalesDbContext context,
-            IEnumerable<IPaymentGatewayService> gatewayServices)
+            IEnumerable<IPaymentGatewayService> gatewayServices,
+            ILogger<InitializePaymentCommandHandler> logger)
         {
             _orderRepository = orderRepository;
             _context = context;
             _gatewayServices = gatewayServices;
+            _logger = logger;
         }
 
         public async Task<Result<PaymentInitializationResponse>> Handle(
             InitializePaymentCommand request,
             CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Initializing payment for order {OrderNumber}",request.OrderNumber);
+
             // Get order with items and payments
             var order = await _orderRepository.GetByOrderNumberAsync(
                 request.OrderNumber,
                 cancellationToken);
 
             if (order == null)
+            {
+                _logger.LogWarning("Order {OrderNumber} not found", request.OrderNumber);
                 throw new NotFoundException(nameof(Order), request.OrderNumber);
+            }
 
             // Validate order can accept payment
             if (order.Status != OrderStatus.Pending)
+            {
+                _logger.LogWarning("Order {OrderNumber} not found", request.OrderNumber);
+
                 return Result.Failure<PaymentInitializationResponse>(
                     $"Cannot initialize payment for order with status: {order.Status}");
+            }
 
             // Check expiration
             if ( order.ExpiresAt < DateTime.UtcNow)

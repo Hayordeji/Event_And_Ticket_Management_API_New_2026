@@ -34,7 +34,29 @@ namespace TicketingSystem.Modules.Sales.Infrastructure.Persistence.Configuration
                 .HasConversion<string>()
                 .HasMaxLength(20);
 
-            
+            // Event Snapshot Fields (Immutable historical data)
+            builder.Property(o => o.EventName)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            builder.Property(o => o.EventDescription)
+                .HasMaxLength(2000);
+
+            builder.Property(o => o.EventStartDate)
+                .IsRequired();
+
+            builder.Property(o => o.EventEndDate)
+                .IsRequired();
+
+            builder.Property(o => o.VenueName)
+                .HasMaxLength(200);
+
+            builder.Property(o => o.VenueAddress)
+                .HasMaxLength(500);
+
+            builder.Property(o => o.VenueCity)
+                .HasMaxLength(100);
+
 
             builder.OwnsOne(o => o.TotalAmount, priceBuilder =>
             {

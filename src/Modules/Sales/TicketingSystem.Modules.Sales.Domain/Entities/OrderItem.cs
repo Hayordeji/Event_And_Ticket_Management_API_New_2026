@@ -11,15 +11,14 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
     {
         public Guid TicketTypeId { get; private set; }
         public string EventName { get; private set; } = string.Empty;
+
+        // Snapshot of ticket details at purchase time (immutability)
         public string TicketTypeName { get; private set; } = string.Empty;
+        public string TicketTypeDescription { get; private set; } = string.Empty;
         public Money UnitPrice { get; private set; } = null!;
         public int Quantity { get; private set; }
         public Money Subtotal { get; private set; } = null!;
 
-        // Snapshot of event/ticket details at purchase time (immutability)
-        public DateTime EventStartDate { get; private set; }
-        public string VenueName { get; private set; } = string.Empty;
-        public string VenueCity { get; private set; } = string.Empty;
 
         // Private constructor for EF Core
         private OrderItem() { }
@@ -29,21 +28,18 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             Guid ticketTypeId,
             string eventName,
             string ticketTypeName,
+            string ticketTypeDescription,
             Money unitPrice,
-            int quantity,
-            DateTime eventStartDate,
-            string venueName,
-            string venueCity)
+            int quantity
+            )
         {
             TicketTypeId = ticketTypeId;
             EventName = eventName;
             TicketTypeName = ticketTypeName;
+            TicketTypeDescription = ticketTypeDescription;
             UnitPrice = unitPrice;
             Quantity = quantity;
             Subtotal = Money.Create(unitPrice.Amount * quantity, unitPrice.Currency).Value;
-            EventStartDate = eventStartDate;
-            VenueName = venueName;
-            VenueCity = venueCity;
         }
 
         /// <summary>
@@ -54,11 +50,9 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             Guid ticketTypeId,
             string eventName,
             string ticketTypeName,
+            string ticketTypeDescription,
             Money unitPrice,
-            int quantity,
-            DateTime eventStartDate,
-            string venueName,
-            string venueCity)
+            int quantity)
         {
             // Validation
             if (eventId == Guid.Empty)
@@ -70,6 +64,10 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             if (string.IsNullOrWhiteSpace(eventName))
                 return Result.Failure<OrderItem>("Event name is required");
 
+            if (string.IsNullOrWhiteSpace(ticketTypeDescription))
+                return Result.Failure<OrderItem>("Ticket description is required");
+
+
             if (string.IsNullOrWhiteSpace(ticketTypeName))
                 return Result.Failure<OrderItem>("Ticket type name is required");
 
@@ -80,27 +78,17 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
                 return Result.Failure<OrderItem>("Quantity must be greater than zero");
 
             if (quantity > 100)
-                return Result.Failure<OrderItem>("Cannot purchase more than 100 tickets in a single order item");
-
-            if (eventStartDate < DateTime.UtcNow)
-                return Result.Failure<OrderItem>("Cannot purchase tickets for past events");
-
-            if (string.IsNullOrWhiteSpace(venueName))
-                return Result.Failure<OrderItem>("Venue name is required");
-
-            if (string.IsNullOrWhiteSpace(venueCity))
-                return Result.Failure<OrderItem>("Venue city is required");
+                return Result.Failure<OrderItem>("Cannot purchase more than 100 tickets in a single order item");   
 
             var orderItem = new OrderItem(
                 eventId,
                 ticketTypeId,
                 eventName.Trim(),
                 ticketTypeName.Trim(),
+                ticketTypeDescription.Trim(),
                 unitPrice,
-                quantity,
-                eventStartDate,
-                venueName.Trim(),
-                venueCity.Trim());
+                quantity
+            );
 
             return Result.Success(orderItem);
         }
