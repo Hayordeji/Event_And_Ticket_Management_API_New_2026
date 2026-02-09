@@ -6,4 +6,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Catalog\TicketingSystem.Modules.Catalog.Domain\TicketingSystem.Modules.Catalog.Domain.csproj" />
+    <ProjectReference Include="..\..\Catalog\TicketingSystem.Modules.Catalog.Infrastructure\TicketingSystem.Modules.Catalog.Infrastructure.csproj" />
+    <ProjectReference Include="..\TicketingSystem.Modules.Sales.Domain\TicketingSystem.Modules.Sales.Domain.csproj" />
+    <ProjectReference Include="..\TicketingSystem.Modules.Sales.Infrastructure\TicketingSystem.Modules.Sales.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

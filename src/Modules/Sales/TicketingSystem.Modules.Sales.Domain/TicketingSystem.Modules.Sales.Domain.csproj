@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\TicketingSystem.SharedKernel\TicketingSystem.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\Finance\TicketingSystem.Modules.Finance.Domain\TicketingSystem.Modules.Finance.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

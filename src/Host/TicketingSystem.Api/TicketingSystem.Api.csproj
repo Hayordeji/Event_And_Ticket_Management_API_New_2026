@@ -29,9 +29,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Modules\Catalog\TicketingSystem.Modules.Catalog.Api\TicketingSystem.Modules.Catalog.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Catalog\TicketingSystem.Modules.Catalog.Application\TicketingSystem.Modules.Catalog.Application.csproj" />
+    <ProjectReference Include="..\..\Modules\Catalog\TicketingSystem.Modules.Catalog.Infrastructure\TicketingSystem.Modules.Catalog.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Modules\Identity\TicketingSystem.Modules.Identity.Infrastructure\TicketingSystem.Modules.Identity.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Modules\Identity\TicketingSystem.Modules.Identity.Api\TicketingSystem.Modules.Identity.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Finance\TicketingSystem.Modules.Finance.Api\TicketingSystem.Modules.Finance.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Sales\TicketingSystem.Modules.Sales.Api\TicketingSystem.Modules.Sales.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Sales\TicketingSystem.Modules.Sales.Infrastructure\TicketingSystem.Modules.Sales.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

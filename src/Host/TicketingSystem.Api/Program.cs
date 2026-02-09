@@ -1,14 +1,25 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Events;
 using System.Text;
 using TicketingSystem.Api.Middleware;
+using TicketingSystem.Modules.Catalog.Api;
+using TicketingSystem.Modules.Catalog.Application;
+using TicketingSystem.Modules.Catalog.Infrastructure;
+using TicketingSystem.Modules.Catalog.Infrastructure.Persistence;
 using TicketingSystem.Modules.Finance.Api;
 using TicketingSystem.Modules.Finance.Infrastructure.Persistence;
 using TicketingSystem.Modules.Identity.Api;
 using TicketingSystem.Modules.Identity.Infrastructure.Persistence;
+using TicketingSystem.Modules.Sales.Api;
+using TicketingSystem.Modules.Sales.Application.Services;
+using TicketingSystem.Modules.Sales.Application.Services.Flutterwave;
+using TicketingSystem.Modules.Sales.Application.Services.Paystack;
+using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Flutterwave;
+using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Paystack;
 using static System.Net.Mime.MediaTypeNames;
 
 Log.Logger = new LoggerConfiguration()
@@ -61,6 +72,8 @@ try
                     errorNumbersToAdd: null);
             }));
 
+   
+
     builder.Services.AddSwaggerGen(options =>
     {
         options.SwaggerDoc("v1", new()
@@ -95,64 +108,24 @@ try
         });
     });
 
+    //REGISTER MODULES
     builder.Services.AddIdentityModule(builder.Configuration);
     builder.Services.AddFinanceModule(builder.Configuration);
+    builder.Services.AddCatalogModule(builder.Configuration);
+    builder.Services.AddSalesModule(builder.Configuration);
+    builder.Services.AddIdentityModule(builder.Configuration);
+    builder.Services.AddHttpClient<IPaymentGatewayService, PaystackService>();
+    builder.Services.AddHttpClient<IPaymentGatewayService, FlutterwaveService>();
 
-    //builder.Services.AddDbContext<IdentityDbContext>(options =>
-    //   options.UseSqlServer(
-    //       builder.Configuration.GetConnectionString("FinanceDb"),
-    //       sqlOptions =>
-    //       {
-    //           sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName);
-    //           sqlOptions.EnableRetryOnFailure(
-    //               maxRetryCount: 3,
-    //               maxRetryDelay: TimeSpan.FromSeconds(5),
-    //               errorNumbersToAdd: null);
-    //       }));
-    //builder.Services.AddDbContext<IdentityDbContext>(options =>
-    //   options.UseSqlServer(
-    //       builder.Configuration.GetConnectionString("CatalogDb"),
-    //       sqlOptions =>
-    //       {
-    //           sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName);
-    //           sqlOptions.EnableRetryOnFailure(
-    //               maxRetryCount: 3,
-    //               maxRetryDelay: TimeSpan.FromSeconds(5),
-    //               errorNumbersToAdd: null);
-    //       }));
-    //builder.Services.AddDbContext<IdentityDbContext>(options =>
-    //   options.UseSqlServer(
-    //       builder.Configuration.GetConnectionString("SalesDb"),
-    //       sqlOptions =>
-    //       {
-    //           sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName);
-    //           sqlOptions.EnableRetryOnFailure(
-    //               maxRetryCount: 3,
-    //               maxRetryDelay: TimeSpan.FromSeconds(5),
-    //               errorNumbersToAdd: null);
-    //       }));
-    //builder.Services.AddDbContext<IdentityDbContext>(options =>
-    //   options.UseSqlServer(
-    //       builder.Configuration.GetConnectionString("FulfillmentDb"),
-    //       sqlOptions =>
-    //       {
-    //           sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName);
-    //           sqlOptions.EnableRetryOnFailure(
-    //               maxRetryCount: 3,
-    //               maxRetryDelay: TimeSpan.FromSeconds(5),
-    //               errorNumbersToAdd: null);
-    //       }));
-    //builder.Services.AddDbContext<IdentityDbContext>(options =>
-    //   options.UseSqlServer(
-    //       builder.Configuration.GetConnectionString("AccessDb"),
-    //       sqlOptions =>
-    //       {
-    //           sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName);
-    //           sqlOptions.EnableRetryOnFailure(
-    //               maxRetryCount: 3,
-    //               maxRetryDelay: TimeSpan.FromSeconds(5),
-    //               errorNumbersToAdd: null);
-    //       }));
+    builder.Services.Configure<PaystackConfig>(
+    builder.Configuration.GetSection("PaymentGateways:Paystack"));
+    builder.Services.AddOptions<PaystackConfig>()
+    .ValidateOnStart();
+    builder.Services.Configure<FlutterwaveConfig>(
+    builder.Configuration.GetSection("PaymentGateways:Flutterwave"));
+    builder.Services.AddOptions<FlutterwaveConfig>()
+    .ValidateOnStart();
+   
 
     //CORS CONFIG
     builder.Services.AddCors(options =>
@@ -204,7 +177,6 @@ try
             };
         });
     builder.Services.AddAuthorization();
-    builder.Services.AddIdentityModule(builder.Configuration);
 
 
 
@@ -222,11 +194,7 @@ try
     {
         app.MapOpenApi();
         app.UseSwagger();
-        app.UseSwaggerUI(options =>
-        {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Ticketing System API v1");
-            options.RoutePrefix = string.Empty; // Swagger at root URL
-        });
+        app.UseSwaggerUI();
     }
 
     app.UseHttpsRedirection();

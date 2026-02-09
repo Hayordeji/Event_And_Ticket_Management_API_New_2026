@@ -48,7 +48,7 @@ namespace TicketingSystem.SharedKernel
 
         protected Entity()
         {
-            Id = Guid.NewGuid();
+            //Id = Guid.NewGuid();
             CreatedAt = DateTime.UtcNow;
             IsDeleted = false;
         }
