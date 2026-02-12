@@ -220,6 +220,7 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
 
             RaiseDomainEvent(new OrderPaidEvent(
                 Id,
+                EventId,
                 OrderNumber.Value,
                 GrandTotal.Amount,
                 GrandTotal.Currency,

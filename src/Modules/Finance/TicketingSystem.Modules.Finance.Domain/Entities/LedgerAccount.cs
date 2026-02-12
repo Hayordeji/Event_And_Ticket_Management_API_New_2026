@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using TicketingSystem.Modules.Finance.Domain.Enums;
@@ -49,7 +50,8 @@ namespace TicketingSystem.Modules.Finance.Domain.Entities
             string accountCode,
             AccountType accountType,
             string currency = "NGN",
-            string? description = null)
+            string? description = null
+            )
         {
             if (string.IsNullOrWhiteSpace(accountName))
                 return Result.Failure<LedgerAccount>("Account name is required");
@@ -70,7 +72,9 @@ namespace TicketingSystem.Modules.Finance.Domain.Entities
                 accountCode.Trim().ToUpperInvariant(),
                 accountType,
                 initialBalance,
-                description?.Trim() ?? string.Empty);
+                description?.Trim() ?? string.Empty
+                );
+            
 
             return Result.Success(account);
         }

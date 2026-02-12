@@ -14,5 +14,6 @@ namespace TicketingSystem.Modules.Finance.Application.Commands
     string ReferenceType,
     Guid ReferenceId,
     string Description,
+    DateTime OccurredAt,
     List<TransactionEntryRequest> Entries) : IRequest<Result<TransactionResponse>>;
 }

@@ -9,6 +9,7 @@ using TicketingSystem.Modules.Sales.Application.Commands;
 using TicketingSystem.Modules.Sales.Application.Services;
 using TicketingSystem.Modules.Sales.Application.Services.Flutterwave;
 using TicketingSystem.Modules.Sales.Application.Services.Paystack;
+using TicketingSystem.Modules.Sales.Domain.Events;
 using TicketingSystem.Modules.Sales.Domain.Repositories;
 using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Flutterwave;
 using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Paystack;
@@ -43,14 +44,14 @@ namespace TicketingSystem.Modules.Sales.Api
 
 
 
-
             // MediatR (Commands & Queries)
             services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssembly(typeof(CreateOrderCommand).Assembly);
+                cfg.RegisterServicesFromAssemblyContaining<OrderPaidEvent>();
 
-                //cfg.RegisterServicesFromAssembly(
-                //    Assembly.Load("TicketingSystem.Modules.Sales.Application"));
+                cfg.RegisterServicesFromAssembly(
+                    Assembly.Load("TicketingSystem.Modules.Sales.Application"));
             });
 
             return services;

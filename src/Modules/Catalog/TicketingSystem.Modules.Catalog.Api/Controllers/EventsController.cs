@@ -127,6 +127,53 @@ namespace TicketingSystem.Modules.Catalog.Api.Controllers
         }
 
         /// <summary>
+        /// Publish an event
+        /// </summary>
+        /// <param name="request">Event publish details</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Created event ID</returns>
+        [HttpPut("publish/{id:guid}")]
+        public async Task<IActionResult> PublishEvent(
+            Guid id,
+            CancellationToken cancellationToken = default)
+        {
+            if (!Guid.TryParse(User.FindFirst("userId")?.Value, out var hostId))
+            {
+                return Unauthorized();
+            }
+
+            var command = new PublishEventCommand(id, hostId);
+
+            try
+            {
+                var result = await _mediator.Send(command, cancellationToken);
+
+                if (result.IsFailure)
+                    return BadRequest(ApiResponse<object>.ErrorResponse(
+                        result.Error,
+                        traceId: HttpContext.TraceIdentifier));
+
+                _logger.LogInformation("Event published successfully: {EventId} by host {HostId}", id, hostId);
+
+                return Ok(result);
+            }
+            catch (ConflictException ex)
+            {
+                _logger.LogWarning("Conflict creating event: {Message}", ex.Message);
+                return BadRequest(ApiResponse<object>.ErrorResponse(
+                    ex.Message,
+                    traceId: HttpContext.TraceIdentifier));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating event");
+                return BadRequest(ApiResponse<object>.ErrorResponse(
+                    "An error occurred while creating the event",
+                    traceId: HttpContext.TraceIdentifier));
+            }
+        }
+
+        /// <summary>
         /// Update an event
         /// </summary>
         /// <param name="id">Event ID</param>

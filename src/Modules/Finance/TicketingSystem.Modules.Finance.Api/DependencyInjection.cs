@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using TicketingSystem.Modules.Finance.Application.Services;
 using TicketingSystem.Modules.Finance.Domain.Repositories;
 using TicketingSystem.Modules.Finance.Infrastructure.Persistence;
 using TicketingSystem.Modules.Finance.Infrastructure.Persistence.Repositories;
@@ -35,10 +36,14 @@ namespace TicketingSystem.Modules.Finance.Api
             services.AddScoped<ILedgerAccountRepository, LedgerAccountRepository>();
             services.AddScoped<ILedgerTransactionRepository, LedgerTransactionRepository>();
             services.AddScoped<IUnitOfWork, FinanceUnitOfWork>();
+            services.AddScoped<IHostAccountService, HostAccountService>();
+            services.AddScoped<ICatalogQueryService, CatalogQueryService>();
+
 
             // MediatR (Commands & Queries)
             services.AddMediatR(cfg =>
             {
+                cfg.RegisterServicesFromAssembly(typeof(Application.Commands.RecordTransactionCommand).Assembly);
                 cfg.RegisterServicesFromAssembly(
                     Assembly.Load("TicketingSystem.Modules.Finance.Application"));
             });

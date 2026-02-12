@@ -15,6 +15,7 @@ public record CreateLedgerAccountCommand(
     string AccountName,
     string AccountCode,
     AccountType AccountType,
+    Guid userId,
     string Currency = "NGN",
     string? Description = null) : IRequest<Result<LedgerAccountResponse>>;
 }

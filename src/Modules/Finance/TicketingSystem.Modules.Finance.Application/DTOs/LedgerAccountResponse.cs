@@ -14,5 +14,6 @@ namespace TicketingSystem.Modules.Finance.Application.DTOs
     string Currency,
     string Description,
     bool IsActive,
-    DateTime CreatedAt);
+    DateTime CreatedAt
+    );
 }

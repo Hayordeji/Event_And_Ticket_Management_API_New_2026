@@ -10,6 +10,8 @@ namespace TicketingSystem.Modules.Catalog.Domain.Events
 /// </summary>
 public sealed record EventPublishedEvent(
     Guid EventId,
+    Guid HostId,
+    string EventName,
     DateTime PublishedAt,
     DateTime OccurredAt) : DomainEvent();
 }
