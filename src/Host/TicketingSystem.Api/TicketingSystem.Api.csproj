@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Modules\Access\TicketingSystem.Modules.Access.Api\TicketingSystem.Modules.Access.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Catalog\TicketingSystem.Modules.Catalog.Api\TicketingSystem.Modules.Catalog.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Catalog\TicketingSystem.Modules.Catalog.Application\TicketingSystem.Modules.Catalog.Application.csproj" />
     <ProjectReference Include="..\..\Modules\Catalog\TicketingSystem.Modules.Catalog.Infrastructure\TicketingSystem.Modules.Catalog.Infrastructure.csproj" />

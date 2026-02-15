@@ -85,6 +85,26 @@ namespace TicketingSystem.Modules.Fulfillment.Application.EventHandlers
                     _logger.LogInformation(
                         "Successfully generated {TicketCount} tickets for order {OrderNumber}",
                         result.Value.Count, notification.OrderNumber);
+
+                    // Send ticket delivery email
+                    var deliveryCommand = new SendTicketDeliveryCommand(
+                        OrderId: orderData.OrderId,
+                        OrderNumber: orderData.OrderNumber,
+                        CustomerId: orderData.CustomerId,
+                        RecipientEmail: orderData.CustomerEmail,
+                        RecipientName: $"{orderData.CustomerFirstName} {orderData.CustomerLastName}",
+                        TicketIds: result.Value);
+
+                    var deliveryResult = await _mediator.Send(deliveryCommand, cancellationToken);
+
+                    if (deliveryResult.IsSuccess)
+                        _logger.LogInformation(
+                            "Tickets delivered to {Email} for order {OrderNumber}",
+                            orderData.CustomerEmail, notification.OrderNumber);
+                    else
+                        _logger.LogError(
+                            "Ticket delivery failed for order {OrderNumber}. Error={Error}",
+                            notification.OrderNumber, deliveryResult.Error);
                 }
                 else
                 {

@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using QRCoder;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,6 +27,8 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Services
         {
             _qrCodeGenerator = qrCodeGenerator;
             _logger = logger;
+            QuestPDF.Settings.License = LicenseType.Community; 
+
         }
 
         public byte[] GenerateTicketPdf(Ticket ticket)
@@ -31,15 +36,100 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Services
             try
             {
                 _logger.LogInformation(
-                    "Generating PDF for ticket {TicketNumber}",
-                    ticket.TicketNumber);
+             "Generating PDF for ticket {TicketNumber}",
+             ticket.TicketNumber);
 
-                var html = GenerateTicketHtml(ticket);
+                var qrCodeBytes = _qrCodeGenerator.GenerateQrCodeImage(ticket.QrCodeData, 10);
 
-                // TODO: Convert HTML to PDF using a proper library
-                // For now, returning HTML as bytes (this is a stub)
-                // In production, use QuestPDF or SelectPdf
-                var pdfBytes = Encoding.UTF8.GetBytes(html);
+                var pdfBytes = Document.Create(container =>
+                {
+                    container.Page(page =>
+                    {
+                        page.Size(PageSizes.A5);
+                        page.Margin(1, Unit.Centimetre);
+                        page.DefaultTextStyle(x => x.FontFamily("Arial"));
+
+                        page.Content().Column(column =>
+                        {
+                            column.Spacing(10);
+
+                            // Header
+                            column.Item()
+                                .Background("#1a1a2e")
+                                .Padding(15)
+                                .AlignCenter()
+                                .Text(ticket.EventName)
+                                .FontSize(20)
+                                .Bold()
+                                .FontColor("#ffffff");
+
+                            // Ticket Number
+                            column.Item()
+                                .AlignCenter()
+                                .Text($"Ticket #{ticket.TicketNumber}")
+                                .FontSize(11)
+                                .FontColor("#666666");
+
+                            // Divider
+                            column.Item().LineHorizontal(1).LineColor("#dddddd");
+
+                            // Event Details
+                            column.Item().Row(row =>
+                            {
+                                row.RelativeItem().Column(left =>
+                                {
+                                    left.Spacing(5);
+                                    left.Item().Text("EVENT DETAILS").FontSize(9).Bold().FontColor("#999999");
+                                    left.Item().Text(ticket.EventName).Bold().FontSize(13);
+                                    left.Item().Text($"📅 {ticket.EventStartDate:dddd, MMMM dd, yyyy}").FontSize(11);
+                                    left.Item().Text($"⏰ {ticket.EventStartDate:hh:mm tt} - {ticket.EventEndDate:hh:mm tt}").FontSize(11);
+                                    left.Item().Text($"📍 {ticket.VenueName}").FontSize(11);
+                                    left.Item().Text($"    {ticket.VenueAddress}, {ticket.VenueCity}").FontSize(10).FontColor("#666666");
+                                });
+                            });
+
+                            // Divider
+                            column.Item().LineHorizontal(1).LineColor("#dddddd");
+
+                            // Ticket Info + QR Code side by side
+                            column.Item().Row(row =>
+                            {
+                                // Left: Ticket Details
+                                row.RelativeItem().Column(left =>
+                                {
+                                    left.Spacing(5);
+                                    left.Item().Text("TICKET INFO").FontSize(9).Bold().FontColor("#999999");
+                                    left.Item().Text(ticket.TicketTypeName).Bold().FontSize(13);
+                                    left.Item().Text($"👤 {ticket.CustomerFirstName} {ticket.CustomerLastName}").FontSize(11);
+                                    left.Item().Text($"✉️  {ticket.CustomerEmail}").FontSize(10).FontColor("#666666");
+                                    left.Item().Text($"💳 {ticket.Currency} {ticket.PricePaid:N2}").FontSize(11).Bold();
+                                    left.Item().Text($"Order: {ticket.OrderNumber}").FontSize(9).FontColor("#999999");
+                                });
+
+                                // Right: QR Code
+                                row.ConstantItem(120).Column(right =>
+                                {
+                                    right.Item().AlignCenter().Text("SCAN AT ENTRANCE").FontSize(8).Bold().FontColor("#999999");
+                                    right.Item()
+                                        .Width(110)
+                                        .Height(110)
+                                        .Image(qrCodeBytes);
+                                    right.Item().AlignCenter().Text(ticket.Barcode).FontSize(9).FontFamily("Courier New").Bold();
+                                });
+                            });
+
+                            // Divider
+                            column.Item().LineHorizontal(1).LineColor("#dddddd");
+
+                            // Footer
+                            column.Item()
+                                .AlignCenter()
+                                .Text("Present this ticket at the entrance. Do not share.")
+                                .FontSize(9)
+                                .FontColor("#999999");
+                        });
+                    });
+                }).GeneratePdf();
 
                 _logger.LogInformation(
                     "PDF generated for ticket {TicketNumber}. Size={Size} bytes",
@@ -61,25 +151,89 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Services
         {
             try
             {
-                _logger.LogInformation(
-                    "Generating PDF for {TicketCount} tickets",
-                    tickets.Count);
+                _logger.LogInformation("Generating PDF for {TicketCount} tickets", tickets.Count);
 
-                var htmlBuilder = new StringBuilder();
-                htmlBuilder.AppendLine("<html><head><style>");
-                htmlBuilder.AppendLine(GetPdfStyles());
-                htmlBuilder.AppendLine("</style></head><body>");
-
-                foreach (var ticket in tickets)
+                var pdfBytes = Document.Create(container =>
                 {
-                    htmlBuilder.AppendLine(GenerateTicketHtml(ticket));
-                    htmlBuilder.AppendLine("<div style='page-break-after: always;'></div>");
-                }
+                    foreach (var ticket in tickets)
+                    {
+                        var qrCodeBytes = _qrCodeGenerator.GenerateQrCodeImage(ticket.QrCodeData, 10);
 
-                htmlBuilder.AppendLine("</body></html>");
+                        container.Page(page =>
+                        {
+                            page.Size(PageSizes.A5);
+                            page.Margin(1, Unit.Centimetre);
+                            page.DefaultTextStyle(x => x.FontFamily("Arial"));
 
-                // TODO: Convert HTML to PDF
-                var pdfBytes = Encoding.UTF8.GetBytes(htmlBuilder.ToString());
+                            page.Content().Column(column =>
+                            {
+                                column.Spacing(10);
+
+                                column.Item()
+                                    .Background("#1a1a2e")
+                                    .Padding(15)
+                                    .AlignCenter()
+                                    .Text(ticket.EventName)
+                                    .FontSize(20)
+                                    .Bold()
+                                    .FontColor("#ffffff");
+
+                                column.Item()
+                                    .AlignCenter()
+                                    .Text($"Ticket #{ticket.TicketNumber}")
+                                    .FontSize(11)
+                                    .FontColor("#666666");
+
+                                column.Item().LineHorizontal(1).LineColor("#dddddd");
+
+                                column.Item().Row(row =>
+                                {
+                                    row.RelativeItem().Column(left =>
+                                    {
+                                        left.Spacing(5);
+                                        left.Item().Text("EVENT DETAILS").FontSize(9).Bold().FontColor("#999999");
+                                        left.Item().Text(ticket.EventName).Bold().FontSize(13);
+                                        left.Item().Text($"📅 {ticket.EventStartDate:dddd, MMMM dd, yyyy}").FontSize(11);
+                                        left.Item().Text($"⏰ {ticket.EventStartDate:hh:mm tt} - {ticket.EventEndDate:hh:mm tt}").FontSize(11);
+                                        left.Item().Text($"📍 {ticket.VenueName}").FontSize(11);
+                                        left.Item().Text($"    {ticket.VenueAddress}, {ticket.VenueCity}").FontSize(10).FontColor("#666666");
+                                    });
+                                });
+
+                                column.Item().LineHorizontal(1).LineColor("#dddddd");
+
+                                column.Item().Row(row =>
+                                {
+                                    row.RelativeItem().Column(left =>
+                                    {
+                                        left.Spacing(5);
+                                        left.Item().Text("TICKET INFO").FontSize(9).Bold().FontColor("#999999");
+                                        left.Item().Text(ticket.TicketTypeName).Bold().FontSize(13);
+                                        left.Item().Text($"👤 {ticket.CustomerFirstName} {ticket.CustomerLastName}").FontSize(11);
+                                        left.Item().Text($"✉️  {ticket.CustomerEmail}").FontSize(10).FontColor("#666666");
+                                        left.Item().Text($"💳 {ticket.Currency} {ticket.PricePaid:N2}").FontSize(11).Bold();
+                                        left.Item().Text($"Order: {ticket.OrderNumber}").FontSize(9).FontColor("#999999");
+                                    });
+
+                                    row.ConstantItem(120).Column(right =>
+                                    {
+                                        right.Item().AlignCenter().Text("SCAN AT ENTRANCE").FontSize(8).Bold().FontColor("#999999");
+                                        right.Item().Width(110).Height(110).Image(qrCodeBytes);
+                                        right.Item().AlignCenter().Text(ticket.Barcode).FontSize(9).FontFamily("Courier New").Bold();
+                                    });
+                                });
+
+                                column.Item().LineHorizontal(1).LineColor("#dddddd");
+
+                                column.Item()
+                                    .AlignCenter()
+                                    .Text("Present this ticket at the entrance. Do not share.")
+                                    .FontSize(9)
+                                    .FontColor("#999999");
+                            });
+                        });
+                    }
+                }).GeneratePdf();
 
                 _logger.LogInformation(
                     "PDF generated for {TicketCount} tickets. Size={Size} bytes",

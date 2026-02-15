@@ -129,10 +129,7 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
                 "Ticket {TicketNumber} downloaded successfully. Size={Size} bytes",
                 ticket.TicketNumber, pdfBytes.Length);
 
-            return File(
-                pdfBytes,
-                "text/html", // Change to "application/pdf" when PDF generation is implemented
-                $"Ticket-{ticket.TicketNumber}.html"); // Change to .pdf
+            return File(pdfBytes, "application/pdf", $"Ticket-{ticket.TicketNumber}.pdf");
         }
 
         /// <summary>

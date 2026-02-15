@@ -5,6 +5,7 @@ using Serilog;
 using Serilog.Events;
 using System.Text;
 using TicketingSystem.Api.Middleware;
+using TicketingSystem.Modules.Access.Api;
 using TicketingSystem.Modules.Catalog.Api;
 using TicketingSystem.Modules.Finance.Api;
 using TicketingSystem.Modules.Finance.Infrastructure.Persistence;
@@ -113,6 +114,8 @@ try
     builder.Services.AddSalesModule(builder.Configuration);
     builder.Services.AddIdentityModule(builder.Configuration);
     builder.Services.AddFulfillmentModule(builder.Configuration);
+    builder.Services.AddAccessModule(builder.Configuration);
+
     builder.Services.AddScoped<DomainEventDispatcher>();
 
     builder.Services.AddHttpClient<IPaymentGatewayService, PaystackService>();

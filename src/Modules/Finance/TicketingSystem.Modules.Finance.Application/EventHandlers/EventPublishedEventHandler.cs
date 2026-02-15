@@ -36,7 +36,7 @@ namespace TicketingSystem.Modules.Finance.Application.EventHandlers
                 // Pre-create host account (idempotent - safe to call multiple times)
                 var accountCode = await _hostAccountService.EnsureHostAccountExistsAsync(
                     notification.HostId,
-                    $"Host-{notification.HostId.ToString()[..8]}", // TODO: Get actual host name from Identity module
+                    $"Host-{notification.HostId.ToString()[..8]}", 
                     cancellationToken);
 
                 _logger.LogInformation(

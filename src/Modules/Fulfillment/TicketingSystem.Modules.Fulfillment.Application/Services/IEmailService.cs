@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TicketingSystem.Modules.Fulfillment.Application.DTOs;
 
 namespace TicketingSystem.Modules.Fulfillment.Application.Services
 {
@@ -9,7 +10,7 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Services
         /// <summary>
         /// Sends ticket email with PDF attachment
         /// </summary>
-        Task<(bool Success, string MessageId, string Response)> SendTicketEmailAsync(
+        Task<SendEmailResponse> SendTicketEmailAsync(
             string recipientEmail,
             string recipientName,
             string orderNumber,
@@ -23,7 +24,7 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Services
         /// <summary>
         /// Sends generic email
         /// </summary>
-        Task<(bool Success, string MessageId, string Response)> SendEmailAsync(
+        Task<SendEmailResponse> SendEmailAsync(
             string recipientEmail,
             string subject,
             string htmlBody,
