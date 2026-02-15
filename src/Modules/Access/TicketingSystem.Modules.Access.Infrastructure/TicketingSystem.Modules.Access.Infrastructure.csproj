@@ -12,4 +12,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Fulfillment\TicketingSystem.Modules.Fulfillment.Infrastructure\TicketingSystem.Modules.Fulfillment.Infrastructure.csproj" />
+    <ProjectReference Include="..\TicketingSystem.Modules.Access.Domain\TicketingSystem.Modules.Access.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

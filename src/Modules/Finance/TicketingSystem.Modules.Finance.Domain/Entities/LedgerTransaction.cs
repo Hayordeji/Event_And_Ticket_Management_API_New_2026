@@ -9,10 +9,10 @@ using TicketingSystem.SharedKernel;
 namespace TicketingSystem.Modules.Finance.Domain.Entities
 {
      ///<summary>
-/// Ledger Transaction aggregate root
-/// Represents an atomic financial event (e.g., "Ticket Purchase", "Host Payout")
-/// Must always balance to zero (Sum of Debits = Sum of Credits)
-/// </summary>
+    /// Ledger Transaction aggregate root
+    /// Represents an atomic financial event (e.g., "Ticket Purchase", "Host Payout")
+    /// Must always balance to zero (Sum of Debits = Sum of Credits)
+    /// </summary>
     public class LedgerTransaction : AggregateRoot
     {
         public string ReferenceType { get; private set; } = string.Empty;

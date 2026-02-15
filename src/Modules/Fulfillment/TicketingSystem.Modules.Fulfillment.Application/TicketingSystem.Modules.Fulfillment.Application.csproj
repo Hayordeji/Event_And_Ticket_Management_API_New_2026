@@ -6,4 +6,20 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="14.0.0" />
+    <PackageReference Include="SendGrid" Version="9.29.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\TicketingSystem.SharedKernel\TicketingSystem.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\Sales\TicketingSystem.Modules.Sales.Domain\TicketingSystem.Modules.Sales.Domain.csproj" />
+    <ProjectReference Include="..\TicketingSystem.Modules.Fulfillment.Domain\TicketingSystem.Modules.Fulfillment.Domain.csproj" />
+    <ProjectReference Include="..\TicketingSystem.Modules.Fulfillment.Infrastructure\TicketingSystem.Modules.Fulfillment.Infrastructure.csproj" />
+	<ProjectReference Include="..\..\Sales\TicketingSystem.Modules.Sales.Domain\TicketingSystem.Modules.Sales.Domain.csproj" />
+	<ProjectReference Include="..\..\Sales\TicketingSystem.Modules.Sales.Infrastructure\TicketingSystem.Modules.Sales.Infrastructure.csproj" />
+	<ProjectReference Include="..\..\Identity\TicketingSystem.Modules.Identity.Infrastructure\TicketingSystem.Modules.Identity.Infrastructure.csproj" />
+
+  </ItemGroup>
+
 </Project>

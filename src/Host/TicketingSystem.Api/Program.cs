@@ -1,26 +1,25 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Events;
 using System.Text;
 using TicketingSystem.Api.Middleware;
+using TicketingSystem.Modules.Access.Api;
 using TicketingSystem.Modules.Catalog.Api;
-using TicketingSystem.Modules.Catalog.Application;
-using TicketingSystem.Modules.Catalog.Infrastructure;
-using TicketingSystem.Modules.Catalog.Infrastructure.Persistence;
 using TicketingSystem.Modules.Finance.Api;
 using TicketingSystem.Modules.Finance.Infrastructure.Persistence;
+using TicketingSystem.Modules.Fulfillment.Api;
 using TicketingSystem.Modules.Identity.Api;
 using TicketingSystem.Modules.Identity.Infrastructure.Persistence;
 using TicketingSystem.Modules.Sales.Api;
 using TicketingSystem.Modules.Sales.Application.Services;
 using TicketingSystem.Modules.Sales.Application.Services.Flutterwave;
 using TicketingSystem.Modules.Sales.Application.Services.Paystack;
+using TicketingSystem.Modules.Sales.Domain.Events;
 using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Flutterwave;
 using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Paystack;
-using static System.Net.Mime.MediaTypeNames;
+using TicketingSystem.SharedKernel;
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
@@ -114,8 +113,16 @@ try
     builder.Services.AddCatalogModule(builder.Configuration);
     builder.Services.AddSalesModule(builder.Configuration);
     builder.Services.AddIdentityModule(builder.Configuration);
+    builder.Services.AddFulfillmentModule(builder.Configuration);
+    builder.Services.AddAccessModule(builder.Configuration);
+
+    builder.Services.AddScoped<DomainEventDispatcher>();
+
     builder.Services.AddHttpClient<IPaymentGatewayService, PaystackService>();
     builder.Services.AddHttpClient<IPaymentGatewayService, FlutterwaveService>();
+
+    //builder.Services.AddMediatR(cfg =>
+    //cfg.RegisterServicesFromAssemblyContaining<OrderPaidEvent>());
 
     builder.Services.Configure<PaystackConfig>(
     builder.Configuration.GetSection("PaymentGateways:Paystack"));

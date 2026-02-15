@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using TicketingSystem.Modules.Finance.Application.DTOs;
 using TicketingSystem.Modules.Finance.Domain.Entities;
+using TicketingSystem.Modules.Finance.Domain.Enums;
 using TicketingSystem.Modules.Finance.Domain.Repositories;
 using TicketingSystem.SharedKernel;
 using TicketingSystem.SharedKernel.Exceptions;
@@ -14,7 +15,7 @@ namespace TicketingSystem.Modules.Finance.Application.Commands
     {
         private readonly ILedgerAccountRepository _accountRepository;
         private readonly IUnitOfWork _unitOfWork;
-
+        private readonly string HostCode = "LIA-HOST";
         public CreateLedgerAccountCommandHandler(
             ILedgerAccountRepository accountRepository,
             IUnitOfWork unitOfWork)
@@ -30,10 +31,12 @@ namespace TicketingSystem.Modules.Finance.Application.Commands
             if (codeExists)
                 throw new ConflictException($"Account with code '{request.AccountCode}' already exists");
 
+
+            string accountcode = request.AccountType == AccountType.Liability ? (HostCode + (request.userId.ToString())) : request.AccountCode;
             // Create account
             var accountResult = LedgerAccount.Create(
                 request.AccountName,
-                request.AccountCode,
+                accountcode,
                 request.AccountType,
                 request.Currency,
                 request.Description);
@@ -44,9 +47,8 @@ namespace TicketingSystem.Modules.Finance.Application.Commands
             var account = accountResult.Value;
 
             // Save account
-            await _accountRepository.AddAsync(account, cancellationToken);
-            //await _unitOfWork.SaveChangesAsync(cancellationToken);
-
+            //await _accountRepository.AddAsync(account, cancellationToken);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
             var response = new LedgerAccountResponse(
                 account.Id,
                 account.AccountName,
@@ -56,7 +58,8 @@ namespace TicketingSystem.Modules.Finance.Application.Commands
                 account.CurrentBalance.Currency,
                 account.Description,
                 account.IsActive,
-                account.CreatedAt);
+                account.CreatedAt
+                );
 
             return Result.Success(response);
         }

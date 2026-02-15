@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,13 @@ namespace TicketingSystem.SharedKernel.Persistence
     public abstract class BaseDbContext : DbContext
     {
         private readonly string _schemaName;
+        private readonly IMediator _mediator;
 
-        protected BaseDbContext(DbContextOptions options, string schemaName) : base(options)
+
+        protected BaseDbContext(DbContextOptions options, string schemaName, IMediator mediator) : base(options)
         {
             _schemaName = schemaName;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -106,8 +110,11 @@ namespace TicketingSystem.SharedKernel.Persistence
             // Clear events before dispatching to prevent re-dispatching
             aggregates.ForEach(aggregate => aggregate.ClearDomainEvents());
 
-            // TODO: Dispatch events using MediatR (we'll implement this in Step 2.1)
-            // For now, just clear them
+            foreach (var domainEvent in domainEvents)
+            {
+                await _mediator.Publish(domainEvent);
+            }
+            
             await Task.CompletedTask;
         }
     }

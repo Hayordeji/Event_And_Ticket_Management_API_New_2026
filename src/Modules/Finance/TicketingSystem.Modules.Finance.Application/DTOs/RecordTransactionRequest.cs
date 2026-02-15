@@ -14,6 +14,7 @@ namespace TicketingSystem.Modules.Finance.Application.DTOs
     public record TransactionEntryRequest(
         string AccountCode,
         decimal Amount,
+        string Currency,
         EntryType EntryType,
         string? Description = null);
 }

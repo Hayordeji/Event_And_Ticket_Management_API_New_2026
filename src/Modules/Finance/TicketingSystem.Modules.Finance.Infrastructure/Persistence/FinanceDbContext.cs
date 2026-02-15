@@ -1,16 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using TicketingSystem.Modules.Finance.Domain.Entities;
+using TicketingSystem.SharedKernel;
 using TicketingSystem.SharedKernel.Persistence;
 
 namespace TicketingSystem.Modules.Finance.Infrastructure.Persistence
 {
     public class FinanceDbContext : BaseDbContext
     {
-        public FinanceDbContext(DbContextOptions<FinanceDbContext> options)
-        : base(options, "finance")
+        public FinanceDbContext(DbContextOptions<FinanceDbContext> options, IMediator mediator)
+        : base(options, "finance", mediator)
         {
         }
 

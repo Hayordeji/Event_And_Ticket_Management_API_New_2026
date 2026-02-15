@@ -11,7 +11,7 @@ using TicketingSystem.SharedKernel.Exceptions;
 
 namespace TicketingSystem.Modules.Catalog.Application.Commands
 {
-    internal class AddTicketTypeCommandHandler : IRequestHandler<AddTicketTypeCommand, Result<Guid>>
+    public class AddTicketTypeCommandHandler : IRequestHandler<AddTicketTypeCommand, Result<Guid>>
     {
         private readonly IEventRepository _eventRepository;
         private readonly CatalogDbContext _context;

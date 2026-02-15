@@ -125,6 +125,9 @@ namespace TicketingSystem.Modules.Catalog.Domain.Entities
         /// </summary>
         public Result Publish()
         {
+            if (Status == EventStatus.Published)
+                return Result.Success();
+
             if (Status != EventStatus.Draft)
                 return Result.Failure("Only draft events can be published");
 
@@ -136,8 +139,9 @@ namespace TicketingSystem.Modules.Catalog.Domain.Entities
 
             Status = EventStatus.Published;
             PublishedAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
 
-            RaiseDomainEvent(new EventPublishedEvent(Id, PublishedAt.Value, DateTime.UtcNow));
+            RaiseDomainEvent(new EventPublishedEvent(Id,HostId,Name,PublishedAt.Value, DateTime.UtcNow));
 
             return Result.Success();
         }

@@ -6,4 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="14.0.0" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\TicketingSystem.SharedKernel\TicketingSystem.SharedKernel.csproj" />
+    <ProjectReference Include="..\TicketingSystem.Modules.Access.Application\TicketingSystem.Modules.Access.Application.csproj" />
+    <ProjectReference Include="..\TicketingSystem.Modules.Access.Infrastructure\TicketingSystem.Modules.Access.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

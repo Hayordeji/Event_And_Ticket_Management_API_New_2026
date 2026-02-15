@@ -7,11 +7,13 @@ namespace TicketingSystem.Modules.Sales.Domain.Events
 {
     public record OrderPaidEvent(
      Guid OrderId,
+     Guid HostEventId,
      string OrderNumber,
      decimal TotalAmount,
      string Currency,
      DateTime PaidAt,
      Guid CustomerId,
+     //Guid HostId,
      string PaymentReference
- ) : DomainEvent;
+    ) : DomainEvent;
 }

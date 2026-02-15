@@ -6,9 +6,9 @@ namespace TicketingSystem.Modules.Sales.Application.DTOs
 {
     public record CreateOrderRequest(
     Guid EventId,
-    Guid CustomerId,
-    string CustomerEmail,
-    string CustomerName,
+    //Guid CustomerId,
+    //string CustomerEmail,
+    //string CustomerName,
     List<OrderItemDto> Items
     );
 

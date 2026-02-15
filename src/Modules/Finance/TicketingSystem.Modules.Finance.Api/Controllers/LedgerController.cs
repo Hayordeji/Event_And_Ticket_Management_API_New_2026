@@ -32,10 +32,18 @@ namespace TicketingSystem.Modules.Finance.Api.Controllers
         [HttpPost("accounts")]
         public async Task<IActionResult> CreateAccount([FromBody] CreateLedgerAccountRequest request)
         {
+            if (!Guid.TryParse(User.FindFirst("userId")?.Value, out var userId))
+            {
+                return Unauthorized();
+            }
+
+            string name = User.FindFirst("name")?.Value;
+
             var command = new CreateLedgerAccountCommand(
-                request.AccountName,
+                name.ToUpper(),
                 request.AccountCode,
                 request.AccountType,
+                userId,
                 request.Currency,
                 request.Description);
 
@@ -81,6 +89,7 @@ namespace TicketingSystem.Modules.Finance.Api.Controllers
                 request.ReferenceType,
                 request.ReferenceId,
                 request.Description,
+                OccurredAt: DateTime.UtcNow,
                 request.Entries);
 
             var result = await _mediator.Send(command);

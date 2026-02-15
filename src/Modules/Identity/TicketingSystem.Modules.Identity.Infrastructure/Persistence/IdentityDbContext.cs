@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using TicketingSystem.Modules.Identity.Domain.Entities;
+using TicketingSystem.SharedKernel;
 using TicketingSystem.SharedKernel.Persistence;
 
 namespace TicketingSystem.Modules.Identity.Infrastructure.Persistence
@@ -13,8 +15,8 @@ namespace TicketingSystem.Modules.Identity.Infrastructure.Persistence
 /// </summary>
     public class IdentityDbContext : BaseDbContext
     {
-        public IdentityDbContext(DbContextOptions<IdentityDbContext> options)
-        : base(options, "identity")
+        public IdentityDbContext(DbContextOptions<IdentityDbContext> options, IMediator mediator)
+        : base(options, "identity", mediator)
         {
         }
 
