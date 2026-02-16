@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
@@ -12,6 +13,7 @@ using TicketingSystem.Modules.Finance.Infrastructure.Persistence;
 using TicketingSystem.Modules.Fulfillment.Api;
 using TicketingSystem.Modules.Identity.Api;
 using TicketingSystem.Modules.Identity.Infrastructure.Persistence;
+using TicketingSystem.Modules.Identity.Infrastructure.Seeders;
 using TicketingSystem.Modules.Sales.Api;
 using TicketingSystem.Modules.Sales.Application.Services;
 using TicketingSystem.Modules.Sales.Application.Services.Flutterwave;
@@ -47,12 +49,12 @@ try
     builder.Services.AddEndpointsApiExplorer();
  
     //builder.Services.AddOpenApi();
-    builder.Services.AddDbContext<IdentityDbContext>(options =>
+    builder.Services.AddDbContext<IdentityAppDbContext>(options =>
         options.UseSqlServer(
             builder.Configuration.GetConnectionString("IdentityDb"),
             sqlOptions =>
             {
-                sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName);
+                sqlOptions.MigrationsAssembly(typeof(IdentityAppDbContext).Assembly.FullName);
                 sqlOptions.EnableRetryOnFailure(
                     maxRetryCount: 3,
                     maxRetryDelay: TimeSpan.FromSeconds(5),
@@ -191,6 +193,17 @@ try
 
 
     var app = builder.Build();
+
+
+    //SEED ROLES
+    using (var scope = app.Services.CreateScope())
+    {
+        var roleManager = scope.ServiceProvider
+            .GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+
+        await RoleSeeder.SeedAsync(roleManager);
+    }
+
 
     app.UseMiddleware<ExceptionHandlingMiddleware>();
     app.UseMiddleware<SecurityHeadersMiddleware>();

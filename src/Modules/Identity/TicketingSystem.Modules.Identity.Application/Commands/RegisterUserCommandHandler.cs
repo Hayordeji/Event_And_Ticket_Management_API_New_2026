@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
@@ -10,79 +11,58 @@ using TicketingSystem.Modules.Identity.Domain.Repositories;
 using TicketingSystem.Modules.Identity.Domain.ValueObjects;
 using TicketingSystem.Modules.Identity.Infrastructure.Persistence;
 using TicketingSystem.SharedKernel;
+using TicketingSystem.SharedKernel.Authorization;
 using TicketingSystem.SharedKernel.Exceptions;
 using TicketingSystem.SharedKernel.Persistence;
 
 namespace TicketingSystem.Modules.Identity.Application.Commands
 {
-    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Result<AuthResponse>>
+    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Result<Guid>>
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IJwtTokenGenerator _jwtTokenGenerator;
-        private readonly IdentityDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public RegisterUserCommandHandler(
-            IUserRepository userRepository,
-            IUnitOfWork unitOfWork,
-            IJwtTokenGenerator jwtTokenGenerator,
-            IdentityDbContext context)
+        public RegisterUserCommandHandler(UserManager<User> userManager)
         {
-            _userRepository = userRepository;
-            _unitOfWork = unitOfWork;
-            _jwtTokenGenerator = jwtTokenGenerator;
-            _context = context;
+            _userManager = userManager;
         }
 
-        public async Task<Result<AuthResponse>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Guid>> Handle(
+            RegisterUserCommand request,
+            CancellationToken cancellationToken)
         {
-            // Validate password confirmation
-            if (request.Password != request.ConfirmPassword)
-                return Result.Failure<AuthResponse>("Passwords do not match");
+            // Guard: only Customer and Host can self-register
+            if (request.Role is not (Roles.Customer or Roles.Host))
+                return Result.Failure<Guid>(
+                    "Only Customer and Host roles can be assigned during registration.");
 
-            // Check email uniqueness
-            var emailResult = Email.Create(request.Email);
-            if (emailResult.IsFailure)
-                return Result.Failure<AuthResponse>(emailResult.Error);
+            var existingUser = await _userManager.FindByEmailAsync(request.Email);
+            if (existingUser is not null)
+                return Result.Failure<Guid>("A user with this email already exists.");
 
-            var emailExists = await _userRepository.EmailExistsAsync(emailResult.Value, cancellationToken);
-            if (emailExists)
-                return Result.Failure<AuthResponse>("A user with this email already exists");
+            var user = new User
+            {
+                Id = Guid.NewGuid(),
+                Email = request.Email.ToLowerInvariant().Trim(),
+                UserName = request.Email.ToLowerInvariant().Trim(), // Identity requires UserName
+                FirstName = request.FirstName.Trim(),
+                LastName = request.LastName.Trim(),
+                IsActive = true,
+                PhoneNumber = request.PhoneNumber,
+                CreatedAt = DateTime.UtcNow
+            };
 
-            // Create user
-            var userResult = User.Create(
-                request.Email,
-                request.Password,
-                request.FirstName,
-                request.LastName,
-                request.PhoneNumber);
+            // UserManager handles hashing — PBKDF2 by default
+            var createResult = await _userManager.CreateAsync(user, request.Password);
+            if (!createResult.Succeeded)
+                return Result.Failure<Guid>(
+                    string.Join(", ", createResult.Errors.Select(e => e.Description)));
 
-            if (userResult.IsFailure)
-                return Result.Failure<AuthResponse>(userResult.Error);
+            var roleResult = await _userManager.AddToRoleAsync(user, request.Role);
+            if (!roleResult.Succeeded)
+                return Result.Failure<Guid>(
+                    string.Join(", ", roleResult.Errors.Select(e => e.Description)));
 
-            var user = userResult.Value;
-          
-            // Save user
-            await _userRepository.AddAsync(user, cancellationToken);
-
-            // Generate tokens
-            var deviceFingerprint = DeviceFingerprint.Create(request.UserAgent, request.IpAddress);
-            var (accessToken, refreshToken, expiresAt) = _jwtTokenGenerator.GenerateTokens(user);
-
-            // Add refresh token to user
-            user.AddRefreshToken(refreshToken, expiresAt.AddDays(7), deviceFingerprint);
-            await _context.SaveChangesAsync(cancellationToken);
-
-            var response = new AuthResponse(
-                user.Id,
-                user.Email.Value,
-                user.FirstName,
-                user.LastName,
-                accessToken,
-                refreshToken,
-                expiresAt);
-
-            return Result.Success(response);
+            return Result.Success(user.Id);
         }
     }
 }

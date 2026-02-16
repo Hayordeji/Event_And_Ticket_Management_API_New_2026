@@ -10,6 +10,16 @@ namespace TicketingSystem.Modules.Identity.Application.Commands
     public record LoginUserCommand(
     string Email,
     string Password,
-    string UserAgent,
-    string IpAddress) : IRequest<Result<AuthResponse>>;
+    string DeviceInfo
+    ) : IRequest<Result<LoginResponse>>;
+
+    public record LoginResponse(
+    string AccessToken,
+    string RefreshToken,
+    DateTime RefreshTokenExpiresAt,
+    Guid UserId,
+    string Email,
+    string FullName,
+    string Role
+);
 }

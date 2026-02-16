@@ -7,13 +7,13 @@ using TicketingSystem.SharedKernel;
 
 namespace TicketingSystem.Modules.Identity.Application.Commands
 {
-    public record RegisterUserCommand(string Email,
+    public record RegisterUserCommand(
+    string Email,
     string Password,
-    string ConfirmPassword,
     string FirstName,
     string LastName,
-    string? PhoneNumber,
-    string UserAgent,
-    string IpAddress) : IRequest<Result<AuthResponse>>;
+    string PhoneNumber,
+    string Role   // "Customer" or "Host" only at self-registration
+) : IRequest<Result<Guid>>;
 
 }

@@ -12,8 +12,7 @@ namespace TicketingSystem.Modules.Identity.Application.Services
     {
         /// <summary>
         /// Generate access token and refresh token
-        /// Returns: (AccessToken, RefreshToken, ExpiresAt)
         /// </summary>
-        (string AccessToken, string RefreshToken, DateTime ExpiresAt) GenerateTokens(User user);
+        string GenerateAccessToken(User user, string role);
     }
 }

@@ -5,13 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TicketingSystem.Modules.Identity.Infrastructure.Persistence;
 
 #nullable disable
 
 namespace TicketingSystem.Modules.Identity.Infrastructure.Persistence.Migrations
 {
-    [DbContext(typeof(IdentityDbContext))]
+    [DbContext(typeof(IdentityAppDbContext))]
     [Migration("20260119050247_Identity_InitialCreate")]
     partial class Identity_InitialCreate
     {
