@@ -43,13 +43,12 @@ namespace TicketingSystem.Modules.Access.Application.Commands
             try
             {
                 _logger.LogInformation(
-               "Processing ticket scan. EventId={EventId}, Device={DeviceId}, Gate={Gate}",
-               request.EventId, request.DeviceId, request.GateLocation);
+               "Processing ticket scan, Device={DeviceId}, Gate={Gate}",
+               request.DeviceId, request.GateLocation);
 
                 // Step 1: Validate the ticket via Fulfillment module
                 var validation = await _ticketValidationService.ValidateAsync(
                     request.QrCodeData,
-                    request.EventId,
                     cancellationToken);
 
                 ScanLog scanLog;
@@ -65,7 +64,7 @@ namespace TicketingSystem.Modules.Access.Application.Commands
                     scanLog = ScanLog.RecordDenied(
                         ticketId: validation.TicketId ?? Guid.Empty,
                         ticketNumber: validation.TicketNumber ?? "UNKNOWN",
-                        eventId: request.EventId,
+                        eventId: validation.EventId.Value,
                         scannedBy: request.ScannedBy,
                         deviceId: request.DeviceId,
                         gateLocation: request.GateLocation,
@@ -98,7 +97,7 @@ namespace TicketingSystem.Modules.Access.Application.Commands
                     scanLog = ScanLog.RecordDenied(
                         ticketId: validation.TicketId!.Value,
                         ticketNumber: validation.TicketNumber!,
-                        eventId: request.EventId,
+                        eventId: validation.EventId.Value,
                         scannedBy: request.ScannedBy,
                         deviceId: request.DeviceId,
                         gateLocation: request.GateLocation,
@@ -125,16 +124,21 @@ namespace TicketingSystem.Modules.Access.Application.Commands
                 scanLog = ScanLog.RecordAllowed(
                     ticketId: validation.TicketId!.Value,
                     ticketNumber: validation.TicketNumber!,
-                    eventId: request.EventId,
+                    eventId: validation.EventId.Value,
                     scannedBy: request.ScannedBy,
                     deviceId: request.DeviceId,
                     gateLocation: request.GateLocation);
 
-                await _ticketStatusService.MarkAsUsedAsync(
+                var isMarked = await _ticketStatusService.MarkAsUsedAsync(
                 validation.TicketId!.Value,
                 request.ScannedBy,
                 request.GateLocation,
                 cancellationToken);
+
+                if (!isMarked.IsSuccess)
+                {
+                    return Result.Failure<ScanTicketResponse>(isMarked.Error);
+                }
 
                 await _scanLogRepository.AddAsync(scanLog, cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
@@ -151,7 +155,6 @@ namespace TicketingSystem.Modules.Access.Application.Commands
             }
             catch (Exception ex)
             {
-
                 throw;
             }
         }

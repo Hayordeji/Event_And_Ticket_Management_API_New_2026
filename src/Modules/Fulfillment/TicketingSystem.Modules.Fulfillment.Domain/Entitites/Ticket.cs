@@ -187,6 +187,14 @@ namespace TicketingSystem.Modules.Fulfillment.Domain.Entitites
         }
 
         /// <summary>
+        /// Marks ticket as expired (after event end date)
+        /// </summary>
+        public void EncryptQrCodeData(string data)
+        {
+            QrCodeData = data; 
+        }
+
+        /// <summary>
         /// Validates if ticket can be used
         /// </summary>
         public (bool CanUse, string? Reason) CanBeUsed()
@@ -220,9 +228,10 @@ namespace TicketingSystem.Modules.Fulfillment.Domain.Entitites
             return $"TKT-{datePart}-{randomPart}";
         }
 
+       
+
         private static string GenerateQrCodeData(Guid ticketId, string ticketNumber)
         {
-            // In production, this should be encrypted
             // Format: TICKETID|TICKETNUMBER|TIMESTAMP
             var timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             return $"{ticketId}|{ticketNumber}|{timestamp}";
@@ -233,5 +242,6 @@ namespace TicketingSystem.Modules.Fulfillment.Domain.Entitites
             // Simple numeric barcode (first 12 digits of GUID)
             return ticketId.ToString("N")[..12].ToUpperInvariant();
         }
+
     }
 }

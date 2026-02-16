@@ -9,7 +9,6 @@ namespace TicketingSystem.Modules.Access.Application.Commands
 {
     public record ScanTicketCommand(
     string QrCodeData,
-    Guid EventId,
     Guid ScannedBy,
     string DeviceId,
     string GateLocation) : IRequest<Result<ScanTicketResponse>>;

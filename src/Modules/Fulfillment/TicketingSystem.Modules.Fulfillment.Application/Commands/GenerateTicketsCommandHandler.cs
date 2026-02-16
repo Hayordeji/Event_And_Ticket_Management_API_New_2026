@@ -7,6 +7,7 @@ using TicketingSystem.Modules.Fulfillment.Domain.Entitites;
 using TicketingSystem.Modules.Fulfillment.Domain.Repositories;
 using TicketingSystem.Modules.Fulfillment.Infrastructure.Persistence;
 using TicketingSystem.SharedKernel;
+using TicketingSystem.SharedKernel.Services;
 
 namespace TicketingSystem.Modules.Fulfillment.Application.Commands
 {
@@ -15,15 +16,19 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Commands
         private readonly ITicketRepository _ticketRepository;
         private readonly FulfillmentDbContext _context;
         private readonly ILogger<GenerateTicketsCommandHandler> _logger;
+        private readonly IQrCodeEncryptionService _qrEncryptionService; // ← Inject
+
 
         public GenerateTicketsCommandHandler(
             ITicketRepository ticketRepository,
             FulfillmentDbContext context,
-            ILogger<GenerateTicketsCommandHandler> logger)
+            ILogger<GenerateTicketsCommandHandler> logger,
+            IQrCodeEncryptionService qrEncryptionService)
         {
             _ticketRepository = ticketRepository;
             _context = context;
             _logger = logger;
+            _qrEncryptionService = qrEncryptionService;
         }
 
         public async Task<Result<List<Guid>>> Handle(
@@ -61,6 +66,8 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Commands
                             "Creating ticket {Index}/{Total} for ticket type {TicketTypeName}",
                             i + 1, item.Quantity, item.TicketTypeName);
 
+
+
                         var ticket = Ticket.Create(
                             orderId: request.OrderId,
                             orderNumber: request.OrderNumber,
@@ -79,6 +86,10 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Commands
                             ticketTypeName: item.TicketTypeName,
                             pricePaid: item.UnitPrice,
                             currency: item.Currency);
+
+                        var encryptedData =  _qrEncryptionService.Encrypt(ticket.QrCodeData);
+
+                        ticket.EncryptQrCodeData(encryptedData);
 
                         await _ticketRepository.AddAsync(ticket, cancellationToken);
                         ticketIds.Add(ticket.Id);
@@ -108,5 +119,23 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Commands
                     $"An error occurred while generating tickets: {ex.Message}");
             }
         }
+
+        /// <summary>
+        /// Plain-text payload format: "{TicketId}|{TicketNumber}|{UnixTimestampSeconds}"
+        /// The timestamp records when the ticket was issued — useful for detecting
+        /// unusually old or future-dated QR codes if policy requires it.
+        /// </summary>
+        private static string BuildQrPayload(Guid ticketId, string ticketNumber)
+            => $"{ticketId}|{ticketNumber}|{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
+
+        private static string GenerateTicketNumber()
+        {
+            var datePart = DateTime.UtcNow.ToString("yyyyMMdd");
+            var randomPart = Guid.NewGuid().ToString("N")[..6].ToUpperInvariant();
+            return $"TKT-{datePart}-{randomPart}";
+        }
+
+        private static string GenerateBarcode(Guid ticketId)
+            => ticketId.ToString("N")[..12].ToUpperInvariant();
     }
 }

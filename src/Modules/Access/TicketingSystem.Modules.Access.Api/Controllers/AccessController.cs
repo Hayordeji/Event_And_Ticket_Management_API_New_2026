@@ -43,12 +43,11 @@ namespace TicketingSystem.Modules.Access.Api.Controllers
             var scannedBy = userId;
 
             _logger.LogInformation(
-                "Ticket scan request. EventId={EventId}, Device={DeviceId}, Gate={Gate}",
-                request.EventId, request.DeviceId, request.GateLocation);
+                "Ticket scan request Device={DeviceId}, Gate={Gate}",
+                 request.DeviceId, request.GateLocation);
 
             var command = new ScanTicketCommand(
                 QrCodeData: request.QrCodeData,
-                EventId: request.EventId,
                 ScannedBy: scannedBy,
                 DeviceId: request.DeviceId,
                 GateLocation: request.GateLocation);

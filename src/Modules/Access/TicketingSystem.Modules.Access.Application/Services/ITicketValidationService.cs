@@ -9,13 +9,13 @@ namespace TicketingSystem.Modules.Access.Application.Services
     {
         Task<TicketValidationResult> ValidateAsync(
         string qrCodeData,
-        Guid eventId,
         CancellationToken cancellationToken = default);
     }
 
     public sealed record TicketValidationResult(
     bool IsValid,
     Guid? TicketId,
+    Guid? EventId,
     string? TicketNumber,
     string? TicketTypeName,
     string? CustomerName,

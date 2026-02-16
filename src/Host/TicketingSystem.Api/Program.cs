@@ -16,10 +16,10 @@ using TicketingSystem.Modules.Sales.Api;
 using TicketingSystem.Modules.Sales.Application.Services;
 using TicketingSystem.Modules.Sales.Application.Services.Flutterwave;
 using TicketingSystem.Modules.Sales.Application.Services.Paystack;
-using TicketingSystem.Modules.Sales.Domain.Events;
 using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Flutterwave;
 using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Paystack;
 using TicketingSystem.SharedKernel;
+using TicketingSystem.SharedKernel.Extensions;
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
@@ -115,6 +115,7 @@ try
     builder.Services.AddIdentityModule(builder.Configuration);
     builder.Services.AddFulfillmentModule(builder.Configuration);
     builder.Services.AddAccessModule(builder.Configuration);
+    builder.Services.AddSharedKernel(builder.Configuration);
 
     builder.Services.AddScoped<DomainEventDispatcher>();
 
