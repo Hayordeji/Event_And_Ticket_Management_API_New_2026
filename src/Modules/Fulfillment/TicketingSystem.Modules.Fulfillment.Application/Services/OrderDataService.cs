@@ -11,12 +11,12 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Services
     public class OrderDataService : IOrderDataService
     {
         private readonly SalesDbContext _salesContext;
-        private readonly IdentityDbContext _identityContext;
+        private readonly IdentityAppDbContext _identityContext;
         private readonly ILogger<OrderDataService> _logger;
 
         public OrderDataService(
             SalesDbContext salesContext,
-            IdentityDbContext identityContext,
+            IdentityAppDbContext identityContext,
             ILogger<OrderDataService> logger)
         {
             _salesContext = salesContext;
@@ -42,7 +42,7 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Services
             // Get customer details
             var customer = await _identityContext.Users
                 .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.Id == order.CustomerId && !u.IsDeleted, cancellationToken);
+                .FirstOrDefaultAsync(u => u.Id == order.CustomerId && !u.IsActive, cancellationToken);
 
             if (customer == null)
             {

@@ -11,12 +11,12 @@ namespace TicketingSystem.Modules.Finance.Application.Services
     public class CatalogQueryService : ICatalogQueryService
     {
         private readonly CatalogDbContext _catalogContext;
-        private readonly IdentityDbContext _identityContext;
+        private readonly IdentityAppDbContext _identityContext;
         private readonly ILogger<CatalogQueryService> _logger;
 
         public CatalogQueryService(
             CatalogDbContext catalogContext,
-            IdentityDbContext identityContext,
+            IdentityAppDbContext identityContext,
             ILogger<CatalogQueryService> logger)
         {
             _catalogContext = catalogContext;
@@ -41,7 +41,7 @@ namespace TicketingSystem.Modules.Finance.Application.Services
             // Get host details
             var host = await _identityContext.Users
                 .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.Id == eventEntity.HostId && !u.IsDeleted, cancellationToken);
+                .FirstOrDefaultAsync(u => u.Id == eventEntity.HostId && u.IsActive, cancellationToken);
 
             var hostName = host != null
                 ? $"{host.FirstName} {host.LastName}"

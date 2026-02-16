@@ -33,21 +33,19 @@ namespace TicketingSystem.Api.Controllers
             var command = new RegisterUserCommand(
                 request.Email,
                 request.Password,
-                request.ConfirmPassword,
                 request.FirstName,
                 request.LastName,
                 request.PhoneNumber,
-                HttpContext.Request.Headers["User-Agent"].ToString(),
-                HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Unknown");
+                request.Role);
 
             var result = await _mediator.Send(command);
 
             if (result.IsFailure)
-                return BadRequest(ApiResponse<AuthResponse>.ErrorResponse(result.Error, traceId: HttpContext.TraceIdentifier));
+                return BadRequest(ApiResponse<Guid>.ErrorResponse(result.Error, traceId: HttpContext.TraceIdentifier));
 
             _logger.LogInformation("User registered successfully: {Email}", request.Email);
 
-            return Ok(ApiResponse<AuthResponse>.SuccessResponse(result.Value, HttpContext.TraceIdentifier));
+            return Ok(ApiResponse<Guid>.SuccessResponse(result.Value, HttpContext.TraceIdentifier));
         }
 
         /// <summary>
@@ -60,17 +58,16 @@ namespace TicketingSystem.Api.Controllers
             var command = new LoginUserCommand(
                 request.Email,
                 request.Password,
-                HttpContext.Request.Headers["User-Agent"].ToString(),
                 HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Unknown");
 
             var result = await _mediator.Send(command);
 
             if (result.IsFailure)
-                return Unauthorized(ApiResponse<AuthResponse>.ErrorResponse(result.Error, traceId: HttpContext.TraceIdentifier));
+                return Unauthorized(ApiResponse<LoginResponse>.ErrorResponse(result.Error, traceId: HttpContext.TraceIdentifier));
 
             _logger.LogInformation("User logged in successfully: {Email}", request.Email);
 
-            return Ok(ApiResponse<AuthResponse>.SuccessResponse(result.Value, HttpContext.TraceIdentifier));
+            return Ok(ApiResponse<LoginResponse>.SuccessResponse(result.Value, HttpContext.TraceIdentifier));
         }
 
         /// <summary>

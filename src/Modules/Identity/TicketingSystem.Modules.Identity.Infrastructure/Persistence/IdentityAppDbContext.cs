@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,22 +15,22 @@ namespace TicketingSystem.Modules.Identity.Infrastructure.Persistence
 /// Database context for Identity module
 /// Schema: "identity"
 /// </summary>
-    public class IdentityDbContext : BaseDbContext
+    public class IdentityAppDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
     {
-        public IdentityDbContext(DbContextOptions<IdentityDbContext> options, IMediator mediator)
-        : base(options, "identity", mediator)
+        public IdentityAppDbContext(DbContextOptions<IdentityAppDbContext> options)
+        : base(options)
         {
         }
 
-        public DbSet<User> Users => Set<User>();
         public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.HasDefaultSchema("identity");
 
             // Apply all entity configurations from this assembly
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IdentityDbContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IdentityAppDbContext).Assembly);
         }
     }
 }

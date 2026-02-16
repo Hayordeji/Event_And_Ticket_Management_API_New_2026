@@ -11,58 +11,28 @@ namespace TicketingSystem.Modules.Identity.Infrastructure.Persistence.Configurat
     {
         public void Configure(EntityTypeBuilder<RefreshToken> builder)
         {
-            builder.ToTable("RefreshTokens", "identity");
+            builder.ToTable("RefreshTokens");
 
-            builder.HasKey(rt => rt.Id);
+            builder.HasKey(r => r.Id);
 
-            builder.Property(rt => rt.UserId)
+            builder.Property(r => r.Token)
+                .HasMaxLength(256)
                 .IsRequired();
 
-            builder.Property(rt => rt.Token)
-                .HasMaxLength(500)
-                .IsRequired();
+            builder.Property(r => r.DeviceInfo)
+                .HasMaxLength(512);
 
-            builder.HasIndex(rt => rt.Token)
-                .IsUnique()
-                .HasDatabaseName("IX_RefreshTokens_Token");
+            builder.Property(r => r.ExpiresAt).IsRequired();
+            builder.Property(r => r.CreatedAt).IsRequired();
+            builder.Property(r => r.RevokedAt);
 
-            builder.Property(rt => rt.ExpiresAt)
-                .IsRequired();
+            // Fast token lookup — used on every refresh request
+            builder.HasIndex(r => r.Token).IsUnique();
 
-            builder.Property(rt => rt.IsRevoked)
-                .IsRequired()
-                .HasDefaultValue(false);
-
-            builder.Property(rt => rt.RevokedAt);
-
-            builder.Property(rt => rt.DeviceFingerprintHash)
-                .HasMaxLength(100)
-                .IsRequired();
-
-            builder.Property(rt => rt.UserAgent)
-                .HasMaxLength(500)
-                .IsRequired();
-
-            builder.Property(rt => rt.IpAddress)
-                .HasMaxLength(50)
-                .IsRequired();
-
-            // Audit fields
-            builder.Property(rt => rt.CreatedAt)
-                .IsRequired();
-
-            builder.Property(rt => rt.UpdatedAt);
-
-            builder.Property(rt => rt.IsDeleted)
-                .IsRequired()
-                .HasDefaultValue(false);
-
-            // Indexes for performance
-            builder.HasIndex(rt => rt.UserId)
-                .HasDatabaseName("IX_RefreshTokens_UserId");
-
-            builder.HasIndex(rt => new { rt.UserId, rt.IsRevoked, rt.ExpiresAt })
-                .HasDatabaseName("IX_RefreshTokens_UserId_IsRevoked_ExpiresAt");
+            // UserId is a plain Guid — no FK to AspNetUsers
+            // (no cross-module FK rule applies within the same module too for consistency)
+            builder.Property(r => r.UserId).IsRequired();
+            builder.HasIndex(r => r.UserId);
         }
     }
 }

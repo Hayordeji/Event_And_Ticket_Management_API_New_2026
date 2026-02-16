@@ -4,11 +4,12 @@ using System.Text;
 
 namespace TicketingSystem.Modules.Identity.Application.DTOs
 {
-    public record RegisterRequest(string Email,
+    public record RegisterRequest(
+    string Email,
     string Password,
-    string ConfirmPassword,
     string FirstName,
     string LastName,
-    string? PhoneNumber);
+    string PhoneNumber,
+    string Role);
 
 }

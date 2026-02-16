@@ -8,10 +8,10 @@ namespace TicketingSystem.Modules.Identity.Infrastructure.Persistence
 {
     public class IdentityUnitOfWork : IUnitOfWork
     {
-        private readonly IdentityDbContext _context;
+        private readonly IdentityAppDbContext _context;
         private IDbContextTransaction? _transaction;
 
-        public IdentityUnitOfWork(IdentityDbContext context)
+        public IdentityUnitOfWork(IdentityAppDbContext context)
         {
             _context = context;
         }

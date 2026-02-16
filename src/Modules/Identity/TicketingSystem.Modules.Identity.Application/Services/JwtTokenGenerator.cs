@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+
 //using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -8,6 +10,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using TicketingSystem.Modules.Identity.Domain.Entities;
+using TicketingSystem.Modules.Identity.Infrastructure.Persistence.Configurations;
 
 namespace TicketingSystem.Modules.Identity.Application.Services
 {
@@ -16,75 +19,38 @@ namespace TicketingSystem.Modules.Identity.Application.Services
 /// </summary>
     public class JwtTokenGenerator : IJwtTokenGenerator
     {
-        private readonly IConfiguration _configuration;
+        private readonly JwtConfig _config;
 
-        public JwtTokenGenerator(IConfiguration configuration)
+        public JwtTokenGenerator(IOptions<JwtConfig> config)
         {
-            _configuration = configuration;
+            _config = config.Value;
         }
 
-        public (string AccessToken, string RefreshToken, DateTime ExpiresAt) GenerateTokens(User user)
+        public string GenerateAccessToken(User user, string role)
         {
-            var accessToken = GenerateAccessToken(user);
-            var refreshToken = GenerateRefreshToken();
-            var expiresAt = DateTime.UtcNow.AddMinutes(GetAccessTokenExpiryMinutes());
-
-            return (accessToken, refreshToken, expiresAt);
-        }
-
-        private string GenerateAccessToken(User user)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GetJwtSecret()));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
             var claims = new[]
             {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email.Value),
-            new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
-            new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim("userId", user.Id.ToString())
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Email, user.Email!),
+            new Claim(ClaimTypes.GivenName, user.FirstName),
+            new Claim(ClaimTypes.Surname, user.LastName),
+            new Claim(ClaimTypes.Role, role),              // ← Policy-based auth reads this
         };
 
+            var key = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(_config.Secret));
+
+            var credentials = new SigningCredentials(
+                key, SecurityAlgorithms.HmacSha256);
+
             var token = new JwtSecurityToken(
-                issuer: GetJwtIssuer(),
-                audience: GetJwtAudience(),
+                issuer: _config.Issuer,
+                audience: _config.Audience,
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(GetAccessTokenExpiryMinutes()),
+                expires: DateTime.UtcNow.AddMinutes(_config.ExpiryMinutes),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        private static string GenerateRefreshToken()
-        {
-            var randomNumber = new byte[64];
-            using var rng = RandomNumberGenerator.Create();
-            rng.GetBytes(randomNumber);
-            return Convert.ToBase64String(randomNumber);
-        }
-
-        private string GetJwtSecret()
-        {
-            return _configuration["Jwt:Secret"]
-                ?? throw new InvalidOperationException("JWT Secret not configured");
-        }
-
-        private string GetJwtIssuer()
-        {
-            return _configuration["Jwt:Issuer"] ?? "TicketingSystem";
-        }
-
-        private string GetJwtAudience()
-        {
-            return _configuration["Jwt:Audience"] ?? "TicketingSystemUsers";
-        }
-
-        private int GetAccessTokenExpiryMinutes()
-        {
-            var expiryMinutes = _configuration["Jwt:ExpiryMinutes"];
-            return int.TryParse(expiryMinutes, out var minutes) ? minutes : 60; // Default 60 minutes
         }
     }
 }

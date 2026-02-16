@@ -6,62 +6,50 @@ using TicketingSystem.SharedKernel;
 
 namespace TicketingSystem.Modules.Identity.Domain.Entities
 {
-    public class RefreshToken : Entity
+    public class RefreshToken 
     {
+        public Guid Id { get; private set; }
         public Guid UserId { get; private set; }
+
         public string Token { get; private set; } = string.Empty;
+        public string DeviceInfo { get; private set; } = string.Empty;
+
         public DateTime ExpiresAt { get; private set; }
-        public bool IsRevoked { get; private set; }
+        public DateTime CreatedAt { get; private set; }
         public DateTime? RevokedAt { get; private set; }
-        public string DeviceFingerprintHash { get; private set; } = string.Empty;
-        public string UserAgent { get; private set; } = string.Empty;
-        public string IpAddress { get; private set; } = string.Empty;
 
-        // EF Core constructor
-        private RefreshToken() { }
+        public bool IsExpired => DateTime.UtcNow >= ExpiresAt;
+        public bool IsRevoked => RevokedAt.HasValue;
+        public bool IsActive => !IsExpired && !IsRevoked;
 
-        private RefreshToken(
-            Guid userId,
-            string token,
-            DateTime expiresAt,
-            DeviceFingerprint deviceFingerprint)
-            : base()
-        {
-            UserId = userId;
-            Token = token;
-            ExpiresAt = expiresAt;
-            IsRevoked = false;
-            DeviceFingerprintHash = deviceFingerprint.Hash;
-            UserAgent = deviceFingerprint.UserAgent;
-            IpAddress = deviceFingerprint.IpAddress;
-        }
+        private RefreshToken() { } // EF Core
 
         public static RefreshToken Create(
             Guid userId,
-            string token,
-            DateTime expiresAt,
-            DeviceFingerprint deviceFingerprint)
+            string deviceInfo,
+            int expiryDays = 7)
         {
-            if (string.IsNullOrWhiteSpace(token))
-                throw new ArgumentException("Token cannot be empty", nameof(token));
-
-            if (expiresAt <= DateTime.UtcNow)
-                throw new ArgumentException("Expiration must be in the future", nameof(expiresAt));
-
-            return new RefreshToken(userId, token, expiresAt, deviceFingerprint);
+            return new RefreshToken
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                Token = GenerateSecureToken(),
+                DeviceInfo = deviceInfo,
+                ExpiresAt = DateTime.UtcNow.AddDays(expiryDays),
+                CreatedAt = DateTime.UtcNow
+            };
         }
-
-        public bool IsExpired => DateTime.UtcNow >= ExpiresAt;
-
-        public bool IsActive => !IsRevoked && !IsExpired;
 
         public void Revoke()
         {
-            if (IsRevoked)
-                return;
-
-            IsRevoked = true;
+            if (IsRevoked) return; // Idempotent
             RevokedAt = DateTime.UtcNow;
+        }
+
+        private static string GenerateSecureToken()
+        {
+            var bytes = System.Security.Cryptography.RandomNumberGenerator.GetBytes(64);
+            return Convert.ToBase64String(bytes);
         }
     }
 }
