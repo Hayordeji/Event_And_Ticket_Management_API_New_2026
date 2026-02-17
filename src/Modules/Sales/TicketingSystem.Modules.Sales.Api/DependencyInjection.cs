@@ -46,13 +46,9 @@ namespace TicketingSystem.Modules.Sales.Api
 
             // MediatR (Commands & Queries)
             services.AddMediatR(cfg =>
-            {
-                cfg.RegisterServicesFromAssembly(typeof(CreateOrderCommand).Assembly);
-                cfg.RegisterServicesFromAssemblyContaining<OrderPaidEvent>();
-
-                cfg.RegisterServicesFromAssembly(
-                    Assembly.Load("TicketingSystem.Modules.Sales.Application"));
-            });
+            cfg.RegisterServicesFromAssemblies(
+                Assembly.Load("TicketingSystem.Modules.Sales.Application"),
+                Assembly.Load("TicketingSystem.Modules.Sales.Infrastructure")));
 
             return services;
         }

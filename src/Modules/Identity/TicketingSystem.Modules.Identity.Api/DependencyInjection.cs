@@ -39,6 +39,8 @@ namespace TicketingSystem.Modules.Identity.Api
                             errorNumbersToAdd: null);
                     }));
 
+            
+
             services.AddIdentity<User, IdentityRole<Guid>>(options =>
             {
                 // Password rules
@@ -57,7 +59,7 @@ namespace TicketingSystem.Modules.Identity.Api
                 options.User.RequireUniqueEmail = true;
             })
             .AddEntityFrameworkStores<IdentityAppDbContext>()
-            .AddDefaultTokenProviders();               // ← For password reset, email confirm later
+            .AddDefaultTokenProviders();              
 
             // Services
             services.AddOptions<JwtConfig>()
@@ -72,10 +74,9 @@ namespace TicketingSystem.Modules.Identity.Api
 
             // MediatR (Commands & Queries)
             services.AddMediatR(cfg =>
-            {
-                cfg.RegisterServicesFromAssembly(
-                    Assembly.Load("TicketingSystem.Modules.Identity.Application"));
-            });
+            cfg.RegisterServicesFromAssemblies(
+                Assembly.Load("TicketingSystem.Modules.Identity.Application"),
+                Assembly.Load("TicketingSystem.Modules.Identity.Infrastructure")));
 
             return services;
         }

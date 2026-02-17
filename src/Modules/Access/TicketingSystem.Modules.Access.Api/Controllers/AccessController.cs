@@ -7,6 +7,7 @@ using TicketingSystem.Modules.Access.Application.Commands;
 using TicketingSystem.Modules.Access.Application.DTOs;
 using TicketingSystem.Modules.Access.Application.Queries;
 using TicketingSystem.SharedKernel.ApiResponses;
+using TicketingSystem.SharedKernel.Authorization;
 
 namespace TicketingSystem.Modules.Access.Api.Controllers
 {
@@ -30,6 +31,7 @@ namespace TicketingSystem.Modules.Access.Api.Controllers
         /// Scan a ticket QR code at venue entrance
         /// </summary>
         [HttpPost("scan")]
+        [Authorize(Policy = PolicyNames.RequireScanner)]       
         [ProducesResponseType(typeof(ApiResponse<ScanTicketResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> ScanTicket(
             [FromBody] ScanTicketRequest request,
@@ -64,6 +66,7 @@ namespace TicketingSystem.Modules.Access.Api.Controllers
         /// Get all scan logs for an event
         /// </summary>
         [HttpGet("logs/{eventId:guid}")]
+        [Authorize(Policy = PolicyNames.RequireScanner)]
         [ProducesResponseType(typeof(ApiResponse<List<ScanLogResponse>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetScanLogs(
             Guid eventId,
@@ -81,6 +84,7 @@ namespace TicketingSystem.Modules.Access.Api.Controllers
         /// Get scan statistics for an event (total entries, denials)
         /// </summary>
         [HttpGet("stats/{eventId:guid}")]
+        [Authorize(Policy = PolicyNames.RequireScanner)]
         [ProducesResponseType(typeof(ApiResponse<EventScanStatsResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetEventScanStats(
             Guid eventId,

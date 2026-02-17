@@ -42,11 +42,9 @@ namespace TicketingSystem.Modules.Finance.Api
 
             // MediatR (Commands & Queries)
             services.AddMediatR(cfg =>
-            {
-                cfg.RegisterServicesFromAssembly(typeof(Application.Commands.RecordTransactionCommand).Assembly);
-                cfg.RegisterServicesFromAssembly(
-                    Assembly.Load("TicketingSystem.Modules.Finance.Application"));
-            });
+             cfg.RegisterServicesFromAssemblies(
+                 Assembly.Load("TicketingSystem.Modules.Finance.Application"),
+                 Assembly.Load("TicketingSystem.Modules.Finance.Infrastructure")));
 
             return services;
         }
