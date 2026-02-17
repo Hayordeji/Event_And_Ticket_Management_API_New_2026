@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -68,6 +69,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Paystack webhook endpoint
         /// </summary>
         [HttpPost("paystack")]
+        [AllowAnonymous]
         public async Task<IActionResult> PaystackWebhook([FromBody] PaystackWebhookPayload payload)
         {
             try
@@ -141,6 +143,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Flutterwave webhook endpoint
         /// </summary>
         [HttpPost("flutterwave")]
+        [AllowAnonymous]
         public async Task<IActionResult> FlutterwaveWebhook([FromBody] FlutterwaveWebhookPayload payload)
         {
             try

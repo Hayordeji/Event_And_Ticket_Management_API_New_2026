@@ -10,6 +10,7 @@ using TicketingSystem.Modules.Sales.Application.Commands;
 using TicketingSystem.Modules.Sales.Application.DTOs;
 using TicketingSystem.Modules.Sales.Application.Queries;
 using TicketingSystem.SharedKernel.ApiResponses;
+using TicketingSystem.SharedKernel.Authorization;
 
 namespace TicketingSystem.Modules.Sales.Api.Controllers
 {
@@ -29,6 +30,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Create a new order
         /// </summary>
         [HttpPost]
+        [Authorize(Policy = PolicyNames.RequireCustomer)]    
         [ProducesResponseType(typeof(ApiResponse<Guid>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateOrder(
@@ -61,6 +63,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Get order by order number
         /// </summary>
         [HttpGet("{orderNumber}")]
+        [Authorize(Policy = PolicyNames.RequireCustomer)]
         [ProducesResponseType(typeof(ApiResponse<OrderResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetOrderByNumber(
@@ -80,6 +83,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Get all orders for current customer
         /// </summary>
         [HttpGet("my-orders")]
+        [Authorize(Policy = PolicyNames.RequireCustomer)]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<OrderResponse>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMyOrders(CancellationToken cancellationToken)
         {
@@ -94,6 +98,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Process payment for an order
         /// </summary>
         [HttpPost("process-payment")]
+        [Authorize(Policy = PolicyNames.RequireCustomer)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ProcessPayment(
@@ -121,6 +126,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Cancel an order
         /// </summary>
         [HttpPost("{orderNumber}/cancel")]
+        [Authorize(Policy = PolicyNames.RequireCustomer)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CancelOrder(
@@ -150,7 +156,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
 
         private UserInfo GetCurrentUserId()
         {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userIdClaim = User.FindFirst("userId")?.Value;
             string userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             string userName = User.FindFirst(ClaimTypes.GivenName)?.Value;
             return new UserInfo
@@ -165,6 +171,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Initialize payment for an order
         /// </summary>
         [HttpPost("{orderNumber}/initialize-payment")]
+        [Authorize(Policy = PolicyNames.RequireCustomer)]
         [ProducesResponseType(typeof(ApiResponse<PaymentInitializationResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]

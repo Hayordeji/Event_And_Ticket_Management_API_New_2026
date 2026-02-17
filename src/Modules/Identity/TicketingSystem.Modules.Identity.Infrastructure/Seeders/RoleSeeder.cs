@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TicketingSystem.Modules.Identity.Domain.Entities;
 using TicketingSystem.SharedKernel.Authorization;
 
 namespace TicketingSystem.Modules.Identity.Infrastructure.Seeders
@@ -11,22 +12,20 @@ namespace TicketingSystem.Modules.Identity.Infrastructure.Seeders
     {
         public static async Task SeedAsync(RoleManager<IdentityRole<Guid>> roleManager)
         {
-            if (!await roleManager.Roles.AnyAsync())
+            var roles = new[]
             {
-                var roles = new[]
-                {
-                    Roles.Admin,
-                    Roles.Host,
-                    Roles.Customer,
-                    Roles.Scanner
-                };
+                Roles.Admin,
+                Roles.Host,
+                Roles.Customer,
+                Roles.Scanner
+            };
 
-                foreach (var role in roles)
-                {
-                    if (!await roleManager.RoleExistsAsync(role))
-                        await roleManager.CreateAsync(new IdentityRole<Guid>(role));
-                }
+            foreach (var role in roles)
+            {
+                if (!await roleManager.RoleExistsAsync(role))
+                    await roleManager.CreateAsync(new IdentityRole<Guid>(role));
             }
+            
             
         }
     }

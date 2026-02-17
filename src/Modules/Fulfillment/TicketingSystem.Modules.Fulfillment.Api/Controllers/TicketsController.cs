@@ -11,6 +11,7 @@ using TicketingSystem.Modules.Fulfillment.Application.Queries;
 using TicketingSystem.Modules.Fulfillment.Application.Services;
 using TicketingSystem.Modules.Fulfillment.Domain.Repositories;
 using TicketingSystem.SharedKernel.ApiResponses;
+using TicketingSystem.SharedKernel.Authorization;
 
 namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
 {
@@ -42,6 +43,7 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
         /// Get all tickets for a specific order
         /// </summary>
         [HttpGet("order/{orderNumber}")]
+        [Authorize(Policy = PolicyNames.RequireCustomer)]    
         [ProducesResponseType(typeof(ApiResponse<List<TicketResponse>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTicketsByOrder(
@@ -63,6 +65,7 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
         /// Get a single ticket by ID
         /// </summary>
         [HttpGet("{ticketId:guid}")]
+        [Authorize(Policy = PolicyNames.RequireCustomer)]
         [ProducesResponseType(typeof(ApiResponse<TicketResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTicketById(
@@ -84,7 +87,7 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
         /// Get all tickets for the authenticated customer
         /// </summary>
         [HttpGet("my-tickets")]
-        [Authorize]
+        [Authorize(Policy = PolicyNames.RequireCustomer)]
         [ProducesResponseType(typeof(ApiResponse<List<TicketResponse>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMyTickets(CancellationToken cancellationToken)
         {
@@ -107,6 +110,7 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
         /// Download ticket as PDF
         /// </summary>
         [HttpGet("{ticketId:guid}/download")]
+        [Authorize(Policy = PolicyNames.RequireCustomer)]
         [ProducesResponseType(typeof(FileContentResult), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DownloadTicket(
@@ -136,6 +140,7 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
         /// Get QR code image for a ticket
         /// </summary>
         [HttpGet("{ticketId:guid}/qr")]
+        [Authorize(Policy = PolicyNames.RequireCustomer)]
         [ProducesResponseType(typeof(FileContentResult), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTicketQrCode(

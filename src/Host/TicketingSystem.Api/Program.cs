@@ -21,6 +21,7 @@ using TicketingSystem.Modules.Sales.Application.Services.Paystack;
 using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Flutterwave;
 using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Paystack;
 using TicketingSystem.SharedKernel;
+using TicketingSystem.SharedKernel.Authorization;
 using TicketingSystem.SharedKernel.Extensions;
 
 Log.Logger = new LoggerConfiguration()
@@ -49,29 +50,29 @@ try
     builder.Services.AddEndpointsApiExplorer();
  
     //builder.Services.AddOpenApi();
-    builder.Services.AddDbContext<IdentityAppDbContext>(options =>
-        options.UseSqlServer(
-            builder.Configuration.GetConnectionString("IdentityDb"),
-            sqlOptions =>
-            {
-                sqlOptions.MigrationsAssembly(typeof(IdentityAppDbContext).Assembly.FullName);
-                sqlOptions.EnableRetryOnFailure(
-                    maxRetryCount: 3,
-                    maxRetryDelay: TimeSpan.FromSeconds(5),
-                    errorNumbersToAdd: null);
-            }));
+    //builder.Services.AddDbContext<IdentityAppDbContext>(options =>
+    //    options.UseSqlServer(
+    //        builder.Configuration.GetConnectionString("IdentityDb"),
+    //        sqlOptions =>
+    //        {
+    //            sqlOptions.MigrationsAssembly(typeof(IdentityAppDbContext).Assembly.FullName);
+    //            sqlOptions.EnableRetryOnFailure(
+    //                maxRetryCount: 3,
+    //                maxRetryDelay: TimeSpan.FromSeconds(5),
+    //                errorNumbersToAdd: null);
+    //        }));
 
-    builder.Services.AddDbContext<FinanceDbContext>(options =>
-        options.UseSqlServer(
-            builder.Configuration.GetConnectionString("FinanceDb"),
-            sqlOptions =>
-            {
-                sqlOptions.MigrationsAssembly(typeof(FinanceDbContext).Assembly.FullName);
-                sqlOptions.EnableRetryOnFailure(
-                    maxRetryCount: 3,
-                    maxRetryDelay: TimeSpan.FromSeconds(5),
-                    errorNumbersToAdd: null);
-            }));
+    //builder.Services.AddDbContext<FinanceDbContext>(options =>
+    //    options.UseSqlServer(
+    //        builder.Configuration.GetConnectionString("FinanceDb"),
+    //        sqlOptions =>
+    //        {
+    //            sqlOptions.MigrationsAssembly(typeof(FinanceDbContext).Assembly.FullName);
+    //            sqlOptions.EnableRetryOnFailure(
+    //                maxRetryCount: 3,
+    //                maxRetryDelay: TimeSpan.FromSeconds(5),
+    //                errorNumbersToAdd: null);
+    //        }));
 
    
 
@@ -109,15 +110,7 @@ try
         });
     });
 
-    //REGISTER MODULES
-    builder.Services.AddIdentityModule(builder.Configuration);
-    builder.Services.AddFinanceModule(builder.Configuration);
-    builder.Services.AddCatalogModule(builder.Configuration);
-    builder.Services.AddSalesModule(builder.Configuration);
-    builder.Services.AddIdentityModule(builder.Configuration);
-    builder.Services.AddFulfillmentModule(builder.Configuration);
-    builder.Services.AddAccessModule(builder.Configuration);
-    builder.Services.AddSharedKernel(builder.Configuration);
+   
 
     builder.Services.AddScoped<DomainEventDispatcher>();
 
@@ -135,7 +128,16 @@ try
     builder.Configuration.GetSection("PaymentGateways:Flutterwave"));
     builder.Services.AddOptions<FlutterwaveConfig>()
     .ValidateOnStart();
-   
+
+
+    //REGISTER MODULES
+    builder.Services.AddIdentityModule(builder.Configuration);
+    builder.Services.AddFinanceModule(builder.Configuration);
+    builder.Services.AddCatalogModule(builder.Configuration);
+    builder.Services.AddSalesModule(builder.Configuration);
+    builder.Services.AddFulfillmentModule(builder.Configuration);
+    builder.Services.AddAccessModule(builder.Configuration);
+    builder.Services.AddSharedKernel(builder.Configuration);
 
     //CORS CONFIG
     builder.Services.AddCors(options =>
@@ -156,6 +158,8 @@ try
     {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+
     })
     .AddJwtBearer(options =>
         {
@@ -187,6 +191,7 @@ try
             };
         });
     builder.Services.AddAuthorization();
+    builder.Services.AddTicketingAuthorizationPolicies();
 
 
 
@@ -229,6 +234,8 @@ try
        //.WithOpenApi();
 
     app.MapControllers();
+
+    
 
 
     Log.Information("Ticketing System API started successfully");

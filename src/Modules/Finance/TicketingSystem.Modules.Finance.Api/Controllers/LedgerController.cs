@@ -9,6 +9,7 @@ using TicketingSystem.Modules.Finance.Application.Commands;
 using TicketingSystem.Modules.Finance.Application.DTOs;
 using TicketingSystem.Modules.Finance.Application.Queries;
 using TicketingSystem.SharedKernel.ApiResponses;
+using TicketingSystem.SharedKernel.Authorization;
 
 namespace TicketingSystem.Modules.Finance.Api.Controllers
 {
@@ -30,6 +31,7 @@ namespace TicketingSystem.Modules.Finance.Api.Controllers
         /// Create a new ledger account
         /// </summary>
         [HttpPost("accounts")]
+        [Authorize(Policy = PolicyNames.RequireAdmin)]       
         public async Task<IActionResult> CreateAccount([FromBody] CreateLedgerAccountRequest request)
         {
             if (!Guid.TryParse(User.FindFirst("userId")?.Value, out var userId))
@@ -66,6 +68,7 @@ namespace TicketingSystem.Modules.Finance.Api.Controllers
         /// Get ledger account by code
         /// </summary>
         [HttpGet("accounts/{accountCode}")]
+        [Authorize(Policy = PolicyNames.RequireAdmin)]
         public async Task<IActionResult> GetAccount(string accountCode)
         {
             var query = new GetLedgerAccountQuery(accountCode);
@@ -83,6 +86,7 @@ namespace TicketingSystem.Modules.Finance.Api.Controllers
         /// Record a financial transaction
         /// </summary>
         [HttpPost("transactions")]
+        [Authorize(Policy = PolicyNames.RequireAdmin)]
         public async Task<IActionResult> RecordTransaction([FromBody] RecordTransactionRequest request)
         {
             var command = new RecordTransactionCommand(
@@ -111,6 +115,7 @@ namespace TicketingSystem.Modules.Finance.Api.Controllers
         /// Get transaction by reference
         /// </summary>
         [HttpGet("transactions/{referenceType}/{referenceId:guid}")]
+        [Authorize(Policy = PolicyNames.RequireAdmin)]
         public async Task<IActionResult> GetTransaction(string referenceType, Guid referenceId)
         {
             var query = new GetTransactionByReferenceQuery(referenceType, referenceId);

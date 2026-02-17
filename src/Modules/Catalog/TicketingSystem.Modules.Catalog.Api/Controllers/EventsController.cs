@@ -11,6 +11,7 @@ using TicketingSystem.Modules.Catalog.Application.Commands;
 using TicketingSystem.Modules.Catalog.Application.DTOs;
 using TicketingSystem.Modules.Catalog.Application.Queries;
 using TicketingSystem.SharedKernel.ApiResponses;
+using TicketingSystem.SharedKernel.Authorization;
 using TicketingSystem.SharedKernel.Exceptions;
 
 namespace TicketingSystem.Modules.Catalog.Api.Controllers
@@ -39,6 +40,8 @@ namespace TicketingSystem.Modules.Catalog.Api.Controllers
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Created event ID</returns>
         [HttpPost]
+        [Authorize(Policy = PolicyNames.RequireHost)]        // Only hosts create events
+
         public async Task<IActionResult> CreateEvent(
             [FromBody] CreateEventRequest request,
             CancellationToken cancellationToken = default)
@@ -47,6 +50,7 @@ namespace TicketingSystem.Modules.Catalog.Api.Controllers
             {
                 return Unauthorized();
             }
+
 
             var command = new CreateEventCommand(hostId, request);
 
@@ -93,6 +97,7 @@ namespace TicketingSystem.Modules.Catalog.Api.Controllers
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Event details</returns>
         [HttpGet("{id:guid}")]
+        [AllowAnonymous]       
         public async Task<IActionResult> GetEvent(
             Guid id,
             CancellationToken cancellationToken = default)
@@ -133,6 +138,8 @@ namespace TicketingSystem.Modules.Catalog.Api.Controllers
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Created event ID</returns>
         [HttpPut("publish/{id:guid}")]
+        [Authorize(Policy = PolicyNames.RequireHost)]        
+
         public async Task<IActionResult> PublishEvent(
             Guid id,
             CancellationToken cancellationToken = default)
@@ -181,6 +188,8 @@ namespace TicketingSystem.Modules.Catalog.Api.Controllers
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>No content on success</returns>
         [HttpPut("{id:guid}")]
+        [Authorize(Policy = PolicyNames.RequireHost)]
+
         public async Task<IActionResult> UpdateEvent(
             Guid id,
             [FromBody] UpdateEventRequest request,
@@ -280,6 +289,8 @@ namespace TicketingSystem.Modules.Catalog.Api.Controllers
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Created ticket type ID</returns>
         [HttpPost("{eventId:guid}/ticket-types")]
+        [Authorize(Policy = PolicyNames.RequireHost)]
+
         public async Task<IActionResult> AddTicketType(
             Guid eventId,
             [FromBody] AddTicketTypeRequest request,

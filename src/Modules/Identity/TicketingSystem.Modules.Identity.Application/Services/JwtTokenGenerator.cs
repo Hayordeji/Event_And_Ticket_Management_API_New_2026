@@ -30,11 +30,11 @@ namespace TicketingSystem.Modules.Identity.Application.Services
         {
             var claims = new[]
             {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim("userId", user.Id.ToString()),
             new Claim(ClaimTypes.Email, user.Email!),
             new Claim(ClaimTypes.GivenName, user.FirstName),
             new Claim(ClaimTypes.Surname, user.LastName),
-            new Claim(ClaimTypes.Role, role),              // ← Policy-based auth reads this
+            new Claim(ClaimTypes.Role, role),
         };
 
             var key = new SymmetricSecurityKey(

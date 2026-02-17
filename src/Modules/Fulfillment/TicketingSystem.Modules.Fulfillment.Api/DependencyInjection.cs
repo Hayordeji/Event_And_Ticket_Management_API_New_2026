@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using TicketingSystem.Modules.Fulfillment.Application.Services;
 using TicketingSystem.Modules.Fulfillment.Domain.Repositories;
@@ -36,10 +37,9 @@ namespace TicketingSystem.Modules.Fulfillment.Api
 
             // MediatR (Application Layer)
             services.AddMediatR(cfg =>
-            {
-                cfg.RegisterServicesFromAssembly(typeof(Application.Commands.GenerateTicketsCommand).Assembly);
-                cfg.RegisterServicesFromAssembly(typeof(Application.EventHandlers.OrderPaidEventHandler).Assembly);
-            });
+             cfg.RegisterServicesFromAssemblies(
+                 Assembly.Load("TicketingSystem.Modules.Fulfillment.Application"),
+                 Assembly.Load("TicketingSystem.Modules.Fulfillment.Infrastructure")));
 
             return services;
         }
