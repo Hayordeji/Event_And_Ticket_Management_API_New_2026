@@ -268,6 +268,10 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
                 Id,
                 OrderNumber.Value,
                 CustomerId,
+                EventId,
+                TotalAmount.Amount,
+                PlatformFee.Amount,
+                TotalAmount.Currency,
                 reason,
                 DateTime.UtcNow));
 
@@ -292,10 +296,11 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             RaiseDomainEvent(new OrderRefundedEvent(
                 Id,
                 OrderNumber.Value,
-                GrandTotal.Amount,
-                GrandTotal.Currency,
                 CustomerId,
-                reason,
+                TotalAmount.Amount,
+                PlatformFee.Amount,
+                TotalAmount.Currency,
+                _items.Select(i => new ExpiredOrderItem(i.TicketTypeId, i.Quantity)).ToList(),
                 DateTime.UtcNow));
 
             return Result.Success();
@@ -318,6 +323,7 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
                 Id,
                 OrderNumber.Value,
                 CustomerId,
+                _items.Select(i => new ExpiredOrderItem(i.TicketTypeId, i.Quantity)).ToList(),
                 DateTime.UtcNow));
 
             return Result.Success();

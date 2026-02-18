@@ -10,6 +10,7 @@ using TicketingSystem.Modules.Finance.Domain.Repositories;
 using TicketingSystem.Modules.Finance.Infrastructure.Persistence;
 using TicketingSystem.Modules.Finance.Infrastructure.Persistence.Repositories;
 using TicketingSystem.SharedKernel;
+using TicketingSystem.SharedKernel.Outbox;
 
 namespace TicketingSystem.Modules.Finance.Api
 {
@@ -38,13 +39,16 @@ namespace TicketingSystem.Modules.Finance.Api
             services.AddScoped<IUnitOfWork, FinanceUnitOfWork>();
             services.AddScoped<IHostAccountService, HostAccountService>();
             services.AddScoped<ICatalogQueryService, CatalogQueryService>();
-
-
+            services.AddScoped<IOutboxMessageRepository, OutboxMessageRepository>();
+            services.AddScoped<IEventHostService, EventHostService>();
+            services.AddScoped<IOrderEventService, OrderEventService>();
+            
             // MediatR (Commands & Queries)
             services.AddMediatR(cfg =>
              cfg.RegisterServicesFromAssemblies(
                  Assembly.Load("TicketingSystem.Modules.Finance.Application"),
                  Assembly.Load("TicketingSystem.Modules.Finance.Infrastructure")));
+                  //Assembly.Load("TicketingSystem.Modules.Finance.Domain")));
 
             return services;
         }

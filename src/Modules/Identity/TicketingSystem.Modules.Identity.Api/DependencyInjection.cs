@@ -14,6 +14,7 @@ using TicketingSystem.Modules.Identity.Infrastructure.Persistence;
 using TicketingSystem.Modules.Identity.Infrastructure.Persistence.Configurations;
 using TicketingSystem.Modules.Identity.Infrastructure.Persistence.Repositories;
 using TicketingSystem.SharedKernel;
+using TicketingSystem.SharedKernel.Outbox;
 
 namespace TicketingSystem.Modules.Identity.Api
 {
@@ -68,6 +69,7 @@ namespace TicketingSystem.Modules.Identity.Api
 
             services.AddSingleton<IValidateOptions<JwtConfig>, JwtConfigValidator>(); services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+            services.AddScoped<IOutboxMessageRepository, OutboxMessageRepository>();
 
             // Services
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();

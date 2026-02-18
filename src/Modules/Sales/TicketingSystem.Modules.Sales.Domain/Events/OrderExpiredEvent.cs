@@ -9,6 +9,12 @@ namespace TicketingSystem.Modules.Sales.Domain.Events
     Guid OrderId,
     string OrderNumber,
     Guid CustomerId,
+    List<ExpiredOrderItem> Items,  
     DateTime ExpiredAt
-) : DomainEvent;
+    ) : DomainEvent;
+    
+    public record ExpiredOrderItem(
+        Guid TicketTypeId,
+        int Quantity
+    );
 }

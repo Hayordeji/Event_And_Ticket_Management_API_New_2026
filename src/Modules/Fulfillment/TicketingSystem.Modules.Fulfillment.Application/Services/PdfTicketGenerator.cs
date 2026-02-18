@@ -12,9 +12,7 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Services
 {
     /// <summary>
     /// PDF ticket generator service
-    /// TODO: Implement using QuestPDF library for production-quality PDFs
     /// Current implementation generates simple HTML-to-PDF (stub)
-    /// NuGet Package: QuestPDF or SelectPdf or iTextSharp
     /// </summary>
     public class PdfTicketGenerator : IPdfTicketGenerator
     {

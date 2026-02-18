@@ -9,6 +9,7 @@ using TicketingSystem.Modules.Fulfillment.Application.Services;
 using TicketingSystem.Modules.Fulfillment.Domain.Repositories;
 using TicketingSystem.Modules.Fulfillment.Infrastructure.Persistence;
 using TicketingSystem.Modules.Fulfillment.Infrastructure.Persistence.Repositories;
+using TicketingSystem.SharedKernel.Outbox;
 
 namespace TicketingSystem.Modules.Fulfillment.Api
 {
@@ -28,6 +29,7 @@ namespace TicketingSystem.Modules.Fulfillment.Api
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<ITicketDeliveryRepository, TicketDeliveryRepository>();
             services.AddScoped<IOrderDataService, OrderDataService>();
+            services.AddScoped<IOutboxMessageRepository, OutboxMessageRepository>();
 
 
             // Services

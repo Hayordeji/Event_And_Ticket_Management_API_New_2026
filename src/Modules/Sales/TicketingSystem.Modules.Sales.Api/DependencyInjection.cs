@@ -15,6 +15,7 @@ using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Flutterwave;
 using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Paystack;
 using TicketingSystem.Modules.Sales.Infrastructure.Persistence;
 using TicketingSystem.Modules.Sales.Infrastructure.Persistence.Repositories;
+using TicketingSystem.SharedKernel.Outbox;
 
 namespace TicketingSystem.Modules.Sales.Api
 {
@@ -40,7 +41,9 @@ namespace TicketingSystem.Modules.Sales.Api
             // Repositories
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IEventValidationService, EventValidationService>();
-
+            services.AddScoped<IOutboxMessageRepository, OutboxMessageRepository>();
+            services.AddHttpClient<IPaymentGatewayRefundService, PaystackRefundService>();
+            services.AddHttpClient<IPaymentGatewayRefundService, FlutterwaveRefundService>();
 
 
 

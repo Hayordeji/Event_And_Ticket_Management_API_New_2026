@@ -8,6 +8,7 @@ using System.Text;
 using TicketingSystem.Modules.Catalog.Domain.Repositories;
 using TicketingSystem.Modules.Catalog.Infrastructure.Persistence;
 using TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Repositories;
+using TicketingSystem.SharedKernel.Outbox;
 
 namespace TicketingSystem.Modules.Catalog.Api
 {
@@ -44,6 +45,8 @@ namespace TicketingSystem.Modules.Catalog.Api
                    }));
 
             // Register Repositories
+            services.AddScoped<IOutboxMessageRepository, OutboxMessageRepository>();
+
             services.AddScoped<IEventRepository, EventRepository>();
             return services;
         }

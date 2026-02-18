@@ -38,6 +38,10 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Queries
                 _logger.LogWarning("No tickets found for order {OrderNumber}", request.OrderNumber);
                 throw new NotFoundException("Tickets", request.OrderNumber);
             }
+            if ((tickets.First()).CustomerId != request.userId)
+            {
+                return Result.Failure<List<TicketResponse>>("You are not allowed to view another customer ticket");
+            }
 
             _logger.LogInformation(
                 "Found {TicketCount} tickets for order {OrderNumber}",

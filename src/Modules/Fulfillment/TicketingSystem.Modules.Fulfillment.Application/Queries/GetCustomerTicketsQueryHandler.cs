@@ -32,6 +32,13 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Queries
                 request.CustomerId,
                 cancellationToken);
 
+           
+
+            if ((tickets.First()).CustomerId != request.requesterId)
+            {
+                return Result.Failure<List<TicketResponse>>("You are not allowed to view another customer ticket");
+            }
+
             _logger.LogInformation(
                 "Found {TicketCount} tickets for customer {CustomerId}",
                 tickets.Count, request.CustomerId);

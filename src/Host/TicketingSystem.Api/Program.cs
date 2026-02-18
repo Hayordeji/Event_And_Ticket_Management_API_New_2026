@@ -6,6 +6,7 @@ using Serilog;
 using Serilog.Events;
 using System.Text;
 using TicketingSystem.Api.Middleware;
+using TicketingSystem.Api.Services;
 using TicketingSystem.Modules.Access.Api;
 using TicketingSystem.Modules.Catalog.Api;
 using TicketingSystem.Modules.Finance.Api;
@@ -113,6 +114,7 @@ try
    
 
     builder.Services.AddScoped<DomainEventDispatcher>();
+    builder.Services.AddHostedService<OutboxProcessorService>();
 
     builder.Services.AddHttpClient<IPaymentGatewayService, PaystackService>();
     builder.Services.AddHttpClient<IPaymentGatewayService, FlutterwaveService>();

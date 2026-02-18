@@ -6,6 +6,7 @@ using TicketingSystem.Modules.Access.Domain.Repositories;
 using TicketingSystem.Modules.Access.Infrastructure.Persistence;
 using TicketingSystem.Modules.Access.Infrastructure.Persistence.Repositories;
 using TicketingSystem.Modules.Access.Infrastructure.Services;
+using TicketingSystem.SharedKernel.Outbox;
 
 namespace TicketingSystem.Modules.Access.Api
 {
@@ -28,6 +29,8 @@ namespace TicketingSystem.Modules.Access.Api
             services.AddScoped<ITicketValidationService, TicketValidationService>();
 
             services.AddScoped<ITicketStatusService, TicketStatusService>();
+            services.AddScoped<IOutboxMessageRepository, OutboxMessageRepository>();
+
 
             // MediatR
             services.AddMediatR(cfg =>
