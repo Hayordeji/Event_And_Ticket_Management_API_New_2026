@@ -94,31 +94,31 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
             return Ok(ApiResponse<IEnumerable<OrderResponse>>.SuccessResponse(result.Value));
         }
 
-        /// <summary>
-        /// Process payment for an order
-        /// </summary>
-        [HttpPost("process-payment")]
-        [Authorize(Policy = PolicyNames.RequireCustomer)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> ProcessPayment(
-            [FromBody] ProcessPaymentRequest request,
-            CancellationToken cancellationToken)
-        {
-            var command = new ProcessPaymentCommand(
-                request.OrderNumber,
-                request.PaymentMethod,
-                request.PaymentReference,
-                request.GatewayResponse
-            );
+        ///// <summary>
+        ///// Process payment for an order
+        ///// </summary>
+        //[HttpPost("process-payment")]
+        //[Authorize(Policy = PolicyNames.RequireCustomer)]
+        //[ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        //public async Task<IActionResult> ProcessPayment(
+        //    [FromBody] ProcessPaymentRequest request,
+        //    CancellationToken cancellationToken)
+        //{
+        //    var command = new ProcessPaymentCommand(
+        //        request.OrderNumber,
+        //        request.PaymentMethod,
+        //        request.PaymentReference,
+        //        request.GatewayResponse
+        //    );
 
-            var result = await _mediator.Send(command, cancellationToken);
+        //    var result = await _mediator.Send(command, cancellationToken);
 
-            if (!result.IsSuccess)
-                return BadRequest(ApiResponse.ErrorResponse(result.Error));
+        //    if (!result.IsSuccess)
+        //        return BadRequest(ApiResponse.ErrorResponse(result.Error));
 
-            return Ok(ApiResponse.SuccessResponse("Payment processed successfully."));
-        }
+        //    return Ok(ApiResponse.SuccessResponse("Payment processed successfully."));
+        //}
 
 
        
@@ -141,6 +141,27 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
                 return BadRequest(ApiResponse.ErrorResponse(result.Error));
 
             return Ok(ApiResponse.SuccessResponse("Order cancelled successfully."));
+        }
+
+        /// <summary>
+        /// Cancel an order
+        /// </summary>
+        [HttpPost("{orderNumber}/refund")]
+        [Authorize(Policy = PolicyNames.RequireCustomer)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ProcessOrderRefund(
+            string orderNumber,
+            [FromBody] RefundOrderRequest request,
+            CancellationToken cancellationToken)
+        {
+            var command = new RequestRefundCommand(orderNumber, request.RefundReason);
+            var result = await _mediator.Send(command, cancellationToken);
+
+            if (!result.IsSuccess)
+                return BadRequest(ApiResponse.ErrorResponse(result.Error));
+
+            return Ok(ApiResponse.SuccessResponse("Order refunded successfully."));
         }
 
         /// <summary>

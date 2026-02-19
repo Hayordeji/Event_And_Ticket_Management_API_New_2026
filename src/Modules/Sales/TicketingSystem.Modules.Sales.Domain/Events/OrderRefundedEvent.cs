@@ -14,8 +14,8 @@ namespace TicketingSystem.Modules.Sales.Domain.Events
     decimal ServiceFee,
     string Currency,
     string PaymentReference,  
-    string PaymentGateway,
     string RefundReason,
+    string PaymentGateway,
     List<ExpiredOrderItem> Items,  
     DateTime RefundedAt
     ) : DomainEvent;

@@ -289,6 +289,11 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             if (Status == OrderStatus.Refunded)
                 return Result.Failure("Order is already refunded");
 
+            var successfullPayment = _payments.FirstOrDefault(p => p.Status == PaymentStatus.Successful);
+            if (successfullPayment is null)
+                return Result.Failure("Order does not have any successfull payment");
+
+
             Status = OrderStatus.Refunded;
             RefundedAt = DateTime.UtcNow;
             RefundReason = reason?.Trim();
@@ -300,6 +305,9 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
                 TotalAmount.Amount,
                 PlatformFee.Amount,
                 TotalAmount.Currency,
+                successfullPayment.PaymentReference,
+                reason,
+                "Paystack",
                 _items.Select(i => new ExpiredOrderItem(i.TicketTypeId, i.Quantity)).ToList(),
                 DateTime.UtcNow));
 

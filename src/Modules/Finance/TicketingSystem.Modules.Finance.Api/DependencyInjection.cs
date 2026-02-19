@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using TicketingSystem.Modules.Finance.Application.Services;
+using TicketingSystem.Modules.Finance.Application.Services.PaymentGateways;
 using TicketingSystem.Modules.Finance.Domain.Repositories;
 using TicketingSystem.Modules.Finance.Infrastructure.Persistence;
 using TicketingSystem.Modules.Finance.Infrastructure.Persistence.Repositories;
@@ -42,7 +43,9 @@ namespace TicketingSystem.Modules.Finance.Api
             services.AddScoped<IOutboxMessageRepository, OutboxMessageRepository>();
             services.AddScoped<IEventHostService, EventHostService>();
             services.AddScoped<IOrderEventService, OrderEventService>();
-            
+            services.AddScoped<IHostBalanceService, HostBalanceService>();
+            services.AddHttpClient<IPayoutService, PaystackPayoutService>();
+
             // MediatR (Commands & Queries)
             services.AddMediatR(cfg =>
              cfg.RegisterServicesFromAssemblies(

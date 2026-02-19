@@ -32,21 +32,19 @@ namespace TicketingSystem.Modules.Sales.Application.EventHandlers
             var command = new ProcessRefundCommand(
                 OrderNumber: notification.OrderNumber,
                 PaymentReference: notification.PaymentReference,
-                PaymentGateway: notification.PaymentGateway,
                 Amount: notification.RefundAmount,
                 Currency: notification.Currency,
+                PaymentGateway: notification.PaymentGateway,
                 Reason: notification.RefundReason);
 
             var result = await _mediator.Send(command, cancellationToken);
 
             if (result.IsFailure)
             {
-                // Log but don't throw — ledger is correct, gateway issue is recoverable
-                // Could add to a retry queue or alert ops team
+               
                 _logger.LogError(
-                    "Failed to process refund with {Gateway} for order {OrderNumber}: {Error}. " +
+                    "Failed to process refund for order {OrderNumber}: {Error}. " +
                     "Ledger transaction is recorded. Manual refund may be required.",
-                    notification.PaymentGateway,
                     notification.OrderNumber,
                     result.Error);
             }

@@ -6,12 +6,8 @@ using TicketingSystem.SharedKernel;
 
 namespace TicketingSystem.Modules.Sales.Application.Commands
 {
-    public record ProcessRefundCommand(
+    public record RequestRefundCommand(
     string OrderNumber,
-    string PaymentReference,
-    decimal Amount,
-    string Currency,
-    string PaymentGateway,
     string Reason
-) : IRequest<Result<string>>;
+    ) : IRequest<Result<string>>;
 }
