@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Azure.Core;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,9 @@ using System.Text;
 using TicketingSystem.Modules.Fulfillment.Application.DTOs;
 using TicketingSystem.Modules.Fulfillment.Application.Queries;
 using TicketingSystem.Modules.Fulfillment.Application.Services;
+using TicketingSystem.Modules.Fulfillment.Domain.Entitites;
 using TicketingSystem.Modules.Fulfillment.Domain.Repositories;
+using TicketingSystem.SharedKernel;
 using TicketingSystem.SharedKernel.ApiResponses;
 using TicketingSystem.SharedKernel.Authorization;
 
@@ -52,7 +55,12 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
         {
             _logger.LogInformation("API request: Get tickets for order {OrderNumber}", orderNumber);
 
-            var query = new GetTicketsByOrderQuery(orderNumber);
+            if (!Guid.TryParse(User.FindFirst("userId")?.Value, out var customerId))
+            {
+                return Unauthorized();
+            }
+
+            var query = new GetTicketsByOrderQuery(orderNumber, customerId);
             var result = await _mediator.Send(query, cancellationToken);
 
             if (!result.IsSuccess)
@@ -74,7 +82,12 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
         {
             _logger.LogInformation("API request: Get ticket {TicketId}", ticketId);
 
-            var query = new GetTicketByIdQuery(ticketId);
+            if (!Guid.TryParse(User.FindFirst("userId")?.Value, out var customerId))
+            {
+                return Unauthorized();
+            }
+
+            var query = new GetTicketByIdQuery(ticketId, customerId);
             var result = await _mediator.Send(query, cancellationToken);
 
             if (!result.IsSuccess)
@@ -91,8 +104,7 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
         [ProducesResponseType(typeof(ApiResponse<List<TicketResponse>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMyTickets(CancellationToken cancellationToken)
         {
-            // TODO: Get customer ID from JWT claims
-            // For now, using a placeholder
+          
             if (!Guid.TryParse(User.FindFirst("userId")?.Value, out var customerId))
             {
                 return Unauthorized();
@@ -100,7 +112,7 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
 
             _logger.LogInformation("API request: Get tickets for customer {CustomerId}", customerId);
 
-            var query = new GetCustomerTicketsQuery(customerId);
+            var query = new GetCustomerTicketsQuery(customerId, customerId);
             var result = await _mediator.Send(query, cancellationToken);
 
             return Ok(ApiResponse.SuccessResponse(result.Value));
@@ -119,12 +131,22 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
         {
             _logger.LogInformation("API request: Download ticket {TicketId}", ticketId);
 
+            if (!Guid.TryParse(User.FindFirst("userId")?.Value, out var customerId))
+            {
+                return Unauthorized();
+            }
+
             var ticket = await _ticketRepository.GetByIdAsync(ticketId, cancellationToken);
 
             if (ticket == null)
             {
                 _logger.LogWarning("Ticket {TicketId} not found for download", ticketId);
                 return NotFound(ApiResponse.ErrorResponse("Ticket not found"));
+            }
+
+            if (ticket.CustomerId != customerId)
+            {
+                return Unauthorized(ApiResponse.ErrorResponse("You are not allowed to view another customer ticket"));
             }
 
             var pdfBytes = _pdfGenerator.GenerateTicketPdf(ticket);
@@ -150,12 +172,22 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
         {
             _logger.LogInformation("API request: Get QR code for ticket {TicketId}", ticketId);
 
+            if (!Guid.TryParse(User.FindFirst("userId")?.Value, out var customerId))
+            {
+                return Unauthorized();
+            }
+
             var ticket = await _ticketRepository.GetByIdAsync(ticketId, cancellationToken);
 
             if (ticket == null)
             {
                 _logger.LogWarning("Ticket {TicketId} not found for QR code generation", ticketId);
                 return NotFound(ApiResponse.ErrorResponse("Ticket not found"));
+            }
+
+            if (ticket.CustomerId != customerId)
+            {
+                return Unauthorized(ApiResponse.ErrorResponse("You are not allowed to view another customer ticket"));
             }
 
             var pixelsPerModule = size / 20; // Calculate appropriate pixel density

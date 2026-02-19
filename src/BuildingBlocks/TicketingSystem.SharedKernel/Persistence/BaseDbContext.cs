@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
+using TicketingSystem.SharedKernel.Outbox;
 
 namespace TicketingSystem.SharedKernel.Persistence
 {
@@ -62,10 +63,24 @@ namespace TicketingSystem.SharedKernel.Persistence
             UpdateAuditFields();
 
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
-            // Dispatch domain events before saving
-            await DispatchDomainEventsAsync(cancellationToken);
+            //await DispatchDomainEventsAsync(cancellationToken);
 
-            return await base.SaveChangesAsync(cancellationToken);
+              // Step 1: Collect all domain events from aggregates
+            var domainEvents = GetDomainEvents();
+
+            // Step 2: Persist domain events to the outbox (same transaction)
+            await PersistDomainEventsToOutboxAsync(domainEvents, cancellationToken);
+
+            // Step 3: Save everything atomically (entities + outbox messages)
+            var result = await base.SaveChangesAsync(cancellationToken);
+
+            // Step 4: Clear domain events from aggregates (they're now in the outbox)
+            ClearDomainEvents();
+
+           
+            return result;
+
+            //return await base.SaveChangesAsync(cancellationToken);
             //return await base.SaveChangesAsync(cancellationToken);
         }
 
@@ -116,6 +131,51 @@ namespace TicketingSystem.SharedKernel.Persistence
             }
             
             await Task.CompletedTask;
+        }
+
+        public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
+
+        private List<IDomainEvent> GetDomainEvents()
+        {
+            return ChangeTracker
+                .Entries<AggregateRoot>()
+                .SelectMany(entry => entry.Entity.DomainEvents)
+                .ToList();
+        }
+
+        private async Task PersistDomainEventsToOutboxAsync(
+            List<IDomainEvent> domainEvents,
+            CancellationToken cancellationToken)
+        {
+            foreach (var domainEvent in domainEvents)
+            {
+                var eventType = domainEvent.GetType().AssemblyQualifiedName
+                    ?? throw new InvalidOperationException(
+                        $"Cannot determine type name for event {domainEvent.GetType().Name}");
+
+                var eventPayload = JsonSerializer.Serialize(
+                    domainEvent,
+                    domainEvent.GetType(),
+                    new JsonSerializerOptions { WriteIndented = false });
+
+                var outboxMessage = OutboxMessage.Create(
+                    eventType: eventType,
+                    eventPayload: eventPayload,
+                    occurredAt: domainEvent.OccurredAt);
+
+                await OutboxMessages.AddAsync(outboxMessage, cancellationToken);
+            }
+        }
+
+        private void ClearDomainEvents()
+        {
+            var aggregates = ChangeTracker
+                .Entries<AggregateRoot>()
+                .Select(entry => entry.Entity)
+                .ToList();
+
+            foreach (var aggregate in aggregates)
+                aggregate.ClearDomainEvents();
         }
     }
 }

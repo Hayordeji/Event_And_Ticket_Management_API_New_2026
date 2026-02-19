@@ -5,6 +5,7 @@
     <ProjectReference Include="..\..\Catalog\TicketingSystem.Modules.Catalog.Infrastructure\TicketingSystem.Modules.Catalog.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Identity\TicketingSystem.Modules.Identity.Infrastructure\TicketingSystem.Modules.Identity.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Sales\TicketingSystem.Modules.Sales.Domain\TicketingSystem.Modules.Sales.Domain.csproj" />
+    <ProjectReference Include="..\..\Sales\TicketingSystem.Modules.Sales.Infrastructure\TicketingSystem.Modules.Sales.Infrastructure.csproj" />
     <ProjectReference Include="..\TicketingSystem.Modules.Finance.Domain\TicketingSystem.Modules.Finance.Domain.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\TicketingSystem.SharedKernel\TicketingSystem.SharedKernel.csproj" />
     <ProjectReference Include="..\TicketingSystem.Modules.Finance.Infrastructure\TicketingSystem.Modules.Finance.Infrastructure.csproj" />

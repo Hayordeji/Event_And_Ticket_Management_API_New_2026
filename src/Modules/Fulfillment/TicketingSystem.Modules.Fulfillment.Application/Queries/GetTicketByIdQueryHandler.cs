@@ -37,6 +37,12 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Queries
                 _logger.LogWarning("Ticket {TicketId} not found", request.TicketId);
                 throw new NotFoundException(nameof(Ticket), request.TicketId);
             }
+           
+            if (ticket.CustomerId != request.requesterId)
+            {
+                return Result.Failure<TicketResponse>("You are not allowed to view another customer ticket");
+            }
+
 
             _logger.LogInformation(
                 "Ticket {TicketNumber} found. Status={Status}, Event={EventName}",

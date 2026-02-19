@@ -7,6 +7,6 @@ using TicketingSystem.SharedKernel;
 
 namespace TicketingSystem.Modules.Fulfillment.Application.Queries
 {
-    public sealed record GetCustomerTicketsQuery(Guid CustomerId) : IRequest<Result<List<TicketResponse>>>;
+    public sealed record GetCustomerTicketsQuery(Guid CustomerId, Guid requesterId) : IRequest<Result<List<TicketResponse>>>;
 
 }

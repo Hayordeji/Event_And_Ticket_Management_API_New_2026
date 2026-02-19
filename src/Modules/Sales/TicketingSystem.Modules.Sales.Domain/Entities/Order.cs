@@ -268,6 +268,10 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
                 Id,
                 OrderNumber.Value,
                 CustomerId,
+                EventId,
+                TotalAmount.Amount,
+                PlatformFee.Amount,
+                TotalAmount.Currency,
                 reason,
                 DateTime.UtcNow));
 
@@ -285,6 +289,11 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             if (Status == OrderStatus.Refunded)
                 return Result.Failure("Order is already refunded");
 
+            var successfullPayment = _payments.FirstOrDefault(p => p.Status == PaymentStatus.Successful);
+            if (successfullPayment is null)
+                return Result.Failure("Order does not have any successfull payment");
+
+
             Status = OrderStatus.Refunded;
             RefundedAt = DateTime.UtcNow;
             RefundReason = reason?.Trim();
@@ -292,10 +301,14 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
             RaiseDomainEvent(new OrderRefundedEvent(
                 Id,
                 OrderNumber.Value,
-                GrandTotal.Amount,
-                GrandTotal.Currency,
                 CustomerId,
+                TotalAmount.Amount,
+                PlatformFee.Amount,
+                TotalAmount.Currency,
+                successfullPayment.PaymentReference,
                 reason,
+                "Paystack",
+                _items.Select(i => new ExpiredOrderItem(i.TicketTypeId, i.Quantity)).ToList(),
                 DateTime.UtcNow));
 
             return Result.Success();
@@ -318,6 +331,7 @@ namespace TicketingSystem.Modules.Sales.Domain.Entities
                 Id,
                 OrderNumber.Value,
                 CustomerId,
+                _items.Select(i => new ExpiredOrderItem(i.TicketTypeId, i.Quantity)).ToList(),
                 DateTime.UtcNow));
 
             return Result.Success();

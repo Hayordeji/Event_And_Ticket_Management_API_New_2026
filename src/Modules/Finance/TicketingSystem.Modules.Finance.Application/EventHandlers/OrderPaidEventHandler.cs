@@ -8,6 +8,7 @@ using TicketingSystem.Modules.Finance.Application.DTOs;
 using TicketingSystem.Modules.Finance.Application.Services;
 using TicketingSystem.Modules.Finance.Domain.Enums;
 using TicketingSystem.Modules.Sales.Domain.Events;
+using TicketingSystem.SharedKernel.Finance;
 
 
 namespace TicketingSystem.Modules.Finance.Application.EventHandlers
@@ -83,7 +84,7 @@ namespace TicketingSystem.Modules.Finance.Application.EventHandlers
                     Amount: totalAmount,
                     Currency: notification.Currency,
                     EntryType: EntryType.Debit,
-                    Description: $"Payment received for order {notification.OrderNumber}"
+                    Description: LedgerDescriptions.PaymentReceived(notification.OrderNumber)
                 ),
                 
                 // CREDIT: Platform commission revenue
@@ -92,7 +93,7 @@ namespace TicketingSystem.Modules.Finance.Application.EventHandlers
                     Amount: platformFee,
                     Currency: notification.Currency,
                     EntryType: EntryType.Credit,
-                    Description: $"Platform commission (5%) for order {notification.OrderNumber}"
+                    Description: LedgerDescriptions.PlatformCommissionEarned(notification.OrderNumber)
                 ),
                 
                 // CREDIT: Host-specific account (CHANGED FROM LIA-HOST-PENDING)
@@ -101,7 +102,7 @@ namespace TicketingSystem.Modules.Finance.Application.EventHandlers
                     Amount: hostEarnings,
                     Currency: notification.Currency,
                     EntryType: EntryType.Credit,
-                    Description: $"Host earnings for order {notification.OrderNumber} (Event: {eventData.EventName})"
+                    Description: LedgerDescriptions.HostEarningsRecorded(notification.OrderNumber)
                 )
                     }
                 );

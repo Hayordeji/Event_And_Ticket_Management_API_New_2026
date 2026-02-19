@@ -16,8 +16,7 @@ Enterprise-grade event ticketing and management system built with .NET 10.
 
 - .NET 10 SDK
 - SQL Server (LocalDB or Docker)
-- Redis (Docker recommended)
-- Postman/Insomnia for API testing
+- Postman for API testing
 
 ## Getting Started
 ```bash
@@ -44,8 +43,7 @@ Each module follows Clean Architecture:
 
 ## Development Status
 
-🚧 **In Active Development** - Step 1.1 Complete
+**In Active Development** 
 
 ---
 
-Built with ❤️ using .NET 10

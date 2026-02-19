@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using TicketingSystem.Modules.Identity.Domain.Entities;
 using TicketingSystem.SharedKernel;
+using TicketingSystem.SharedKernel.Outbox;
 using TicketingSystem.SharedKernel.Persistence;
 
 namespace TicketingSystem.Modules.Identity.Infrastructure.Persistence
@@ -21,6 +22,8 @@ namespace TicketingSystem.Modules.Identity.Infrastructure.Persistence
         : base(options)
         {
         }
+
+        public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
 
         public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
