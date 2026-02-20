@@ -6,7 +6,7 @@ using System.Text;
 using TicketingSystem.Modules.Identity.Infrastructure.Persistence;
 using TicketingSystem.Modules.Sales.Infrastructure.Persistence;
 
-namespace TicketingSystem.Modules.Fulfillment.Application.Services
+namespace TicketingSystem.Modules.Sales.Application.Services
 {
     public class OrderDataService : IOrderDataService
     {

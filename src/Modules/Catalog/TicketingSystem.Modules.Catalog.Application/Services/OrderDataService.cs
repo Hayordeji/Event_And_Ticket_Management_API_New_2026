@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using System.Text;
 using TicketingSystem.Modules.Identity.Infrastructure.Persistence;
 using TicketingSystem.Modules.Sales.Infrastructure.Persistence;
+using static TicketingSystem.Modules.Catalog.Application.Services.IOrderDataService;
 
-namespace TicketingSystem.Modules.Fulfillment.Application.Services
+namespace TicketingSystem.Modules.Catalog.Application.Services
 {
     public class OrderDataService : IOrderDataService
     {

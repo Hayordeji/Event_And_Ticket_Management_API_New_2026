@@ -147,10 +147,10 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Cancel an order
         /// </summary>
         [HttpPost("{orderNumber}/refund")]
-        [Authorize(Policy = PolicyNames.RequireCustomer)]
+        [Authorize(Policy = PolicyNames.RequireAdmin)] 
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> ProcessOrderRefund(
+        public async Task<IActionResult> RequestOrderRefund(
             string orderNumber,
             [FromBody] RefundOrderRequest request,
             CancellationToken cancellationToken)

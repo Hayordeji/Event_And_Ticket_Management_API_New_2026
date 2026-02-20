@@ -5,7 +5,10 @@ using System.Collections.Generic;
 using System.Text;
 using TicketingSystem.Modules.Fulfillment.Application.Commands;
 using TicketingSystem.Modules.Fulfillment.Application.Services;
+
+//using TicketingSystem.Modules.Fulfillment.Application.Services;
 using TicketingSystem.Modules.Sales.Domain.Events;
+using TicketingSystem.SharedKernel.Services;
 
 namespace TicketingSystem.Modules.Fulfillment.Application.EventHandlers
 {
@@ -47,7 +50,8 @@ namespace TicketingSystem.Modules.Fulfillment.Application.EventHandlers
                     _logger.LogError(
                         "Cannot generate tickets: Order data not found for OrderId={OrderId}",
                         notification.OrderId);
-                    return;
+
+                    throw new Exception($"Cannot generate tickets: Order data not found for OrderId={notification.OrderId}"); 
                 }
 
                 _logger.LogDebug(
@@ -98,19 +102,30 @@ namespace TicketingSystem.Modules.Fulfillment.Application.EventHandlers
                     var deliveryResult = await _mediator.Send(deliveryCommand, cancellationToken);
 
                     if (deliveryResult.IsSuccess)
+                    {
                         _logger.LogInformation(
                             "Tickets delivered to {Email} for order {OrderNumber}",
                             orderData.CustomerEmail, notification.OrderNumber);
+                    }
                     else
+                    {
                         _logger.LogError(
                             "Ticket delivery failed for order {OrderNumber}. Error={Error}",
                             notification.OrderNumber, deliveryResult.Error);
+
+                        throw new Exception($"Ticket delivery failed for order {notification.OrderNumber}. Error={deliveryResult.Error}");
+                    }
+
+
                 }
                 else
                 {
                     _logger.LogError(
                         "Failed to generate tickets for order {OrderNumber}. Error: {Error}",
                         notification.OrderNumber, result.Error);
+
+                    throw new Exception($"Failed to generate tickets for order {notification.OrderNumber}. Error: {result.Error}");
+
                 }
             }
             catch (Exception ex)
@@ -120,8 +135,7 @@ namespace TicketingSystem.Modules.Fulfillment.Application.EventHandlers
                     "Error processing OrderPaidEvent for order {OrderNumber}",
                     notification.OrderNumber);
 
-                // Don't throw - event handlers should be resilient
-                // Consider adding to retry queue or dead letter queue
+                throw new Exception(ex.Message);
             }
         }
     }

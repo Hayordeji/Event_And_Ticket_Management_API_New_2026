@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using TicketingSystem.Modules.Catalog.Application.Services;
 using TicketingSystem.Modules.Catalog.Domain.Repositories;
 using TicketingSystem.Modules.Catalog.Infrastructure.Persistence;
 using TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Repositories;
@@ -46,6 +47,7 @@ namespace TicketingSystem.Modules.Catalog.Api
 
             // Register Repositories
             services.AddScoped<IOutboxMessageRepository, OutboxMessageRepository>();
+            services.AddScoped<IOrderDataService, OrderDataService>();
 
             services.AddScoped<IEventRepository, EventRepository>();
             return services;

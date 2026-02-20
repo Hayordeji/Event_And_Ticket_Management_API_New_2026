@@ -39,6 +39,11 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
             // Cancel order
             var result =  order.Refund(request.Reason);
 
+            if (result.IsFailure)
+                return result;
+
+            await _context.SaveChangesAsync(cancellationToken);
+
             return result;
         }
     }
