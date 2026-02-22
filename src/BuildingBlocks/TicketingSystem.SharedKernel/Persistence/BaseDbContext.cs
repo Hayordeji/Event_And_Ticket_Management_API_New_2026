@@ -59,8 +59,8 @@ namespace TicketingSystem.SharedKernel.Persistence
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            // Automatically set audit fields before saving
-            UpdateAuditFields();
+            //// Automatically set audit fields before saving
+            //UpdateAuditFields();
 
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
             //await DispatchDomainEventsAsync(cancellationToken);
@@ -74,7 +74,7 @@ namespace TicketingSystem.SharedKernel.Persistence
             // Step 3: Save everything atomically (entities + outbox messages)
             var result = await base.SaveChangesAsync(cancellationToken);
 
-            // Step 4: Clear domain events from aggregates (they're now in the outbox)
+            // Step 4: Clear domain events from aggregates 
             ClearDomainEvents();
 
            
@@ -93,7 +93,6 @@ namespace TicketingSystem.SharedKernel.Persistence
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        // CreatedAt is set in Entity constructor
                         // You can set CreatedBy here if you have access to current user
                         break;
 

@@ -29,8 +29,11 @@ namespace TicketingSystem.Modules.Catalog.Api
         {
             services.AddMediatR(cfg =>
             {
-                cfg.RegisterServicesFromAssembly(
-                    Assembly.Load("TicketingSystem.Modules.Catalog.Application"));
+                cfg.RegisterServicesFromAssemblies(
+                 Assembly.Load("TicketingSystem.Modules.Catalog.Application"),
+                 Assembly.Load("TicketingSystem.Modules.Catalog.Infrastructure"));
+
+
             });
 
             services.AddDbContext<CatalogDbContext>(options =>
