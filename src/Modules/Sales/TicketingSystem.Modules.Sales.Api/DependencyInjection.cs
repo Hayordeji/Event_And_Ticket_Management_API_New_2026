@@ -44,7 +44,7 @@ namespace TicketingSystem.Modules.Sales.Api
             services.AddScoped<IOutboxMessageRepository, OutboxMessageRepository>();
             services.AddHttpClient<IPaymentGatewayRefundService, PaystackRefundService>();
             services.AddHttpClient<IPaymentGatewayRefundService, FlutterwaveRefundService>();
-
+            services.AddScoped<IOrderDataService, OrderDataService>();
 
 
             // MediatR (Commands & Queries)

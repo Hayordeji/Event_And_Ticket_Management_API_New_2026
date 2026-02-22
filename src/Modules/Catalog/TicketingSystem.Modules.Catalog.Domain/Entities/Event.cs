@@ -225,12 +225,12 @@ namespace TicketingSystem.Modules.Catalog.Domain.Entities
             if (imageUrl != null)
                 ImageUrl = imageUrl.Trim();
 
-            // Raise domain event
-            RaiseDomainEvent(new EventUpdatedEvent(
-                Id,
-                snapshotCreated,
-                newSnapshotVersion,
-                DateTime.UtcNow));
+            //// Raise domain event
+            //RaiseDomainEvent(new EventUpdatedEvent(
+            //    Id,
+            //    snapshotCreated,
+            //    newSnapshotVersion,
+            //    DateTime.UtcNow));
 
             return Result.Success();
         }
@@ -276,7 +276,7 @@ namespace TicketingSystem.Modules.Catalog.Domain.Entities
             return Result.Success();
         }
 
-        // <summary>
+        /// <summary>
         /// Add a ticket type to this event
         /// </summary>
         public Result<TicketType> AddTicketType(

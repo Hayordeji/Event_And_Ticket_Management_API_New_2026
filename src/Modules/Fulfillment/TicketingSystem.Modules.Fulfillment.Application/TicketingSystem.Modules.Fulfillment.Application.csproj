@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\TicketingSystem.SharedKernel\TicketingSystem.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\Catalog\TicketingSystem.Modules.Catalog.Domain\TicketingSystem.Modules.Catalog.Domain.csproj" />
     <ProjectReference Include="..\..\Sales\TicketingSystem.Modules.Sales.Domain\TicketingSystem.Modules.Sales.Domain.csproj" />
     <ProjectReference Include="..\TicketingSystem.Modules.Fulfillment.Domain\TicketingSystem.Modules.Fulfillment.Domain.csproj" />
     <ProjectReference Include="..\TicketingSystem.Modules.Fulfillment.Infrastructure\TicketingSystem.Modules.Fulfillment.Infrastructure.csproj" />

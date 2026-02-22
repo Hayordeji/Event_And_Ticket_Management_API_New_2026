@@ -87,7 +87,7 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
 
                 if (existingPayment == null)
                 {
-                    _logger.LogWarning("Payment with ref is not found in the database.", request.PaymentReference);
+                    _logger.LogWarning("Payment with ref {ref} is not found in the database.", request.PaymentReference);
 
                     return Result.Failure("Payment not found.");
                 }

@@ -190,6 +190,7 @@ namespace TicketingSystem.Modules.Fulfillment.Domain.Entitites
         /// Marks ticket as expired (after event end date)
         /// </summary>
         public void EncryptQrCodeData(string data)
+
         {
             QrCodeData = data; 
         }
