@@ -166,17 +166,27 @@ try
     builder.Services.AddAccessModule(builder.Configuration);
     builder.Services.AddSharedKernel(builder.Configuration);
 
+
+
     //CORS CONFIG
+    var origins = builder.Configuration.GetSection("AllowedOrigins")
+                                   .GetChildren()
+                                   .ToArray()
+                                   .Select(x => x.Value)
+                                   .ToArray();
+
     builder.Services.AddCors(options =>
     {
         options.AddPolicy("AllowFrontend", policy =>
         {
-            policy.WithOrigins("http://localhost:3000", "https://localhost:3000") 
+            policy.WithOrigins(origins) 
                   .AllowAnyMethod()
                   .AllowAnyHeader()
                   .AllowCredentials();
         });
     });
+
+   
 
     var jwtSecret = builder.Configuration["Jwt:Secret"]
         ?? throw new InvalidOperationException("JWT Secret not configured");

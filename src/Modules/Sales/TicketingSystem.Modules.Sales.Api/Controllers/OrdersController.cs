@@ -211,8 +211,6 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         {
             var customerId = GetCurrentUserId();
 
-            // Get customer email (you'll need to fetch this from Identity module)
-            // For now, using a placeholder
             var customerEmail = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value ?? "customer@example.com";
 
             var callbackUrl = $"{Request.Scheme}://{Request.Host}/api/webhooks/verify-payment";

@@ -61,9 +61,9 @@ namespace TicketingSystem.Modules.Sales.Application.Services.Paystack
                     reference = reference,
                     callback_url = callbackUrl,
                     metadata = new Dictionary<string, string>
-                {
-                    { "order_number", orderNumber }
-                }
+                    {
+                        { "order_number", orderNumber }
+                    }
                 };
 
                 var response = await _httpClient.PostAsJsonAsync(
