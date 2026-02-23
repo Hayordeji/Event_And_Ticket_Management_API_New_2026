@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using TicketingSystem.Modules.Identity.Application.Commands;
@@ -27,6 +28,7 @@ namespace TicketingSystem.Api.Controllers
         /// Register a new user
         /// </summary>
         [HttpPost("register")]
+        [EnableRateLimiting("fixed_auth_register")]
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
@@ -52,6 +54,7 @@ namespace TicketingSystem.Api.Controllers
         /// Login with email and password
         /// </summary>
         [HttpPost("login")]
+        [EnableRateLimiting("fixed_auth_login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
@@ -74,6 +77,7 @@ namespace TicketingSystem.Api.Controllers
         /// Get current user info (requires authentication)
         /// </summary>
         [HttpGet("me")]
+        [EnableRateLimiting("get_endpoints")]
         [Authorize]
         public IActionResult GetCurrentUser()
         {

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,6 +28,7 @@ namespace TicketingSystem.Modules.Finance.Api.Controllers
         }
 
         [HttpGet("balance/{hostId}")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         public async Task<IActionResult> GetHostBalance(
             Guid hostId,
             CancellationToken cancellationToken)
@@ -40,6 +42,7 @@ namespace TicketingSystem.Modules.Finance.Api.Controllers
         }
 
         [HttpPost("{hostId}")]
+        [EnableRateLimiting("fixed_create_endpoints")]
         public async Task<IActionResult> ProcessPayout(
             Guid hostId,
             [FromBody] ProcessPayoutRequest request,

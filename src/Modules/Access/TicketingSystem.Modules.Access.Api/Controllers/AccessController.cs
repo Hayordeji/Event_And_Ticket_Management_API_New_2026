@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Logging;
 using TicketingSystem.Modules.Access.Application.Commands;
 using TicketingSystem.Modules.Access.Application.DTOs;
@@ -31,6 +32,7 @@ namespace TicketingSystem.Modules.Access.Api.Controllers
         /// Scan a ticket QR code at venue entrance
         /// </summary>
         [HttpPost("scan")]
+        [EnableRateLimiting("fixed_access_scan")]
         [Authorize(Policy = PolicyNames.RequireScanner)]       
         [ProducesResponseType(typeof(ApiResponse<ScanTicketResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> ScanTicket(
@@ -66,6 +68,7 @@ namespace TicketingSystem.Modules.Access.Api.Controllers
         /// Get all scan logs for an event
         /// </summary>
         [HttpGet("logs/{eventId:guid}")]
+        [EnableRateLimiting("get_endpoints")]
         [Authorize(Policy = PolicyNames.RequireScanner)]
         [ProducesResponseType(typeof(ApiResponse<List<ScanLogResponse>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetScanLogs(
@@ -84,6 +87,7 @@ namespace TicketingSystem.Modules.Access.Api.Controllers
         /// Get scan statistics for an event (total entries, denials)
         /// </summary>
         [HttpGet("stats/{eventId:guid}")]
+        [EnableRateLimiting("get_endpoints")]
         [Authorize(Policy = PolicyNames.RequireScanner)]
         [ProducesResponseType(typeof(ApiResponse<EventScanStatsResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetEventScanStats(
@@ -102,6 +106,7 @@ namespace TicketingSystem.Modules.Access.Api.Controllers
         /// Health check
         /// </summary>
         [HttpGet("health")]
+        [EnableRateLimiting("get_endpoints")]
         [AllowAnonymous]
         public IActionResult Health() => Ok(ApiResponse.SuccessResponse("Access API is healthy"));
     }

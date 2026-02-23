@@ -328,15 +328,6 @@ namespace TicketingSystem.Modules.Catalog.Domain.Entities
             // Add to collection
             _ticketTypes.Add(ticketType);
 
-            // Raise domain event from the aggregate root
-            RaiseDomainEvent(new TicketTypeCreatedEvent(
-                ticketType.Id,
-                Id,
-                ticketType.Name,
-                price.Amount,
-                totalCapacity,
-                DateTime.UtcNow));
-
             return Result.Success(ticketType);
         }
 
