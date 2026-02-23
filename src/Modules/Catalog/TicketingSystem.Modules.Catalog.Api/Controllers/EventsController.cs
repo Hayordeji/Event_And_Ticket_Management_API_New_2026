@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -40,8 +41,8 @@ namespace TicketingSystem.Modules.Catalog.Api.Controllers
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Created event ID</returns>
         [HttpPost]
+        [EnableRateLimiting("fixed_create_endpoints")]
         [Authorize(Policy = PolicyNames.RequireHost)]        // Only hosts create events
-
         public async Task<IActionResult> CreateEvent(
             [FromBody] CreateEventRequest request,
             CancellationToken cancellationToken = default)
@@ -97,6 +98,7 @@ namespace TicketingSystem.Modules.Catalog.Api.Controllers
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Event details</returns>
         [HttpGet("{id:guid}")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         [AllowAnonymous]       
         public async Task<IActionResult> GetEvent(
             Guid id,
@@ -138,6 +140,7 @@ namespace TicketingSystem.Modules.Catalog.Api.Controllers
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Created event ID</returns>
         [HttpPut("publish/{id:guid}")]
+        [EnableRateLimiting("fixed_create_endpoints")]
         [Authorize(Policy = PolicyNames.RequireHost)]        
 
         public async Task<IActionResult> PublishEvent(
@@ -188,8 +191,8 @@ namespace TicketingSystem.Modules.Catalog.Api.Controllers
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>No content on success</returns>
         [HttpPut("{id:guid}")]
+        [EnableRateLimiting("fixed_create_endpoints")]
         [Authorize(Policy = PolicyNames.RequireHost)]
-
         public async Task<IActionResult> UpdateEvent(
             Guid id,
             [FromBody] UpdateEventRequest request,
@@ -252,6 +255,7 @@ namespace TicketingSystem.Modules.Catalog.Api.Controllers
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Paginated list of events</returns>
         [HttpGet("search")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         [AllowAnonymous]
         public async Task<IActionResult> SearchEvents(
             [FromQuery] SearchEventsRequest request,
@@ -289,6 +293,7 @@ namespace TicketingSystem.Modules.Catalog.Api.Controllers
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Created ticket type ID</returns>
         [HttpPost("{eventId:guid}/ticket-types")]
+        [EnableRateLimiting("fixed_create_endpoints")]
         [Authorize(Policy = PolicyNames.RequireHost)]
 
         public async Task<IActionResult> AddTicketType(
@@ -356,6 +361,7 @@ namespace TicketingSystem.Modules.Catalog.Api.Controllers
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of ticket types</returns>
         [HttpGet("{eventId:guid}/ticket-types")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         [AllowAnonymous]
         public async Task<IActionResult> GetTicketTypesByEvent(
             Guid eventId,
@@ -398,6 +404,7 @@ namespace TicketingSystem.Modules.Catalog.Api.Controllers
         /// <returns>Health status</returns>
         /// <response code="200">Service is healthy</response>
         [HttpGet("health")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         [AllowAnonymous]
         public IActionResult Health()
         {

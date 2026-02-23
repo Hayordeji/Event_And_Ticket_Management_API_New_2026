@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -45,6 +46,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Process payment for an order
         /// </summary>
         [HttpGet("verify-payment")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> VerifyPayment(
@@ -69,6 +71,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Paystack webhook endpoint
         /// </summary>
         [HttpPost("paystack")]
+        [EnableRateLimiting("fixed_create_endpoints")]
         [AllowAnonymous]
         public async Task<IActionResult> PaystackWebhook([FromBody] PaystackWebhookPayload payload)
         {
@@ -143,6 +146,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Flutterwave webhook endpoint
         /// </summary>
         [HttpPost("flutterwave")]
+        [EnableRateLimiting("fixed_create_endpoints")]
         [AllowAnonymous]
         public async Task<IActionResult> FlutterwaveWebhook([FromBody] FlutterwaveWebhookPayload payload)
         {

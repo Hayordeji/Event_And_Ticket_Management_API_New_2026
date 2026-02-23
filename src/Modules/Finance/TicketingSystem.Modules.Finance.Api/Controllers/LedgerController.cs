@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,8 @@ namespace TicketingSystem.Modules.Finance.Api.Controllers
         /// Create a new ledger account
         /// </summary>
         [HttpPost("accounts")]
+        [EnableRateLimiting("fixed_create_endpoints")]
+
         [Authorize(Policy = PolicyNames.RequireAdmin)]       
         public async Task<IActionResult> CreateAccount([FromBody] CreateLedgerAccountRequest request)
         {
@@ -68,6 +71,7 @@ namespace TicketingSystem.Modules.Finance.Api.Controllers
         /// Get ledger account by code
         /// </summary>
         [HttpGet("accounts/{accountCode}")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         [Authorize(Policy = PolicyNames.RequireAdmin)]
         public async Task<IActionResult> GetAccount(string accountCode)
         {
@@ -86,6 +90,7 @@ namespace TicketingSystem.Modules.Finance.Api.Controllers
         /// Record a financial transaction
         /// </summary>
         [HttpPost("transactions")]
+        [EnableRateLimiting("fixed_create_endpoints")]
         [Authorize(Policy = PolicyNames.RequireAdmin)]
         public async Task<IActionResult> RecordTransaction([FromBody] RecordTransactionRequest request)
         {
@@ -115,6 +120,7 @@ namespace TicketingSystem.Modules.Finance.Api.Controllers
         /// Get transaction by reference
         /// </summary>
         [HttpGet("transactions/{referenceType}/{referenceId:guid}")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         [Authorize(Policy = PolicyNames.RequireAdmin)]
         public async Task<IActionResult> GetTransaction(string referenceType, Guid referenceId)
         {
@@ -133,6 +139,7 @@ namespace TicketingSystem.Modules.Finance.Api.Controllers
         /// Health check for finance module
         /// </summary>
         [HttpGet("health")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         [AllowAnonymous]
         public IActionResult Health()
         {

@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,7 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
         /// Get all tickets for a specific order
         /// </summary>
         [HttpGet("order/{orderNumber}")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         [Authorize(Policy = PolicyNames.RequireCustomer)]    
         [ProducesResponseType(typeof(ApiResponse<List<TicketResponse>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -73,6 +75,7 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
         /// Get a single ticket by ID
         /// </summary>
         [HttpGet("{ticketId:guid}")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         [Authorize(Policy = PolicyNames.RequireCustomer)]
         [ProducesResponseType(typeof(ApiResponse<TicketResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -100,6 +103,7 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
         /// Get all tickets for the authenticated customer
         /// </summary>
         [HttpGet("my-tickets")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         [Authorize(Policy = PolicyNames.RequireCustomer)]
         [ProducesResponseType(typeof(ApiResponse<List<TicketResponse>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMyTickets(CancellationToken cancellationToken)
@@ -122,6 +126,7 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
         /// Download ticket as PDF
         /// </summary>
         [HttpGet("{ticketId:guid}/download")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         [Authorize(Policy = PolicyNames.RequireCustomer)]
         [ProducesResponseType(typeof(FileContentResult), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -162,6 +167,7 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
         /// Get QR code image for a ticket
         /// </summary>
         [HttpGet("{ticketId:guid}/qr")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         [Authorize(Policy = PolicyNames.RequireCustomer)]
         [ProducesResponseType(typeof(FileContentResult), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -204,6 +210,7 @@ namespace TicketingSystem.Modules.Fulfillment.Api.Controllers
         /// Health check endpoint
         /// </summary>
         [HttpGet("health")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         public IActionResult Health()
         {

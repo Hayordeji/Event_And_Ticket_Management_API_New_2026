@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
@@ -48,34 +49,7 @@ try
     // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
     builder.Host.UseSerilog();
     builder.Services.AddControllers();
-    builder.Services.AddEndpointsApiExplorer();
- 
-    //builder.Services.AddOpenApi();
-    //builder.Services.AddDbContext<IdentityAppDbContext>(options =>
-    //    options.UseSqlServer(
-    //        builder.Configuration.GetConnectionString("IdentityDb"),
-    //        sqlOptions =>
-    //        {
-    //            sqlOptions.MigrationsAssembly(typeof(IdentityAppDbContext).Assembly.FullName);
-    //            sqlOptions.EnableRetryOnFailure(
-    //                maxRetryCount: 3,
-    //                maxRetryDelay: TimeSpan.FromSeconds(5),
-    //                errorNumbersToAdd: null);
-    //        }));
-
-    //builder.Services.AddDbContext<FinanceDbContext>(options =>
-    //    options.UseSqlServer(
-    //        builder.Configuration.GetConnectionString("FinanceDb"),
-    //        sqlOptions =>
-    //        {
-    //            sqlOptions.MigrationsAssembly(typeof(FinanceDbContext).Assembly.FullName);
-    //            sqlOptions.EnableRetryOnFailure(
-    //                maxRetryCount: 3,
-    //                maxRetryDelay: TimeSpan.FromSeconds(5),
-    //                errorNumbersToAdd: null);
-    //        }));
-
-   
+    builder.Services.AddEndpointsApiExplorer(); 
 
     builder.Services.AddSwaggerGen(options =>
     {
@@ -111,7 +85,58 @@ try
         });
     });
 
-   
+    builder.Services.AddRateLimiter(rateLimiterOptions =>
+    {
+        rateLimiterOptions.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+        rateLimiterOptions.AddFixedWindowLimiter("fixed_auth_login", options =>
+        {
+            options.PermitLimit = 5;
+            options.Window = TimeSpan.FromMinutes(1);
+            options.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
+            options.QueueLimit = 0;
+           
+        });
+
+        rateLimiterOptions.AddFixedWindowLimiter("fixed_auth_register", options =>
+        {
+            options.PermitLimit = 3;
+            options.Window = TimeSpan.FromMinutes(1);
+            options.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
+            options.QueueLimit = 0;
+
+        });
+
+        rateLimiterOptions.AddFixedWindowLimiter("fixed_create_endpoints", options =>
+        {
+            options.PermitLimit = 10;
+            options.Window = TimeSpan.FromMinutes(1);
+            options.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
+            options.QueueLimit = 0;
+
+        });
+
+        rateLimiterOptions.AddFixedWindowLimiter("fixed_get_endpoints", options =>
+        {
+            options.PermitLimit = 30;
+            options.Window = TimeSpan.FromMinutes(1);
+            options.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
+            options.QueueLimit = 0;
+
+        });
+
+        rateLimiterOptions.AddFixedWindowLimiter("fixed_access_scan", options =>
+        {
+            options.PermitLimit = 60;
+            options.Window = TimeSpan.FromMinutes(1);
+            options.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
+            options.QueueLimit = 0;
+
+        });
+
+        
+    });
+
+
 
     builder.Services.AddScoped<DomainEventDispatcher>();
     builder.Services.AddHostedService<OutboxProcessorService>();
@@ -141,17 +166,27 @@ try
     builder.Services.AddAccessModule(builder.Configuration);
     builder.Services.AddSharedKernel(builder.Configuration);
 
+
+
     //CORS CONFIG
+    var origins = builder.Configuration.GetSection("AllowedOrigins")
+                                   .GetChildren()
+                                   .ToArray()
+                                   .Select(x => x.Value)
+                                   .ToArray();
+
     builder.Services.AddCors(options =>
     {
         options.AddPolicy("AllowFrontend", policy =>
         {
-            policy.WithOrigins("http://localhost:3000", "https://localhost:3000") 
+            policy.WithOrigins(origins) 
                   .AllowAnyMethod()
                   .AllowAnyHeader()
                   .AllowCredentials();
         });
     });
+
+   
 
     var jwtSecret = builder.Configuration["Jwt:Secret"]
         ?? throw new InvalidOperationException("JWT Secret not configured");
@@ -228,6 +263,7 @@ try
     app.UseHttpsRedirection();
     app.UseCors("AllowFrontend");
     app.UseAuthentication();
+    app.UseRateLimiter();
     app.UseAuthorization();
 
     //HEALTH CHECK

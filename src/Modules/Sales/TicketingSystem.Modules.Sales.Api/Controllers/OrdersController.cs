@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -30,7 +31,8 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Create a new order
         /// </summary>
         [HttpPost]
-        [Authorize(Policy = PolicyNames.RequireCustomer)]    
+        [Authorize(Policy = PolicyNames.RequireCustomer)]
+        [EnableRateLimiting("fixed_create_endpoints")]
         [ProducesResponseType(typeof(ApiResponse<Guid>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateOrder(
@@ -63,6 +65,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Get order by order number
         /// </summary>
         [HttpGet("{orderNumber}")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         [Authorize(Policy = PolicyNames.RequireCustomer)]
         [ProducesResponseType(typeof(ApiResponse<OrderResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -83,6 +86,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Get all orders for current customer
         /// </summary>
         [HttpGet("my-orders")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         [Authorize(Policy = PolicyNames.RequireCustomer)]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<OrderResponse>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMyOrders(CancellationToken cancellationToken)
@@ -126,6 +130,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Cancel an order
         /// </summary>
         [HttpPost("{orderNumber}/cancel")]
+        [EnableRateLimiting("fixed_create_endpoints")]
         [Authorize(Policy = PolicyNames.RequireCustomer)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -147,6 +152,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Cancel an order
         /// </summary>
         [HttpPost("{orderNumber}/refund")]
+        [EnableRateLimiting("fixed_create_endpoints")]
         [Authorize(Policy = PolicyNames.RequireAdmin)] 
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -168,6 +174,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Health check endpoint
         /// </summary>
         [HttpGet("health")]
+        [EnableRateLimiting("fixed_get_endpoints")]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult HealthCheck()
@@ -192,6 +199,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// Initialize payment for an order
         /// </summary>
         [HttpPost("{orderNumber}/initialize-payment")]
+        [EnableRateLimiting("fixed_create_endpoints")]
         [Authorize(Policy = PolicyNames.RequireCustomer)]
         [ProducesResponseType(typeof(ApiResponse<PaymentInitializationResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -203,8 +211,6 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         {
             var customerId = GetCurrentUserId();
 
-            // Get customer email (you'll need to fetch this from Identity module)
-            // For now, using a placeholder
             var customerEmail = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value ?? "customer@example.com";
 
             var callbackUrl = $"{Request.Scheme}://{Request.Host}/api/webhooks/verify-payment";
