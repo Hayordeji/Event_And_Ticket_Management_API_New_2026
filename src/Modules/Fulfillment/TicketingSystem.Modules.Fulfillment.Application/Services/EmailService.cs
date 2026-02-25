@@ -1,9 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Resend;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 using System.Text;
 using TicketingSystem.Modules.Fulfillment.Application.DTOs;
 
@@ -16,11 +18,13 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Services
     {
         private readonly ILogger<EmailService> _logger;
         private readonly IConfiguration _config;
+        private readonly IResend _resend;
 
-        public EmailService(ILogger<EmailService> logger, IConfiguration config)
+        public EmailService(ILogger<EmailService> logger, IConfiguration config, IResend resend)
         {
             _logger = logger;
             _config = config;
+            _resend = resend;
         }
 
         public async Task<SendEmailResponse> SendTicketEmailAsync(
@@ -54,9 +58,9 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Services
                 var attachments = new List<EmailAttachment>
             {
                 new EmailAttachment(
-                    FileName: $"Tickets-{orderNumber}.html", // Change to .pdf when PDF generation is implemented
+                    FileName: $"Tickets-{orderNumber}.pdf", 
                     Content: pdfAttachment,
-                    ContentType: "text/html") // Change to "application/pdf"
+                    ContentType: "application/pdf") 
             };
 
                 var result = await SendEmailAsync(
@@ -105,59 +109,46 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Services
             var response = new SendEmailResponse();
             try
             {
-                _logger.LogInformation(
-                    "Sending email to {Email}. Subject={Subject}, AttachmentCount={AttachmentCount}",
-                    recipientEmail, subject, attachments?.Count ?? 0);
+                var apiKey = _config["Resend:ApiKey"];
 
-                
+                var email = new EmailMessage
+                {
+                    From = "noreply@yourdomain.com",
+                    To = [recipientEmail],
+                    Subject = subject,
+                    HtmlBody = htmlBody
+                };
 
-                await Task.Delay(100, cancellationToken); // Simulate network call
+                if (attachments != null)
+                {
 
-                var messageId = $"msg_{Guid.NewGuid():N}";
-                response.Response = "Email sent successfully (simulated)";
+                    email.Attachments = attachments.Select(a => new Resend.EmailAttachment
+                    {
+                        Filename = a.FileName,
+                        Content = Convert.ToBase64String(a.Content),
+                        ContentType = a.ContentType
+                    }).ToList();
+                }
 
-                _logger.LogInformation(
-                    "Email sent successfully to {Email}. MessageId={MessageId}",
-                    recipientEmail, messageId);
-
-                //var apiKey = _config["SendGrid:ApiKey"];
-                //var client = new SendGridClient(apiKey);
-                //var from = new EmailAddress("noreply@yourdomain.com", "Your Ticketing Platform");
-                //var to = new EmailAddress(recipientEmail);
-                //var msg = MailHelper.CreateSingleEmail(from, to, subject, null, htmlBody);
-
-                //if (attachments != null)
-                //{
-                //    foreach (var attachment in attachments)
-                //    {
-                //        msg.AddAttachment(attachment.FileName, 
-                //            Convert.ToBase64String(attachment.Content), 
-                //            attachment.ContentType);
-                //    }
-                //}
-
-                //var emailResponse = await client.SendEmailAsync(msg, cancellationToken);
-                //response.IsSuccess = emailResponse.IsSuccessStatusCode;
-                //response.MessageId = emailResponse.Headers.GetValues("X-Message-Id").FirstOrDefault();
-                //response.Response = await emailResponse.Body.ReadAsStringAsync();
+                var result = await _resend.EmailSendAsync(email, cancellationToken);
 
                 response.IsSuccess = true;
-                response.MessageId = messageId;
-                
+                response.MessageId = result.Content.ToString();
+                response.Response = "Email sent successfully";
 
-                return (response);
-                            }
+                _logger.LogInformation(
+                    "Email sent via Resend to {Email}. MessageId={MessageId}",
+                    recipientEmail, response.MessageId);
+            }
             catch (Exception ex)
             {
-                _logger.LogError(
-                    ex,
-                    "Error sending email to {Email}",
-                    recipientEmail);
+                _logger.LogError(ex, "Error sending email to {Email}", recipientEmail);
                 response.IsSuccess = false;
                 response.MessageId = string.Empty;
                 response.Response = $"Error: {ex.Message}";
-                return (response);
             }
+
+            return response;
         }
 
         private static string GenerateTicketEmailHtml(

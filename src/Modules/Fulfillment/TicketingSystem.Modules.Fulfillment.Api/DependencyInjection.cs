@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Resend;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -30,7 +31,10 @@ namespace TicketingSystem.Modules.Fulfillment.Api
             services.AddScoped<ITicketDeliveryRepository, TicketDeliveryRepository>();
             services.AddScoped<IOrderDataService, OrderDataService>();
             services.AddScoped<IOutboxMessageRepository, OutboxMessageRepository>();
-
+            services.AddHttpClient<ResendClient>();
+            services.Configure<ResendClientOptions>(options =>
+                options.ApiToken = configuration["Resend:ApiKey"]!);
+            services.AddTransient<IResend, ResendClient>();
 
             // Services
             services.AddScoped<IQrCodeGenerator, QrCodeGenerator>();
