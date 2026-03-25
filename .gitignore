@@ -386,3 +386,4 @@ $RECYCLE.BIN/
 .directory
 /src/Host/TicketingSystem.Api/appsettings.*.json
 /claude.md
+/src/Host/TicketingSystem.Api/appsettings.json
