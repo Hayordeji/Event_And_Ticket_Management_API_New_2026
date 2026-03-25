@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using TicketingSystem.Modules.Sales.Application.Commands;
@@ -45,28 +46,29 @@ namespace TicketingSystem.Modules.Sales.Api
             services.AddHttpClient<IPaymentGatewayRefundService, PaystackRefundService>(client =>
             {
                 client.BaseAddress = new Uri("https://api.paystack.co/");
-                client.DefaultRequestHeaders.Add("Authorization",
-                    $"Bearer {configuration["Paystack:SecretKey"]}");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", configuration["Paystack:SecretKey"]);
+
             });
 
             services.AddHttpClient<IPaymentGatewayRefundService, FlutterwaveRefundService>(client =>
             {
                 client.BaseAddress = new Uri("https://api.flutterwave.com/");
-                client.DefaultRequestHeaders.Add("Authorization",
-                    $"Bearer {configuration["Flutterwave:SecretKey"]}");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", configuration["Flutterwave:SecretKey"]);
+
             });
             services.AddHttpClient<IPaymentGatewayService, PaystackService>(client =>
             {
                 client.BaseAddress = new Uri("https://api.paystack.co/");
-                client.DefaultRequestHeaders.Add("Authorization",
-                    $"Bearer {configuration["Paystack:SecretKey"]}");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", configuration["Paystack:SecretKey"]);
+
             });
 
             services.AddHttpClient<IPaymentGatewayService, FlutterwaveService>(client =>
             {
                 client.BaseAddress = new Uri("https://api.flutterwave.com/");
-                client.DefaultRequestHeaders.Add("Authorization",
-                    $"Bearer {configuration["Flutterwave:SecretKey"]}");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", configuration["Flutterwave:SecretKey"]);
+
+               
             });
             services.AddScoped<IOrderDataService, OrderDataService>();
 

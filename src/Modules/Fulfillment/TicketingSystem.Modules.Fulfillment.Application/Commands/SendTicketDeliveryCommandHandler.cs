@@ -3,12 +3,16 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TicketingSystem.Modules.Fulfillment.Application.DTOs;
 using TicketingSystem.Modules.Fulfillment.Application.Services;
 using TicketingSystem.Modules.Fulfillment.Domain.Entitites;
 using TicketingSystem.Modules.Fulfillment.Domain.Enums;
 using TicketingSystem.Modules.Fulfillment.Domain.Repositories;
 using TicketingSystem.Modules.Fulfillment.Infrastructure.Persistence;
+using TicketingSystem.Modules.Sales.Domain.ValueObjects;
 using TicketingSystem.SharedKernel;
+using TicketingSystem.SharedKernel.DTOs;
+using TicketingSystem.SharedKernel.Services;
 
 namespace TicketingSystem.Modules.Fulfillment.Application.Commands
 {
@@ -95,19 +99,21 @@ namespace TicketingSystem.Modules.Fulfillment.Application.Commands
                 var pdfBytes = _pdfGenerator.GenerateTicketsPdf(tickets);
 
                 var firstTicket = tickets.First();
+                var emailRequest = new SendTicketEmailRequest(
+                    RecipientEmail : request.RecipientEmail,
+                    RecipientName : request.RecipientName,
+                    OrderNumber : request.OrderNumber,
+                    EventName : firstTicket.EventName,
+                    EventDate : firstTicket.EventStartDate,
+                    VenueName : firstTicket.VenueName,
+                    TicketCount : tickets.Count,
+                    PdfAttachment : pdfBytes
 
+                );
+                
                 // Send email
-                var result = await _emailService.SendTicketEmailAsync(
-                    recipientEmail: request.RecipientEmail,
-                    recipientName: request.RecipientName,
-                    orderNumber: request.OrderNumber,
-                    eventName: firstTicket.EventName,
-                    eventDate: firstTicket.EventStartDate,
-                    venueName: firstTicket.VenueName,
-                    ticketCount: tickets.Count,
-                    pdfAttachment: pdfBytes,
-                    cancellationToken: cancellationToken);
-
+                var result = await _emailService.SendTicketEmailAsync(emailRequest, cancellationToken: cancellationToken);
+                    
                 if (result.IsSuccess)
                 {
                     delivery.MarkAsSent(result.MessageId, result.Response);

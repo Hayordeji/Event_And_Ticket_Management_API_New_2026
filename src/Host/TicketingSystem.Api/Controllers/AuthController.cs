@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using System.IdentityModel.Tokens.Jwt;
@@ -30,7 +31,7 @@ namespace TicketingSystem.Api.Controllers
         [HttpPost("register")]
         [EnableRateLimiting("fixed_auth_register")]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        public async Task<IActionResult> Register([FromBody] Modules.Identity.Application.DTOs.RegisterRequest request)
         {
             var command = new RegisterUserCommand(
                 request.Email,
@@ -56,7 +57,7 @@ namespace TicketingSystem.Api.Controllers
         [HttpPost("login")]
         [EnableRateLimiting("fixed_auth_login")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        public async Task<IActionResult> Login([FromBody] Modules.Identity.Application.DTOs.LoginRequest request)
         {
             var command = new LoginUserCommand(
                 request.Email,
@@ -97,10 +98,41 @@ namespace TicketingSystem.Api.Controllers
             return Ok(ApiResponse<object>.SuccessResponse(userInfo, HttpContext.TraceIdentifier));
         }
 
+        [HttpGet("confirm-email")]
+        [EnableRateLimiting("get_endpoints")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail([FromQuery] string email, [FromQuery] string token)
+        {
+            var result = await _mediator.Send(new ConfirmEmailCommand(email, token));
+            return result.IsSuccess ? Ok("Email confirmed.") : BadRequest(result.Error);
+        }
+
+        [HttpPost("forgot-password")]
+        [EnableRateLimiting("fixed_post_endpoints")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordRequest request)
+        {
+            await _mediator.Send(new ForgotPasswordCommand(request.Email));
+            return Ok("If the email exists, a reset link has been sent."); // Always 200
+        }
+
+        [HttpPost("reset-password")]
+        [EnableRateLimiting("fixed_post_endpoints")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(ResetPasswordRequest request)
+        {
+            var result = await _mediator.Send(
+                new ResetPasswordCommand(request.Email, request.ResetCode, request.NewPassword));
+            return result.IsSuccess ? Ok() : BadRequest(result.Error);
+        }
+
+
+
         /// <summary>
         /// Health check for auth module
         /// </summary>
         [HttpGet("health")]
+        [EnableRateLimiting("get_endpoints")]
         [AllowAnonymous]
         public IActionResult Health()
         {

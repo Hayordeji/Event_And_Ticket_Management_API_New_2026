@@ -59,7 +59,7 @@ namespace TicketingSystem.Modules.Finance.Application.Services
                     description: $"Amount owed to host: {hostName} (UserId: {hostId})");
 
                 await _context.LedgerAccounts.AddAsync(account.Value, cancellationToken);
-                //await _context.SaveChangesAsync(cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
 
                 _logger.LogInformation(
                     "Created host account: {AccountCode} for {HostName}",

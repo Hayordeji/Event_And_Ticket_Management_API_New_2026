@@ -11,6 +11,7 @@ using TicketingSystem.Modules.Fulfillment.Domain.Repositories;
 using TicketingSystem.Modules.Fulfillment.Infrastructure.Persistence;
 using TicketingSystem.Modules.Fulfillment.Infrastructure.Persistence.Repositories;
 using TicketingSystem.SharedKernel.Outbox;
+using TicketingSystem.SharedKernel.Services;
 
 namespace TicketingSystem.Modules.Fulfillment.Api
 {
@@ -39,7 +40,6 @@ namespace TicketingSystem.Modules.Fulfillment.Api
             // Services
             services.AddScoped<IQrCodeGenerator, QrCodeGenerator>();
             services.AddScoped<IPdfTicketGenerator, PdfTicketGenerator>();
-            services.AddScoped<IEmailService, EmailService>();
 
             // MediatR (Application Layer)
             services.AddMediatR(cfg =>
