@@ -550,7 +550,7 @@ namespace TicketingSystem.SharedKernel.Services
 
         public async Task<SendEmailResponse> SendOrderConfirmationEmailAsync(string recipientEmail, string recipientName, string orderNumber, string eventName, DateTime eventDate, string venueName, decimal totalAmount, int ticketCount, CancellationToken ct = default)
         {
-            var html = GeneratePasswordResetHtml(recipientName, recipientEmail, resetLink);
+            var html = GenerateOrderConfirmationHtml(recipientName, recipientEmail, resetLink);
 
 
             var emailRequest = new SendEmailRequest(
@@ -561,6 +561,82 @@ namespace TicketingSystem.SharedKernel.Services
 
 
             return await SendEmailAsync(emailRequest, ct);
+        }
+
+        private static string GenerateAccountLockedHtml(string recipientName, string recipientEmail, DateTime unlocksAt)
+        {
+            return $@"
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }}
+        .header {{
+            background: #f57c00;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }}
+        .content {{
+            background: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }}
+        .details {{
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }}
+        .footer {{
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #666;
+        }}
+    </style>
+</head>
+<body>
+    <div class='header'>
+        <h1>⚠️ Account Locked</h1>
+    </div>
+
+    <div class='content'>
+        <p>Hi {recipientName},</p>
+
+        <p>Your account has been temporarily locked due to too many failed login attempts.</p>
+
+        <div class='details'>
+            <h2>Account Details</h2>
+            <p><strong>Name:</strong> {recipientName}</p>
+            <p><strong>Email:</strong> {recipientEmail}</p>
+            <p><strong>Locked Until:</strong> {unlocksAt:dddd, MMMM dd, yyyy} at {unlocksAt:hh:mm tt} UTC</p>
+        </div>
+
+        <p><strong>What to do:</strong></p>
+        <ul>
+            <li>Wait until <strong>{unlocksAt:hh:mm tt UTC}</strong> and try again</li>
+            <li>If you forgot your password, use the forgot password option</li>
+            <li>If this wasn't you, secure your account immediately</li>
+        </ul>
+
+        <p>If you believe this is a mistake or suspect unauthorized access, please contact our support team immediately.</p>
+    </div>
+
+    <div class='footer'>
+        <p>This email was sent by Your Ticketing Platform</p>
+        <p>If this wasn't you, please contact support immediately.</p>
+    </div>
+</body>
+</html>";
         }
 
         public async Task<SendEmailResponse> SendOrderCancelledEmailAsync(string recipientEmail, string recipientName, string orderNumber, string eventName, string cancellationReason, CancellationToken ct = default)
