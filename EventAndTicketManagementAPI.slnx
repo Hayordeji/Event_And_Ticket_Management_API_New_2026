@@ -1,10 +1,9 @@
 <Solution>
-  <Folder Name="/docs/">
-    <File Path="database-design.md" />
-  </Folder>
+  <Folder Name="/docs/" />
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
     <File Path=".gitignore" />
+    <File Path="claude.md" />
     <File Path="global.json" />
     <File Path="README.md" />
   </Folder>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Resend;
 using Serilog;
 using Serilog.Events;
 using System.Text;
@@ -25,6 +26,7 @@ using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Paystack;
 using TicketingSystem.SharedKernel;
 using TicketingSystem.SharedKernel.Authorization;
 using TicketingSystem.SharedKernel.Extensions;
+using TicketingSystem.SharedKernel.Services;
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
@@ -85,6 +87,8 @@ try
         });
     });
 
+
+    //RATE LIMITING
     builder.Services.AddRateLimiter(rateLimiterOptions =>
     {
         rateLimiterOptions.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
@@ -124,6 +128,15 @@ try
 
         });
 
+        rateLimiterOptions.AddFixedWindowLimiter("fixed_post_endpoints", options =>
+        {
+            options.PermitLimit = 15;
+            options.Window = TimeSpan.FromMinutes(1);
+            options.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
+            options.QueueLimit = 0;
+
+        });
+
         rateLimiterOptions.AddFixedWindowLimiter("fixed_access_scan", options =>
         {
             options.PermitLimit = 60;
@@ -136,10 +149,20 @@ try
         
     });
 
+    //EMAIL SERVICE
+    builder.Services.AddHttpClient<ResendClient>();
+
+    builder.Services.Configure<ResendClientOptions>(o =>
+    {
+        o.ApiToken = builder.Configuration["Resend:ApiKey"];
+
+    });
+    builder.Services.AddTransient<IResend, ResendClient>();
 
 
     builder.Services.AddScoped<DomainEventDispatcher>();
     builder.Services.AddHostedService<OutboxProcessorService>();
+    builder.Services.AddScoped<IEmailService, EmailService>();
 
     builder.Services.AddHttpClient<IPaymentGatewayService, PaystackService>();
     builder.Services.AddHttpClient<IPaymentGatewayService, FlutterwaveService>();
@@ -209,7 +232,7 @@ try
                 ValidIssuer = builder.Configuration["Jwt:Issuer"],
                 ValidAudience = builder.Configuration["Jwt:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret)),
-                ClockSkew = TimeSpan.Zero // Remove default 5 min clock skew
+                ClockSkew = TimeSpan.Zero
             };
 
             options.Events = new JwtBearerEvents

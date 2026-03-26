@@ -69,6 +69,7 @@ namespace TicketingSystem.Modules.Sales.Application.Services
                 VenueName: order.VenueName,
                 VenueAddress: order.VenueAddress,
                 VenueCity: order.VenueCity,
+                CreatedAt: order.CreatedAt,
                 Currency: order.TotalAmount.Currency,
                 Items: order.Items.Select(i => new OrderItemDataDto(
                     TicketTypeId: i.TicketTypeId,

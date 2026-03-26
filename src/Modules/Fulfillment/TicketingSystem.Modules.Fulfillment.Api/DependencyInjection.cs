@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Resend;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -10,6 +11,7 @@ using TicketingSystem.Modules.Fulfillment.Domain.Repositories;
 using TicketingSystem.Modules.Fulfillment.Infrastructure.Persistence;
 using TicketingSystem.Modules.Fulfillment.Infrastructure.Persistence.Repositories;
 using TicketingSystem.SharedKernel.Outbox;
+using TicketingSystem.SharedKernel.Services;
 
 namespace TicketingSystem.Modules.Fulfillment.Api
 {
@@ -30,12 +32,14 @@ namespace TicketingSystem.Modules.Fulfillment.Api
             services.AddScoped<ITicketDeliveryRepository, TicketDeliveryRepository>();
             services.AddScoped<IOrderDataService, OrderDataService>();
             services.AddScoped<IOutboxMessageRepository, OutboxMessageRepository>();
-
+            services.AddHttpClient<ResendClient>();
+            services.Configure<ResendClientOptions>(options =>
+                options.ApiToken = configuration["Resend:ApiKey"]!);
+            services.AddTransient<IResend, ResendClient>();
 
             // Services
             services.AddScoped<IQrCodeGenerator, QrCodeGenerator>();
             services.AddScoped<IPdfTicketGenerator, PdfTicketGenerator>();
-            services.AddScoped<IEmailService, EmailService>();
 
             // MediatR (Application Layer)
             services.AddMediatR(cfg =>

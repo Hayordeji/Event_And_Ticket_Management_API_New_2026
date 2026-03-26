@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TicketingSystem.Modules.Fulfillment.Application.DTOs
+﻿namespace TicketingSystem.SharedKernel.DTOs
 {
     public class SendEmailResponse
     {

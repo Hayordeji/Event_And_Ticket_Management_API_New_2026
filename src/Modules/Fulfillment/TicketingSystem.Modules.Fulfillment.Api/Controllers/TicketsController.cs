@@ -1,20 +1,14 @@
-﻿using Azure.Core;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TicketingSystem.Modules.Fulfillment.Application.DTOs;
 using TicketingSystem.Modules.Fulfillment.Application.Queries;
 using TicketingSystem.Modules.Fulfillment.Application.Services;
-using TicketingSystem.Modules.Fulfillment.Domain.Entitites;
 using TicketingSystem.Modules.Fulfillment.Domain.Repositories;
-using TicketingSystem.SharedKernel;
 using TicketingSystem.SharedKernel.ApiResponses;
+using MediatR;
 using TicketingSystem.SharedKernel.Authorization;
 
 namespace TicketingSystem.Modules.Fulfillment.Api.Controllers

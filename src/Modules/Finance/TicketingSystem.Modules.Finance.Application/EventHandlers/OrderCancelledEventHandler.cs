@@ -46,7 +46,7 @@ namespace TicketingSystem.Modules.Finance.Infrastructure.EventHandlers
 
             // Resolve HostId from EventId
             var hostIdResult = await _eventHostService
-                .GetHostIdAsync(notification.EventId, cancellationToken);
+                .GetHostIdAsync(notification.HostEventId, cancellationToken);
 
             if (hostIdResult.IsFailure)
                 throw new InvalidOperationException(

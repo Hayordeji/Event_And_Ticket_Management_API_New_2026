@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using TicketingSystem.Modules.Sales.Application.Commands;
@@ -22,7 +23,7 @@ namespace TicketingSystem.Modules.Sales.Api
     public static class DependencyInjection
     {
         public static IServiceCollection AddSalesModule(
-        this IServiceCollection services,
+        this IServiceCollection services,   
         IConfiguration configuration)
         {
             // Database
@@ -42,8 +43,33 @@ namespace TicketingSystem.Modules.Sales.Api
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IEventValidationService, EventValidationService>();
             services.AddScoped<IOutboxMessageRepository, OutboxMessageRepository>();
-            services.AddHttpClient<IPaymentGatewayRefundService, PaystackRefundService>();
-            services.AddHttpClient<IPaymentGatewayRefundService, FlutterwaveRefundService>();
+            services.AddHttpClient<IPaymentGatewayRefundService, PaystackRefundService>(client =>
+            {
+                client.BaseAddress = new Uri("https://api.paystack.co/");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", configuration["Paystack:SecretKey"]);
+
+            });
+
+            services.AddHttpClient<IPaymentGatewayRefundService, FlutterwaveRefundService>(client =>
+            {
+                client.BaseAddress = new Uri("https://api.flutterwave.com/");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", configuration["Flutterwave:SecretKey"]);
+
+            });
+            services.AddHttpClient<IPaymentGatewayService, PaystackService>(client =>
+            {
+                client.BaseAddress = new Uri("https://api.paystack.co/");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", configuration["Paystack:SecretKey"]);
+
+            });
+
+            services.AddHttpClient<IPaymentGatewayService, FlutterwaveService>(client =>
+            {
+                client.BaseAddress = new Uri("https://api.flutterwave.com/");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", configuration["Flutterwave:SecretKey"]);
+
+               
+            });
             services.AddScoped<IOrderDataService, OrderDataService>();
 
 
