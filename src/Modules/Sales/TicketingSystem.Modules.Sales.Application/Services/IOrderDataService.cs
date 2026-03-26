@@ -21,6 +21,7 @@ namespace TicketingSystem.Modules.Sales.Application.Services
         Guid OrderId,
         string OrderNumber,
         Guid CustomerId,
+        DateTime CreatedAt,
         string CustomerEmail,
         string CustomerFirstName,
         string CustomerLastName,

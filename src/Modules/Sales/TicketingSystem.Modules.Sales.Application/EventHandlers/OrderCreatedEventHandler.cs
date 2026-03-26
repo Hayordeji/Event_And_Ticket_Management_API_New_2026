@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Text;
 using TicketingSystem.Modules.Catalog.Infrastructure.Persistence;
 using TicketingSystem.Modules.Sales.Application.Services;
+using TicketingSystem.Modules.Sales.Domain.Entities;
 using TicketingSystem.Modules.Sales.Domain.Events;
+using TicketingSystem.SharedKernel.Services;
 
 namespace TicketingSystem.Modules.Sales.Application.EventHandlers
 {
@@ -16,17 +18,20 @@ namespace TicketingSystem.Modules.Sales.Application.EventHandlers
         private readonly IOrderDataService _orderDataService;
         private readonly CatalogDbContext _context;
         private readonly ILogger<OrderCreatedEventHandler> _logger;
+        private readonly IEmailService _emailService;
 
         public OrderCreatedEventHandler(
             IMediator mediator,
             IOrderDataService orderDataService,
             ILogger<OrderCreatedEventHandler> logger,
-            CatalogDbContext context)
+            CatalogDbContext context,
+            IEmailService emailService)
         {
             _mediator = mediator;
             _orderDataService = orderDataService;
             _logger = logger;
             _context = context;
+            _emailService = emailService;
         }
 
 
@@ -85,6 +90,15 @@ namespace TicketingSystem.Modules.Sales.Application.EventHandlers
                         throw new Exception($"Cannot add ticket reserved counts: {result.Error}");
                     }
                 }
+
+                // Send order creation email
+                var emailResult = await _emailService.SendOrderCreatedEmailAsync(
+                    recipientEmail: orderData.CustomerEmail,
+                    recipientName: orderData.CustomerFirstName,
+                    orderNumber: notification.OrderNumber,
+                    eventName: orderData.EventName,
+                    createdAt: orderData.CreatedAt,
+                    ct: cancellationToken);
             }
             catch (Exception ex)
             {

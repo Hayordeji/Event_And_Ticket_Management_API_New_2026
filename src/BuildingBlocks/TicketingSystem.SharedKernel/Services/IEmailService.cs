@@ -50,6 +50,13 @@ namespace TicketingSystem.SharedKernel.Services
             string recipientEmail, string recipientName,
             string orderNumber, string eventName,
             CancellationToken ct = default);
+        Task<SendEmailResponse> SendOrderCreatedEmailAsync(string recipientEmail,
+            string recipientName,
+            string orderNumber,
+            string eventName,
+            DateTime createdAt,
+            CancellationToken ct = default);
+
     }
 
     /// <summary>

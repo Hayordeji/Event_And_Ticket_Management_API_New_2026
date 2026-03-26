@@ -11,7 +11,7 @@ namespace TicketingSystem.Modules.Sales.Domain.Events
     Guid CustomerId,
     Guid HostEventId,            
     decimal GrandTotal,     
-    decimal ServiceFee,    
+    decimal ServiceFee,     
     string Currency,        
     string CancellationReason,
     DateTime CancelledAt

@@ -12,7 +12,7 @@ namespace TicketingSystem.Modules.Sales.Domain.Events
      decimal TotalAmount,
      string Currency,
      DateTime PaidAt,
-     Guid CustomerId,
+     Guid CustomerId, 
      //Guid HostId,
      string PaymentReference
     ) : DomainEvent;

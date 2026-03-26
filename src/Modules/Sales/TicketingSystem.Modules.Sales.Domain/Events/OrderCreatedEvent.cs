@@ -8,7 +8,7 @@ namespace TicketingSystem.Modules.Sales.Domain.Events
     public record OrderCreatedEvent(
     Guid OrderId,
     Guid MainEventId,
-    Guid UserId,
+    Guid UserId, 
     string OrderNumber,
     //decimal TotalAmount,
     //string Currency,

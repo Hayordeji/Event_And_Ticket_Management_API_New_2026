@@ -254,7 +254,7 @@ namespace TicketingSystem.SharedKernel.Services
 
             var emailRequest = new SendEmailRequest(
                 RecipientEmail: recipientEmail,
-                Subject: "Welcome to Our Service!",
+                Subject: "Verify your email!",
                 HtmlBody: html,
                 Attachments: null);
 
@@ -358,7 +358,7 @@ namespace TicketingSystem.SharedKernel.Services
 
             var emailRequest = new SendEmailRequest(
                 RecipientEmail: recipientEmail,
-                Subject: "Welcome to Our Service!",
+                Subject: "You requested for a password reset!",
                 HtmlBody: html,
                 Attachments: null);
 
@@ -454,7 +454,7 @@ namespace TicketingSystem.SharedKernel.Services
         <p>If you didn't request this, please secure your account immediately.</p>
     </div>
 </body>
-</html>";
+</html>";   
         }
 
 
@@ -465,7 +465,7 @@ namespace TicketingSystem.SharedKernel.Services
 
             var emailRequest = new SendEmailRequest(
                RecipientEmail: recipientEmail,
-               Subject: "Welcome to Our Service!",
+               Subject: "Your account has been locked!",
                HtmlBody: html,
                Attachments: null);
 
@@ -550,12 +550,12 @@ namespace TicketingSystem.SharedKernel.Services
 
         public async Task<SendEmailResponse> SendOrderConfirmationEmailAsync(string recipientEmail, string recipientName, string orderNumber, string eventName, DateTime eventDate, string venueName, decimal totalAmount, int ticketCount, CancellationToken ct = default)
         {
-            var html = GenerateOrderConfirmationHtml(recipientName, recipientEmail, resetLink);
+            var html = GenerateOrderConfirmationHtml(recipientEmail,recipientName,orderNumber,eventName,eventDate,venueName,totalAmount,ticketCount);
 
 
             var emailRequest = new SendEmailRequest(
                 RecipientEmail: recipientEmail,
-                Subject: "Welcome to Our Service!",
+                Subject: "Your oder has been confirmed!",
                 HtmlBody: html,
                 Attachments: null);
 
@@ -563,8 +563,314 @@ namespace TicketingSystem.SharedKernel.Services
             return await SendEmailAsync(emailRequest, ct);
         }
 
-        private static string GenerateAccountLockedHtml(string recipientName, string recipientEmail, DateTime unlocksAt)
+        private static string GenerateOrderConfirmationHtml(string recipientEmail, string recipientName,string  orderNumber,string eventName, DateTime eventDate, string venueName,decimal  totalAmount, int ticketCount)
         {
+                        return $@"
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <style>
+                    body {{
+                        font-family: Arial, sans-serif;
+                        line-height: 1.6;
+                        color: #333;
+                        max-width: 600px;
+                        margin: 0 auto;
+                        padding: 20px;
+                    }}
+                    .header {{
+                        background: #4CAF50;
+                        color: white;
+                        padding: 20px;
+                        text-align: center;
+                        border-radius: 5px 5px 0 0;
+                    }}
+                    .content {{
+                        background: #f9f9f9;
+                        padding: 20px;
+                        border: 1px solid #ddd;
+                    }}
+                    .details {{
+                        background: white;
+                        padding: 15px;
+                        border-radius: 5px;
+                        margin: 15px 0;
+                    }}
+                    .total {{
+                        background: #4CAF50;
+                        color: white;
+                        padding: 10px 15px;
+                        border-radius: 5px;
+                        margin-top: 10px;
+                        font-size: 18px;
+                    }}
+                    .footer {{
+                        text-align: center;
+                        padding: 20px;
+                        font-size: 12px;
+                        color: #666;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class='header'>
+                    <h1>🎟️ Order Confirmed!</h1>
+                </div>
+
+                <div class='content'>
+                    <p>Hi {recipientName},</p>
+
+                    <p>Your order has been confirmed! Here's a summary of your purchase.</p>
+
+                    <div class='details'>
+                        <h2>Order Summary</h2>
+                        <p><strong>Order Number:</strong> {orderNumber}</p>
+                        <p><strong>Email:</strong> {recipientEmail}</p>
+                        <p><strong>Event:</strong> {eventName}</p>
+                        <p><strong>Date:</strong> {eventDate:dddd, MMMM dd, yyyy}</p>
+                        <p><strong>Time:</strong> {eventDate:hh:mm tt}</p>
+                        <p><strong>Venue:</strong> {venueName}</p>
+                        <p><strong>Tickets:</strong> {ticketCount}</p>
+                        <div class='total'>
+                            <strong>Total Paid: ₦{totalAmount:N2}</strong>
+                        </div>
+                    </div>
+
+                    <p><strong>What's Next:</strong></p>
+                    <ul>
+                        <li>Your tickets will be sent in a separate email</li>
+                        <li>Present your QR code at the entrance</li>
+                        <li>Arrive early to avoid queues</li>
+                        <li>Keep your order number safe: <strong>{orderNumber}</strong></li>
+                    </ul>
+
+                    <p>If you have any questions, please contact our support team.</p>
+
+                    <p>See you at the event! 🎊</p>
+                </div>
+
+                <div class='footer'>
+                    <p>This email was sent by Your Ticketing Platform</p>
+                    <p>Order #{orderNumber}</p>
+                </div>
+            </body>
+            </html>";
+        }
+
+
+        public async Task<SendEmailResponse> SendOrderCancelledEmailAsync(string recipientEmail, string recipientName, string orderNumber, string eventName, string cancellationReason, CancellationToken ct = default)
+        {
+            var html = GenerateOrderCancelledHtml(recipientEmail,recipientName,orderNumber,eventName);
+
+
+            var emailRequest = new SendEmailRequest(
+                RecipientEmail: recipientEmail,
+                Subject: "Your order has been cancelled!",
+                HtmlBody: html,
+                Attachments: null);
+
+
+            return await SendEmailAsync(emailRequest, ct);
+        }
+
+        private static string GenerateOrderCancelledHtml(string recipientEmail, string recipientName, string orderNumber, string eventName)
+        {
+                        return $@"
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <style>
+                    body {{
+                        font-family: Arial, sans-serif;
+                        line-height: 1.6;
+                        color: #333;
+                        max-width: 600px;
+                        margin: 0 auto;
+                        padding: 20px;
+                    }}
+                    .header {{
+                        background: #e53935;
+                        color: white;
+                        padding: 20px;
+                        text-align: center;
+                        border-radius: 5px 5px 0 0;
+                    }}
+                    .content {{
+                        background: #f9f9f9;
+                        padding: 20px;
+                        border: 1px solid #ddd;
+                    }}
+                    .details {{
+                        background: white;
+                        padding: 15px;
+                        border-radius: 5px;
+                        margin: 15px 0;
+                    }}
+                    .footer {{
+                        text-align: center;
+                        padding: 20px;
+                        font-size: 12px;
+                        color: #666;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class='header'>
+                    <h1>❌ Order Cancelled</h1>
+                </div>
+
+                <div class='content'>
+                    <p>Hi {recipientName},</p>
+
+                    <p>Your order for <strong>{eventName}</strong> has been cancelled.</p>
+
+                    <div class='details'>
+                        <h2>Cancellation Details</h2>
+                        <p><strong>Order Number:</strong> {orderNumber}</p>
+                        <p><strong>Email:</strong> {recipientEmail}</p>
+                        <p><strong>Event:</strong> {eventName}</p>
+                        <p><strong>Status:</strong> Cancelled</p>
+                    </div>
+
+                    <p><strong>What Happens Next:</strong></p>
+                    <ul>
+                        <li>Any applicable refund will be processed within 5-10 business days</li>
+                        <li>Your tickets are no longer valid</li>
+                        <li>Contact support if you did not request this cancellation</li>
+                    </ul>
+
+                    <p>We're sorry to see you go. If you change your mind, you can place a new order.</p>
+                </div>
+
+                <div class='footer'>
+                    <p>This email was sent by Your Ticketing Platform</p>
+                    <p>Order #{orderNumber}</p>
+                </div>
+            </body>
+            </html>";
+        }
+
+        public async Task<SendEmailResponse> SendOrderExpiredEmailAsync(string recipientEmail, string recipientName, string orderNumber, string eventName, CancellationToken ct = default)
+        {
+            var html = GenerateOrderExpiredHtml(recipientEmail,recipientName,orderNumber,eventName);
+
+
+            var emailRequest = new SendEmailRequest(
+                RecipientEmail: recipientEmail,
+                Subject: "Your order has expired!",
+                HtmlBody: html,
+                Attachments: null);
+
+
+            return await SendEmailAsync(emailRequest, ct);
+        }
+
+        private static string GenerateOrderExpiredHtml(string recipientEmail, string recipientName, string orderNumber, string eventName)
+        {
+                        return $@"
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <style>
+                    body {{
+                        font-family: Arial, sans-serif;
+                        line-height: 1.6;
+                        color: #333;
+                        max-width: 600px;
+                        margin: 0 auto;
+                        padding: 20px;
+                    }}
+                    .header {{
+                        background: #f57c00;
+                        color: white;
+                        padding: 20px;
+                        text-align: center;
+                        border-radius: 5px 5px 0 0;
+                    }}
+                    .content {{
+                        background: #f9f9f9;
+                        padding: 20px;
+                        border: 1px solid #ddd;
+                    }}
+                    .details {{
+                        background: white;
+                        padding: 15px;
+                        border-radius: 5px;
+                        margin: 15px 0;
+                    }}
+                    .button {{
+                        display: inline-block;
+                        background: #f57c00;
+                        color: white;
+                        padding: 12px 30px;
+                        text-decoration: none;
+                        border-radius: 5px;
+                        margin: 15px 0;
+                    }}
+                    .footer {{
+                        text-align: center;
+                        padding: 20px;
+                        font-size: 12px;
+                        color: #666;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class='header'>
+                    <h1>⏰ Order Expired</h1>
+                </div>
+
+                <div class='content'>
+                    <p>Hi {recipientName},</p>
+
+                    <p>Your order for <strong>{eventName}</strong> has expired due to incomplete payment.</p>
+
+                    <div class='details'>
+                        <h2>Order Details</h2>
+                        <p><strong>Order Number:</strong> {orderNumber}</p>
+                        <p><strong>Email:</strong> {recipientEmail}</p>
+                        <p><strong>Event:</strong> {eventName}</p>
+                        <p><strong>Status:</strong> Expired</p>
+                    </div>
+
+                    <p><strong>What Happened:</strong></p>
+                    <ul>
+                        <li>Payment was not completed within the allowed time</li>
+                        <li>Your reserved tickets have been released</li>
+                        <li>No charges were made to your account</li>
+                    </ul>
+
+                    <p>Tickets may still be available — place a new order to secure your spot!</p>
+
+                    <a href='https://placeholder.com/events' class='button'>Browse Events</a>
+                </div>
+
+                <div class='footer'>
+                    <p>This email was sent by Your Ticketing Platform</p>
+                    <p>Order #{orderNumber}</p>
+                </div>
+            </body>
+            </html>";
+        }
+
+
+        public async Task<SendEmailResponse> SendOrderCreatedEmailAsync(string recipientEmail, string recipientName,string orderNumber, string eventName,DateTime createdAt, CancellationToken ct = default)
+        {
+            var html = GenerateOrderCreatedHtml( recipientName,  recipientEmail,  orderNumber,  eventName,  createdAt);
+
+            var emailRequest = new SendEmailRequest(
+            RecipientEmail: recipientEmail,
+            Subject: "Your order has been created!",
+            HtmlBody: html,
+            Attachments: null);
+
+            return await SendEmailAsync(emailRequest, ct);
+        }
+
+
+        private static string GenerateOrderCreatedHtml(string recipientName,string recipientEmail,string orderNumber,string eventName,DateTime createdAt)
+        {
+            var expiresAt = createdAt.AddMinutes(30);
             return $@"
 <!DOCTYPE html>
 <html>
@@ -579,7 +885,7 @@ namespace TicketingSystem.SharedKernel.Services
             padding: 20px;
         }}
         .header {{
-            background: #f57c00;
+            background: #1565c0;
             color: white;
             padding: 20px;
             text-align: center;
@@ -596,6 +902,22 @@ namespace TicketingSystem.SharedKernel.Services
             border-radius: 5px;
             margin: 15px 0;
         }}
+        .warning {{
+            background: #fff3e0;
+            border-left: 4px solid #f57c00;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }}
+        .button {{
+            display: inline-block;
+            background: #1565c0;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 15px 0;
+        }}
         .footer {{
             text-align: center;
             padding: 20px;
@@ -606,67 +928,47 @@ namespace TicketingSystem.SharedKernel.Services
 </head>
 <body>
     <div class='header'>
-        <h1>⚠️ Account Locked</h1>
+        <h1>🎟️ Complete Your Order</h1>
     </div>
 
     <div class='content'>
         <p>Hi {recipientName},</p>
 
-        <p>Your account has been temporarily locked due to too many failed login attempts.</p>
+        <p>We've received your order for <strong>{eventName}</strong>. 
+        Complete your payment to secure your tickets!</p>
 
-        <div class='details'>
-            <h2>Account Details</h2>
-            <p><strong>Name:</strong> {recipientName}</p>
-            <p><strong>Email:</strong> {recipientEmail}</p>
-            <p><strong>Locked Until:</strong> {unlocksAt:dddd, MMMM dd, yyyy} at {unlocksAt:hh:mm tt} UTC</p>
+        <div class='warning'>
+            ⚠️ <strong>Your reservation expires at {expiresAt:hh:mm tt} UTC.</strong> 
+            Complete payment before then or your tickets will be released.
         </div>
 
-        <p><strong>What to do:</strong></p>
-        <ul>
-            <li>Wait until <strong>{unlocksAt:hh:mm tt UTC}</strong> and try again</li>
-            <li>If you forgot your password, use the forgot password option</li>
-            <li>If this wasn't you, secure your account immediately</li>
-        </ul>
+        <div class='details'>
+            <h2>Order Details</h2>
+            <p><strong>Order Number:</strong> {orderNumber}</p>
+            <p><strong>Email:</strong> {recipientEmail}</p>
+            <p><strong>Event:</strong> {eventName}</p>
+            <p><strong>Order Date:</strong> {createdAt:dddd, MMMM dd, yyyy} at {createdAt:hh:mm tt} UTC</p>
+            <p><strong>Status:</strong> Awaiting Payment</p>
+        </div>
 
-        <p>If you believe this is a mistake or suspect unauthorized access, please contact our support team immediately.</p>
+        <a href='https://placeholder.com/orders/{orderNumber}/pay' class='button'>
+            Complete Payment
+        </a>
+
+        <p><strong>Important:</strong></p>
+        <ul>
+            <li>Your tickets are reserved for <strong>30 minutes only</strong></li>
+            <li>No charges made until payment is completed</li>
+            <li>Reservation expires at <strong>{expiresAt:hh:mm tt} UTC</strong></li>
+        </ul>
     </div>
 
     <div class='footer'>
         <p>This email was sent by Your Ticketing Platform</p>
-        <p>If this wasn't you, please contact support immediately.</p>
+        <p>Order #{orderNumber}</p>
     </div>
 </body>
 </html>";
-        }
-
-        public async Task<SendEmailResponse> SendOrderCancelledEmailAsync(string recipientEmail, string recipientName, string orderNumber, string eventName, string cancellationReason, CancellationToken ct = default)
-        {
-            var html = GeneratePasswordResetHtml(recipientName, recipientEmail, resetLink);
-
-
-            var emailRequest = new SendEmailRequest(
-                RecipientEmail: recipientEmail,
-                Subject: "Welcome to Our Service!",
-                HtmlBody: html,
-                Attachments: null);
-
-
-            return await SendEmailAsync(emailRequest, ct);
-        }
-
-        public async Task<SendEmailResponse> SendOrderExpiredEmailAsync(string recipientEmail, string recipientName, string orderNumber, string eventName, CancellationToken ct = default)
-        {
-            var html = GeneratePasswordResetHtml(recipientName, recipientEmail, resetLink);
-
-
-            var emailRequest = new SendEmailRequest(
-                RecipientEmail: recipientEmail,
-                Subject: "Welcome to Our Service!",
-                HtmlBody: html,
-                Attachments: null);
-
-
-            return await SendEmailAsync(emailRequest, ct);
         }
     }
 }
