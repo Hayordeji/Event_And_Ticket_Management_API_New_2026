@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using TicketingSystem.Modules.Catalog.Application.Commands;
 using TicketingSystem.Modules.Catalog.Application.DTOs;
 using TicketingSystem.Modules.Catalog.Application.Queries;
+using TicketingSystem.Modules.Catalog.Domain.DTOs;
 using TicketingSystem.SharedKernel.ApiResponses;
 using TicketingSystem.SharedKernel.Authorization;
 using TicketingSystem.SharedKernel.Exceptions;
@@ -132,6 +133,46 @@ namespace TicketingSystem.Modules.Catalog.Api.Controllers
                     traceId: HttpContext.TraceIdentifier));
             }
         }
+
+        /// <summary>
+        /// Get all tickets for the authenticated customer
+        /// </summary>
+        [HttpGet("my-events")]
+        [EnableRateLimiting("fixed_get_endpoints")]
+        [Authorize(Policy = PolicyNames.RequireHost)]
+        public async Task<IActionResult> GetMyEvents([FromQuery] SearchHostEventsRequest request, CancellationToken cancellationToken)
+        {
+
+            if (!Guid.TryParse(User.FindFirst("userId")?.Value, out var hostId))
+            {
+                return Unauthorized();
+            }
+
+            try
+            {
+                var result = await _mediator.Send(
+                    new SearchHostEventsQueryCommand(request, hostId),
+                    cancellationToken);
+
+                if (result.IsFailure)
+                    return BadRequest(ApiResponse<object>.ErrorResponse(
+                        result.Error,
+                        traceId: HttpContext.TraceIdentifier));
+
+                return Ok(ApiResponse<object>.SuccessResponse(
+                    result.Value.Events,
+                    HttpContext.TraceIdentifier));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error searching events");
+                return BadRequest(ApiResponse<object>.ErrorResponse(
+                    "An error occurred while searching for events",
+                    traceId: HttpContext.TraceIdentifier));
+            }
+        }
+
+
 
         /// <summary>
         /// Publish an event

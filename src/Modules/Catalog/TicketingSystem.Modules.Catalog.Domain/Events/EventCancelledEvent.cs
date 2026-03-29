@@ -8,8 +8,7 @@ namespace TicketingSystem.Modules.Catalog.Domain.Events
     /// <summary>
 /// Raised when an event is cancelled
 /// </summary>
-public sealed record EventCancelledEvent(
-    Guid EventId,
-    string Reason,
-    DateTime OccurredAt) : DomainEvent();
+public  record EventCancelledEvent(
+    Guid HostEventId,
+    string Reason) : DomainEvent();
 }

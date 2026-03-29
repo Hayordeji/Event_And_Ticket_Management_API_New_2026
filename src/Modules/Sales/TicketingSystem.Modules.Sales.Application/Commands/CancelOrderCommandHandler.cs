@@ -7,6 +7,7 @@ using TicketingSystem.Modules.Sales.Domain.Repositories;
 using TicketingSystem.Modules.Sales.Infrastructure.Persistence;
 using TicketingSystem.SharedKernel;
 using TicketingSystem.SharedKernel.Exceptions;
+using TicketingSystem.SharedKernel.Services;
 
 namespace TicketingSystem.Modules.Sales.Application.Commands
 {
@@ -14,13 +15,16 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
     {
         private readonly IOrderRepository _orderRepository;
         private readonly SalesDbContext _context;
+        private readonly ICurrentUserService _currentUserService;
 
         public CancelOrderCommandHandler(
             IOrderRepository orderRepository,
-            SalesDbContext context)
+            SalesDbContext context,
+            ICurrentUserService currentUserService)
         {
             _orderRepository = orderRepository;
             _context = context;
+            _currentUserService = currentUserService;
         }
 
         public async Task<Result> Handle(
@@ -34,6 +38,10 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
 
             if (order == null)
                 throw new NotFoundException(nameof(Order), request.OrderNumber);
+
+            // Ownership check: Allow if customer owns order OR user is admin
+            if (order.CustomerId != _currentUserService.UserId && !_currentUserService.IsAdmin())
+                throw new ForbiddenException("You can only cancel your own orders");
 
             // Validate cancellation reason
             if (string.IsNullOrWhiteSpace(request.CancellationReason))

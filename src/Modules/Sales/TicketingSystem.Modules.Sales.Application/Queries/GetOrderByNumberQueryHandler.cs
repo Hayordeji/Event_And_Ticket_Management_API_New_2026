@@ -7,16 +7,21 @@ using TicketingSystem.Modules.Sales.Domain.Entities;
 using TicketingSystem.Modules.Sales.Domain.Repositories;
 using TicketingSystem.SharedKernel;
 using TicketingSystem.SharedKernel.Exceptions;
+using TicketingSystem.SharedKernel.Services;
 
 namespace TicketingSystem.Modules.Sales.Application.Queries
 {
     public class GetOrderByNumberQueryHandler : IRequestHandler<GetOrderByNumberQuery, Result<OrderResponse>>
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly ICurrentUserService _currentUserService;
 
-        public GetOrderByNumberQueryHandler(IOrderRepository orderRepository)
+        public GetOrderByNumberQueryHandler(
+            IOrderRepository orderRepository,
+            ICurrentUserService currentUserService)
         {
             _orderRepository = orderRepository;
+            _currentUserService = currentUserService;
         }
 
         public async Task<Result<OrderResponse>> Handle(
@@ -29,6 +34,10 @@ namespace TicketingSystem.Modules.Sales.Application.Queries
 
             if (order == null)
                 throw new NotFoundException(nameof(Order), request.OrderNumber);
+
+            // Ownership check: Allow if customer owns order OR user is admin
+            if (order.CustomerId != _currentUserService.UserId && !_currentUserService.IsAdmin())
+                throw new ForbiddenException("You can only view your own orders");
 
             var response = new OrderResponse(
                 Id: order.Id,

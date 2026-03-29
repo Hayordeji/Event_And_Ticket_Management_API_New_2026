@@ -57,6 +57,24 @@ namespace TicketingSystem.SharedKernel.Services
             DateTime createdAt,
             CancellationToken ct = default);
 
+        /// <summary>
+        /// Sends event cancellation notification to attendees
+        /// </summary>
+        Task<SendEmailResponse> SendEventCancelledEmailAsync(
+            string recipientEmail,
+            string recipientName,
+            string eventName,
+            string reason,
+            CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Sends event update notification to attendees
+        /// </summary>
+        Task<SendEmailResponse> SendEventUpdatedEmailAsync(
+            string recipientEmail,
+            string recipientName,
+            string eventName,
+            CancellationToken cancellationToken = default);
     }
 
     /// <summary>

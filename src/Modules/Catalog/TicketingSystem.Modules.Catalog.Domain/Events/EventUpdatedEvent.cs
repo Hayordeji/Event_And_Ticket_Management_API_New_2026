@@ -8,9 +8,9 @@ namespace TicketingSystem.Modules.Catalog.Domain.Events
     /// <summary>
 /// Raised when an event is updated
 /// </summary>
-public sealed record EventUpdatedEvent(
-    Guid EventId,
+    public record EventUpdatedEvent(
+    Guid HostEventId,
     bool SnapshotCreated,
-    int? SnapshotVersion,
-    DateTime OccurredAt) : DomainEvent();
+    int? SnapshotVersion) : DomainEvent();
 }
+    

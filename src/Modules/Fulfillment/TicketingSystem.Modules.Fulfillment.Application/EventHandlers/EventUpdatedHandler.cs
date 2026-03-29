@@ -1,94 +1,83 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+using TicketingSystem.Modules.Fulfillment.Application.Services;
 using TicketingSystem.Modules.Catalog.Domain.Events;
 using TicketingSystem.Modules.Catalog.Infrastructure.Persistence;
-using TicketingSystem.Modules.Fulfillment.Application.Services;
-using TicketingSystem.Modules.Fulfillment.Domain.Enums;
-using TicketingSystem.Modules.Fulfillment.Infrastructure.Persistence;
 using TicketingSystem.SharedKernel.Services;
 
 namespace TicketingSystem.Modules.Fulfillment.Application.EventHandlers
 {
-    public class EventCancelledEventHandler : INotificationHandler<EventCancelledEvent>
+    /// <summary>
+    /// Handles EventUpdatedEvent by sending update notifications to all attendees
+    /// Event raised when a host or admin updates event details
+    /// </summary>
+    public class EventUpdatedEventHandler : INotificationHandler<EventUpdatedEvent>
     {
-        private readonly FulfillmentDbContext _context;
         private readonly IAttendeeNotificationService _attendeeNotificationService;
         private readonly IEmailService _emailService;
         private readonly CatalogDbContext _catalogContext;
-        private readonly ILogger<EventCancelledEventHandler> _logger;
+        private readonly ILogger<EventUpdatedEventHandler> _logger;
 
-
-        public EventCancelledEventHandler(FulfillmentDbContext context, IAttendeeNotificationService attendeeNotificationService, ILogger<EventCancelledEventHandler> logger, IEmailService emailService, CatalogDbContext catalogContext)
+        public EventUpdatedEventHandler(
+            IAttendeeNotificationService attendeeNotificationService,
+            IEmailService emailService,
+            CatalogDbContext catalogContext,
+            ILogger<EventUpdatedEventHandler> logger)
         {
-            _context = context;
             _attendeeNotificationService = attendeeNotificationService;
-            _logger = logger;
             _emailService = emailService;
             _catalogContext = catalogContext;
+            _logger = logger;
         }
 
-        public async Task Handle(EventCancelledEvent notification, CancellationToken ct)
+        public async Task Handle(EventUpdatedEvent notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(
-                   "Processing event cancellation notifications for EventId={EventId}",
-                   notification.EventId);
-            try 
+            try
             {
-                var tickets = await _context.Tickets
-                  .Where(t => t.EventId == notification.HostEventId
-                      && t.Status == TicketStatus.Valid)
-                  .ToListAsync(ct);
+                _logger.LogInformation(
+                    "Processing event update notifications for EventId={EventId}, SnapshotCreated={SnapshotCreated}",
+                    notification.HostEventId, notification.SnapshotCreated);
 
-                if (!tickets.Any()) return;
-
-                foreach (var ticket in tickets)
-                    ticket.Cancel(notification.Reason); // raises status change inside aggregate
-
-                // Step 1: Fetch attendees for the cancelled event
+                // Step 1: Fetch attendees for the updated event
                 var attendees = await _attendeeNotificationService.GetAttendeesByEventIdAsync(
                     notification.HostEventId,
-                    ct);
+                    cancellationToken);
 
                 // Idempotency check: No attendees to notify
                 if (!attendees.Any())
                 {
                     _logger.LogInformation(
-                        "No attendees found for cancelled EventId={EventId}. Skipping notifications.",
+                        "No attendees found for updated EventId={EventId}. Skipping notifications.",
                         notification.HostEventId);
                     return;
                 }
 
                 // Step 2: Fetch event name from catalog
                 var eventEntity = await _catalogContext.Events
-                    .FirstOrDefaultAsync(e => e.Id == notification.HostEventId, ct);
+                    .FirstOrDefaultAsync(e => e.Id == notification.HostEventId, cancellationToken);
 
                 if (eventEntity == null)
                 {
                     _logger.LogWarning(
-                        "Event not found for cancellation notification. EventId={EventId}",
+                        "Event not found for update notification. EventId={EventId}",
                         notification.HostEventId);
                     return;
                 }
 
-                // Step 3: Send cancellation email to each attendee
+                // Step 3: Send update email to each attendee
                 foreach (var attendee in attendees)
                 {
                     try
                     {
-                        await _emailService.SendEventCancelledEmailAsync(
+                        await _emailService.SendEventUpdatedEmailAsync(
                             recipientEmail: attendee.Email,
                             recipientName: attendee.Name,
                             eventName: eventEntity.Name,
-                            reason: notification.Reason,
-                            cancellationToken: ct);
+                            cancellationToken: cancellationToken);
 
                         _logger.LogInformation(
-                            "Event cancellation email sent to {Email} for EventId={EventId}",
+                            "Event update email sent to {Email} for EventId={EventId}",
                             attendee.Email, notification.HostEventId);
                     }
                     catch (Exception ex)
@@ -96,16 +85,13 @@ namespace TicketingSystem.Modules.Fulfillment.Application.EventHandlers
                         // Log failure per attendee, never throw (Outbox retry behavior)
                         _logger.LogError(
                             ex,
-                            "Failed to send event cancellation email to {Email} for EventId={EventId}",
+                            "Failed to send event update email to {Email} for EventId={EventId}",
                             attendee.Email, notification.HostEventId);
                     }
                 }
 
-                await _context.SaveChangesAsync(ct);
-
-
                 _logger.LogInformation(
-                    "Event cancellation notifications completed for EventId={EventId}. NotifiedCount={Count}",
+                    "Event update notifications completed for EventId={EventId}. NotifiedCount={Count}",
                     notification.HostEventId, attendees.Count);
             }
             catch (Exception ex)
@@ -113,10 +99,9 @@ namespace TicketingSystem.Modules.Fulfillment.Application.EventHandlers
                 // Log critical errors but don't throw (Outbox pattern requires idempotent handlers)
                 _logger.LogError(
                     ex,
-                    "Critical error processing event cancellation notifications for EventId={EventId}",
+                    "Critical error processing event update notifications for EventId={EventId}",
                     notification.HostEventId);
             }
         }
-    }          
-        
+    }
 }

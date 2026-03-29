@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using TicketingSystem.Modules.Catalog.Infrastructure.Services;
 using TicketingSystem.Modules.Fulfillment.Application.Services;
 using TicketingSystem.Modules.Fulfillment.Domain.Repositories;
 using TicketingSystem.Modules.Fulfillment.Infrastructure.Persistence;
@@ -36,7 +37,7 @@ namespace TicketingSystem.Modules.Fulfillment.Api
             services.Configure<ResendClientOptions>(options =>
                 options.ApiToken = configuration["Resend:ApiKey"]!);
             services.AddTransient<IResend, ResendClient>();
-
+            services.AddScoped<IAttendeeNotificationService, AttendeeNotificationService>();
             // Services
             services.AddScoped<IQrCodeGenerator, QrCodeGenerator>();
             services.AddScoped<IPdfTicketGenerator, PdfTicketGenerator>();

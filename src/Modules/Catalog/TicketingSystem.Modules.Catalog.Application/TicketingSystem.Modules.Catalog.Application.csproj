@@ -11,6 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\TicketingSystem.SharedKernel\TicketingSystem.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\Fulfillment\TicketingSystem.Modules.Fulfillment.Infrastructure\TicketingSystem.Modules.Fulfillment.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Identity\TicketingSystem.Modules.Identity.Infrastructure\TicketingSystem.Modules.Identity.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Sales\TicketingSystem.Modules.Sales.Infrastructure\TicketingSystem.Modules.Sales.Infrastructure.csproj" />
     <ProjectReference Include="..\TicketingSystem.Modules.Catalog.Domain\TicketingSystem.Modules.Catalog.Domain.csproj" />

@@ -12,6 +12,7 @@ using TicketingSystem.Modules.Sales.Domain.Repositories;
 using TicketingSystem.Modules.Sales.Infrastructure.Persistence;
 using TicketingSystem.SharedKernel;
 using TicketingSystem.SharedKernel.Exceptions;
+using TicketingSystem.SharedKernel.Services;
 
 namespace TicketingSystem.Modules.Sales.Application.Commands
 {
@@ -21,17 +22,20 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
         private readonly SalesDbContext _context;
         private readonly IEnumerable<IPaymentGatewayService> _gatewayServices;
         private readonly ILogger<InitializePaymentCommandHandler> _logger;
+        private readonly ICurrentUserService _currentUserService;
 
         public InitializePaymentCommandHandler(
             IOrderRepository orderRepository,
             SalesDbContext context,
             IEnumerable<IPaymentGatewayService> gatewayServices,
-            ILogger<InitializePaymentCommandHandler> logger)
+            ILogger<InitializePaymentCommandHandler> logger,
+            ICurrentUserService currentUserService)
         {
             _orderRepository = orderRepository;
             _context = context;
             _gatewayServices = gatewayServices;
             _logger = logger;
+            _currentUserService = currentUserService;
         }
 
         public async Task<Result<PaymentInitializationResponse>> Handle(
@@ -50,6 +54,11 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
                 _logger.LogWarning("Order {OrderNumber} not found", request.OrderNumber);
                 throw new NotFoundException(nameof(Order), request.OrderNumber);
             }
+
+
+            // Ownership check: Allow if customer owns order OR user is admin
+            if (order.CustomerId != _currentUserService.UserId && !_currentUserService.IsAdmin())
+                throw new ForbiddenException("You can only initialize payment for your own orders");
 
             // Validate order can accept payment
             if (order.Status != OrderStatus.Pending)

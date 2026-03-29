@@ -5,10 +5,9 @@ using TicketingSystem.Modules.Catalog.Domain.Enums;
 
 namespace TicketingSystem.Modules.Catalog.Domain.DTOs
 {
-    public class SearchEventsRequest
+    public class SearchHostEventsRequest
     {
         public string? searchTerm { get; set; }
-        public Guid? HostId { get; set; }
         public EventStatus? status { get; set; }
         public DateTime? StartDateFrom { get; set; }
         public DateTime? StartDateTo { get; set; }
@@ -17,6 +16,6 @@ namespace TicketingSystem.Modules.Catalog.Domain.DTOs
         public int? PageNumber { get; set; }
         public int? PageSize { get; set; }
 
-       
+
     }
 }

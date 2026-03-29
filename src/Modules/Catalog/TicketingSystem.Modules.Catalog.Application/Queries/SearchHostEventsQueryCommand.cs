@@ -9,8 +9,8 @@ using TicketingSystem.SharedKernel;
 namespace TicketingSystem.Modules.Catalog.Application.Queries
 {
     /// <summary>
-    /// Query to search events with filters and pagination
+    /// Query to search Host's events with filters and pagination
     /// </summary>
-    public record SearchEventsQueryCommand(SearchEventsRequest Request) 
+    public record SearchHostEventsQueryCommand(SearchHostEventsRequest Request, Guid HostId) 
         : IRequest<Result<(List<EventResponse> Events, int TotalCount)>>;
 }
