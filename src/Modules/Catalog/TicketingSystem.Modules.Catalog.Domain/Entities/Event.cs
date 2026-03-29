@@ -225,12 +225,11 @@ namespace TicketingSystem.Modules.Catalog.Domain.Entities
             if (imageUrl != null)
                 ImageUrl = imageUrl.Trim();
 
-            //// Raise domain event
-            //RaiseDomainEvent(new EventUpdatedEvent(
-            //    Id,
-            //    snapshotCreated,
-            //    newSnapshotVersion,
-            //    DateTime.UtcNow));
+            // Raise domain event
+            RaiseDomainEvent(new EventUpdatedEvent(
+                Id,
+                snapshotCreated,
+                newSnapshotVersion));
 
             return Result.Success();
         }
@@ -253,7 +252,7 @@ namespace TicketingSystem.Modules.Catalog.Domain.Entities
             CancelledAt = DateTime.UtcNow;
             CancellationReason = reason.Trim();
 
-            RaiseDomainEvent(new EventCancelledEvent(Id, reason, DateTime.UtcNow));
+            RaiseDomainEvent(new EventCancelledEvent(Id, reason));
 
             return Result.Success();
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TicketingSystem.Modules.Catalog.Application.DTOs;
+using TicketingSystem.Modules.Catalog.Domain.DTOs;
 using TicketingSystem.Modules.Catalog.Domain.Entities;
 using TicketingSystem.Modules.Catalog.Domain.Enums;
 using TicketingSystem.SharedKernel;
@@ -35,6 +35,11 @@ namespace TicketingSystem.Modules.Catalog.Domain.Repositories
         /// Search events with filters
         /// </summary>
         Task<(List<Event> Events, int TotalCount)> SearchEventsAsync(SearchEventsRequest request,CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Search events with filters
+        /// </summary>
+        Task<(List<Event> Events, int TotalCount)> SearchHostEventsAsync(SearchHostEventsRequest request,Guid hostId ,CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get a specific ticket type by ID (through the event aggregate)

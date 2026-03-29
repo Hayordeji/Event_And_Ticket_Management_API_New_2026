@@ -333,7 +333,7 @@ namespace TicketingSystem.SharedKernel.Services
 
         <p><strong>Important:</strong></p>
         <ul>
-            <li>This link expires in <strong>24 hours</strong></li>
+            <li>This link expires in <strong>15 minutes</strong></li>
             <li>If you did not create an account, ignore this email</li>
             <li>Never share this link with anyone</li>
         </ul>
@@ -966,6 +966,222 @@ namespace TicketingSystem.SharedKernel.Services
     <div class='footer'>
         <p>This email was sent by Your Ticketing Platform</p>
         <p>Order #{orderNumber}</p>
+    </div>
+</body>
+</html>";
+        }
+
+        public async Task<SendEmailResponse> SendEventCancelledEmailAsync(
+            string recipientEmail,
+            string recipientName,
+            string eventName,
+            string reason,
+            CancellationToken cancellationToken = default)
+        {
+            var html = GenerateEventCancelledEmailHtml(recipientName, eventName, reason);
+
+            var emailRequest = new SendEmailRequest(
+                RecipientEmail: recipientEmail,
+                Subject: $"Event Cancelled: {eventName}",
+                HtmlBody: html,
+                Attachments: null);
+
+            return await SendEmailAsync(emailRequest, cancellationToken);
+        }
+
+        public async Task<SendEmailResponse> SendEventUpdatedEmailAsync(
+            string recipientEmail,
+            string recipientName,
+            string eventName,
+            CancellationToken cancellationToken = default)
+        {
+            var html = GenerateEventUpdatedEmailHtml(recipientName, eventName);
+
+            var emailRequest = new SendEmailRequest(
+                RecipientEmail: recipientEmail,
+                Subject: $"Event Details Updated: {eventName}",
+                HtmlBody: html,
+                Attachments: null);
+
+            return await SendEmailAsync(emailRequest, cancellationToken);
+        }
+
+        private static string GenerateEventCancelledEmailHtml(
+            string recipientName,
+            string eventName,
+            string reason)
+        {
+            return $@"
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }}
+        .header {{
+            background: #e53935;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }}
+        .content {{
+            background: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }}
+        .alert-box {{
+            background: #ffebee;
+            border: 2px solid #e53935;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }}
+        .reason-box {{
+            background: white;
+            border-left: 4px solid #e53935;
+            padding: 15px;
+            margin: 15px 0;
+        }}
+        .footer {{
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #666;
+        }}
+    </style>
+</head>
+<body>
+    <div class='header'>
+        <h1>⚠️ Event Cancelled</h1>
+    </div>
+
+    <div class='content'>
+        <p>Hi {recipientName},</p>
+
+        <p>We regret to inform you that the following event has been <strong>cancelled</strong>:</p>
+
+        <div class='alert-box'>
+            <h2 style='margin-top: 0; color: #e53935;'>{eventName}</h2>
+            <p style='margin-bottom: 0;'>This event will no longer take place.</p>
+        </div>
+
+        <div class='reason-box'>
+            <h3 style='margin-top: 0;'>Cancellation Reason</h3>
+            <p>{reason}</p>
+        </div>
+
+        <p><strong>What Happens Next:</strong></p>
+        <ul>
+            <li>All tickets for this event have been cancelled</li>
+            <li>Full refunds will be processed automatically</li>
+            <li>Refunds may take 3-5 business days to appear in your account</li>
+            <li>You will receive a separate refund confirmation email</li>
+        </ul>
+
+        <p>We apologize for any inconvenience this may cause. If you have any questions, please don't hesitate to contact our support team.</p>
+
+        <p>Thank you for your understanding.</p>
+    </div>
+
+    <div class='footer'>
+        <p>This email was sent by Your Ticketing Platform</p>
+        <p>Event: {eventName}</p>
+    </div>
+</body>
+</html>";
+        }
+
+        private static string GenerateEventUpdatedEmailHtml(
+            string recipientName,
+            string eventName)
+        {
+            return $@"
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }}
+        .header {{
+            background: #1565c0;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }}
+        .content {{
+            background: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }}
+        .info-box {{
+            background: #e3f2fd;
+            border: 2px solid #1565c0;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }}
+        .button {{
+            display: inline-block;
+            background: #1565c0;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 15px 0;
+        }}
+        .footer {{
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #666;
+        }}
+    </style>
+</head>
+<body>
+    <div class='header'>
+        <h1>📢 Event Details Updated</h1>
+    </div>
+
+    <div class='content'>
+        <p>Hi {recipientName},</p>
+
+        <p>The event <strong>{eventName}</strong> that you have tickets for has been updated.</p>
+
+        <div class='info-box'>
+            <h2 style='margin-top: 0; color: #1565c0;'>{eventName}</h2>
+            <p><strong>Important:</strong> Event details have changed. Please review your tickets for any updates.</p>
+        </div>
+
+        <p><strong>What You Should Do:</strong></p>
+        <ul>
+            <li>Review the updated event information</li>
+            <li>Check your tickets for any changes to date or location</li>
+            <li>Update your calendar if date/time has changed</li>
+            <li>Contact support if you have questions about the changes</li>
+        </ul>
+
+        <p>Your tickets remain valid. If the changes do not work for you, please contact our support team to discuss your options.</p>
+
+        <p>Thank you for your continued support!</p>
+    </div>
+
+    <div class='footer'>
+        <p>This email was sent by Your Ticketing Platform</p>
+        <p>Event: {eventName}</p>
     </div>
 </body>
 </html>";

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using TicketingSystem.Modules.Catalog.Application.DTOs;
+using TicketingSystem.Modules.Catalog.Domain.DTOs;
 using TicketingSystem.Modules.Catalog.Domain.Entities;
 using TicketingSystem.Modules.Catalog.Domain.Enums;
 using TicketingSystem.Modules.Catalog.Domain.Repositories;
@@ -25,7 +25,6 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Repositorie
         public async Task<Event?> GetByIdWithTicketTypesAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await _context.Events
-                .AsNoTracking()
                 .Include(e => e.TicketTypes)
                 .FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
         }
@@ -198,12 +197,19 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Repositorie
                     e.Description.ToLower().Contains(term));
             }
 
-            // Filter by city (using Venue value object)
+            // Filter by Host 
+            if (request.HostId != null)
+            {
+                query = query.Where(e => e.HostId== request.HostId);
+            }
+
+            // Filter by city 
             if (!string.IsNullOrWhiteSpace(request.City))
             {
                 var cityLower = request.City.ToLower();
                 query = query.Where(e => e.Venue.City.ToLower() == cityLower);
             }
+
 
             // Filter by date range
             if (request.StartDateFrom.HasValue)
@@ -244,6 +250,55 @@ namespace TicketingSystem.Modules.Catalog.Infrastructure.Persistence.Repositorie
                .OrderByDescending(t => t.CreatedAt)
                .ThenBy(t => t.Name)
                .ToListAsync(cancellationToken);
+        }
+
+        public async Task<(List<Event> Events, int TotalCount)> SearchHostEventsAsync(SearchHostEventsRequest request,Guid hostId ,CancellationToken cancellationToken = default)
+        {
+            var query = _context.Events.AsQueryable();
+
+            query = query.Where(q => q.HostId == hostId);
+
+            // Search in title and description
+            if (!string.IsNullOrWhiteSpace(request.searchTerm))
+            {
+                var term = request.searchTerm.ToLower();
+                query = query.Where(e =>
+                    e.Name.ToLower().Contains(term) ||
+                    e.Description.ToLower().Contains(term));
+            }
+
+
+            // Filter by city (using Venue value object)
+            if (!string.IsNullOrWhiteSpace(request.City))
+            {
+                var cityLower = request.City.ToLower();
+                query = query.Where(e => e.Venue.City.ToLower() == cityLower);
+            }
+
+            // Filter by date range
+            if (request.StartDateFrom.HasValue)
+            {
+                query = query.Where(e => e.StartDate >= request.StartDateFrom.Value);
+            }
+
+            if (request.StartDateTo.HasValue)
+            {
+                query = query.Where(e => e.StartDate <= request.StartDateTo.Value);
+            }
+
+            // Total count before pagination
+            var totalCount = await query.CountAsync(cancellationToken);
+
+            // Pagination
+            var skip = (request.PageNumber - 1) * request.PageSize;
+
+            var results = await query
+                .OrderBy(e => e.StartDate)
+                .Skip(skip.Value)
+                .Take(request.PageSize.Value)
+                .ToListAsync(cancellationToken);
+
+            return (results, totalCount);
         }
     }
 }

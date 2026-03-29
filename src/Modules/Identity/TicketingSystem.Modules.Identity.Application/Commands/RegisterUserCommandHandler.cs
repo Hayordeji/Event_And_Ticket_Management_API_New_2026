@@ -52,7 +52,7 @@ namespace TicketingSystem.Modules.Identity.Application.Commands
                 {
                     Id = Guid.NewGuid(),
                     Email = request.Email.ToLowerInvariant().Trim(),
-                    UserName = request.Email.ToLowerInvariant().Trim(), // Identity requires UserName
+                    UserName = $"{request.FirstName}{request.LastName}", // Identity requires UserName
                     FirstName = request.FirstName.Trim(),
                     LastName = request.LastName.Trim(),
                     IsActive = true,
