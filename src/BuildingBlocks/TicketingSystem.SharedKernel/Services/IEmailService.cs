@@ -57,6 +57,15 @@ namespace TicketingSystem.SharedKernel.Services
             DateTime createdAt,
             CancellationToken ct = default);
 
+        Task<SendEmailResponse> SendOrderRefundedEmailAsync(
+            string recipientEmail,
+            string recipientName,
+            string orderNumber,
+            string eventName,
+            decimal refundAmount,
+            string currency,
+            CancellationToken ct = default);
+
         /// <summary>
         /// Sends event cancellation notification to attendees
         /// </summary>

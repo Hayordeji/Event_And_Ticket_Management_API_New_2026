@@ -2,10 +2,20 @@
   <Folder Name="/docs/" />
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
+    <File Path=".env" />
+    <File Path=".env.development" />
+    <File Path=".env.example" />
+    <File Path=".env.production" />
     <File Path=".gitignore" />
     <File Path="claude.md" />
+    <File Path="docker-compose.yml" />
     <File Path="global.json" />
+    <File Path="NuGet.config" />
     <File Path="README.md" />
+  </Folder>
+  <Folder Name="/Solution Items/scripts/">
+    <File Path="init-databases.sql" />
+    <File Path="migrate.bat" />
   </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/BuildingBlocks/">

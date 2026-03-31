@@ -1,7 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Resend;
+using System.Drawing;
+using System.Threading;
 using TicketingSystem.SharedKernel.DTOs;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TicketingSystem.SharedKernel.Services
 {
@@ -19,6 +22,158 @@ namespace TicketingSystem.SharedKernel.Services
             _logger = logger;
             _config = config;
             _resend = resend;
+        }
+
+        public async Task<SendEmailResponse> SendOrderRefundedEmailAsync(
+            string recipientEmail,
+            string recipientName,
+            string orderNumber,
+            string eventName,
+            decimal refundAmount,
+            string currency,
+            CancellationToken ct = default)
+        {
+            var html = GenerateOrderRefundedHtml(recipientName,orderNumber,eventName,refundAmount,currency);
+
+            var emailRequest = new SendEmailRequest(
+               RecipientEmail: recipientEmail,
+               Subject: $"Refund Processed — {orderNumber}",
+               HtmlBody: html,
+               Attachments: null);
+
+            return await SendEmailAsync(emailRequest, ct);
+
+        }
+
+
+        private static string GenerateOrderRefundedHtml(
+    string recipientName,
+    string orderNumber,
+    string eventName,
+    decimal refundAmount,
+    string currency)
+        {
+            var currencySymbol = currency.ToUpperInvariant() switch
+            {
+                "NGN" => "₦",
+                "USD" => "$",
+                "GBP" => "£",
+                "EUR" => "€",
+                _ => currency
+            };
+
+            var formattedAmount = $"{currencySymbol} {refundAmount:N2}";
+
+            return $$"""
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <title>Refund Processed</title>
+             <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    color: #333;
+                    max-width: 600px;
+                    margin: 0 auto;
+                    padding: 20px;
+                }
+                .header {
+                    background: #4CAF50;
+                    color: white;
+                    padding: 20px;
+                    text-align: center;
+                    border-radius: 5px 5px 0 0;
+                }
+                .content {
+                    background: #f9f9f9;
+                    padding: 20px;
+                    border: 1px solid #ddd;
+                }
+                .event-details {
+                    background: white;
+                    padding: 15px;
+                    border-radius: 5px;
+                    margin: 15px 0;
+                }
+                .button {
+                    display: inline-block;
+                    background: #4CAF50;
+                    color: white;
+                    padding: 12px 30px;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    margin: 15px 0;
+                }
+                .footer {
+                    text-align: center;
+                    padding: 20px;
+                    font-size: 12px;
+                    color: #666;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="wrapper">
+                <div class="header">
+                    <h1>Refund Processed</h1>
+                    <p>Your refund is on its way</p>
+                </div>
+                <div class="body">
+                    <p>Hi <strong>{{recipientName}}</strong>,</p>
+                    <p>
+                        We have successfully processed your refund for order
+                        <strong>{{orderNumber}}</strong>. The amount below will be
+                        returned to your original payment method.
+                    </p>
+ 
+                    <div class="refund-box">
+                        <p class="amount">{{formattedAmount}}</p>
+                        <p class="label">Refund Amount</p>
+                    </div>
+ 
+                    <table class="detail-table">
+                        <tr>
+                            <td>Order Number</td>
+                            <td><strong>{{orderNumber}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Event</td>
+                            <td>{{eventName}}</td>
+                        </tr>
+                        <tr>
+                            <td>Refund Amount</td>
+                            <td><strong>{{formattedAmount}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td><strong style="color:#e53935;">Processed</strong></td>
+                        </tr>
+                    </table>
+ 
+                    <div class="notice">
+                        ⏱ Refunds typically take <strong>3–10 business days</strong>
+                        to appear on your statement depending on your bank or card provider.
+                        If you have not received your refund after 10 business days,
+                        please contact your bank.
+                    </div>
+ 
+                    <p style="margin-top: 24px;">
+                        If you have any questions, reply to this email and our
+                        support team will be happy to help.
+                    </p>
+                    <p>Thank you for your understanding.</p>
+                </div>
+                <div class="footer">
+                    <p>You are receiving this email because you requested a refund on your order.</p>
+                    <p style="margin-top: 6px;">© {{DateTime.UtcNow.Year}} Ticketing System. All rights reserved.</p>
+                </div>
+            </div>
+        </body>
+        </html>
+        """;
         }
 
         public async Task<SendEmailResponse> SendTicketEmailAsync(

@@ -387,3 +387,4 @@ $RECYCLE.BIN/
 /claude.md
 
 /src/Host/TicketingSystem.Api/appsettings.json
+/.env.development

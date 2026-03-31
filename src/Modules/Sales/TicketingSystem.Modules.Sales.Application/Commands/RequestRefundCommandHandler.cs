@@ -37,15 +37,18 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
                 request.OrderNumber,
                 cancellationToken);
 
+
             if (order == null)
                 throw new NotFoundException(nameof(Order), request.OrderNumber);
 
-            // Cancel order
-            var result =  order.Refund(request.Reason);
 
             // Ownership check: Only allow order owner or admin to request refund
             if (order.CustomerId != _currentUserService.UserId && !_currentUserService.IsAdmin())
                 throw new ForbiddenException("You can only request refund for your own orders");
+
+            // Cancel order
+            var result =  order.Refund(request.Reason);
+
 
             if (result.IsFailure)
                 return result;

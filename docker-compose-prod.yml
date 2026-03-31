@@ -1,0 +1,20 @@
+services:
+  api:
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: "https://+:8081;http://+:8080"
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+
+  sqlserver:
+    environment:
+      MSSQL_PID: Express
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 2G

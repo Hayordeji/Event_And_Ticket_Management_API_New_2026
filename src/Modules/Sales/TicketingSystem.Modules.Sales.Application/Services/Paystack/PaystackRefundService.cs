@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using TicketingSystem.Modules.Sales.Infrastructure.PaymentGateways.Paystack;
 using TicketingSystem.SharedKernel;
@@ -47,10 +48,14 @@ namespace TicketingSystem.Modules.Sales.Application.Services.Paystack
                     Transaction = paymentReference,
                     Amount = amountInKobo,
                     Currency = currency,
-                    MerchantNote = reason
+                    CustomerNote = reason,
+                    MerchantNote = "Testing the refund"
                 };
 
                 var response = await _httpClient.PostAsJsonAsync("/refund", request, ct);
+                //var resultSting = await response.Content.ReadAsStringAsync();
+                //var result = JsonSerializer.Deserialize<PaystackRefundApiResponse>(resultSting);
+
                 var result = await response.Content.ReadFromJsonAsync<PaystackRefundApiResponse>(ct);
 
                 if (result?.Status != true || result.Data == null)
@@ -91,6 +96,9 @@ namespace TicketingSystem.Modules.Sales.Application.Services.Paystack
 
             [JsonPropertyName("currency")]
             public required string Currency { get; init; }
+
+            [JsonPropertyName("customer_note")]
+            public required string CustomerNote { get; init; }
 
             [JsonPropertyName("merchant_note")]
             public required string MerchantNote { get; init; }

@@ -153,7 +153,7 @@ namespace TicketingSystem.Modules.Sales.Api.Controllers
         /// </summary>
         [HttpPost("{orderNumber}/refund")]
         [EnableRateLimiting("fixed_create_endpoints")]
-        [Authorize(Policy = PolicyNames.RequireAdmin)] 
+        [Authorize(Policy = PolicyNames.RequireCustomer)] 
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> RequestOrderRefund(

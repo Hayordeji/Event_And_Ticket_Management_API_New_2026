@@ -9,5 +9,5 @@ namespace TicketingSystem.Modules.Sales.Application.Commands
     public record RequestRefundCommand(
     string OrderNumber,
     string Reason
-    ) : IRequest<Result<string>>;
+    ) : IRequest<Result>;
 }

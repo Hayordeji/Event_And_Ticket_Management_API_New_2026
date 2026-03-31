@@ -13,6 +13,7 @@ using TicketingSystem.Modules.Access.Api;
 using TicketingSystem.Modules.Catalog.Api;
 using TicketingSystem.Modules.Finance.Api;
 using TicketingSystem.Modules.Finance.Infrastructure.Persistence;
+using TicketingSystem.Modules.Finance.Infrastructure.Seeder;
 using TicketingSystem.Modules.Fulfillment.Api;
 using TicketingSystem.Modules.Identity.Api;
 using TicketingSystem.Modules.Identity.Infrastructure.Persistence;
@@ -257,12 +258,24 @@ try
 
     builder.Services.AddHttpContextAccessor();
     builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+    builder.Services.AddScoped<AccountSeeder>();
 
 
     var app = builder.Build();
 
+    await DatabaseMigrator.ApplyMigrationsAsync(app);
+
 
     //SEED ROLES
+    using (var scope = app.Services.CreateScope())
+    {
+        var accountSeeder = scope.ServiceProvider
+            .GetRequiredService<AccountSeeder>();
+
+        await accountSeeder.Seed();
+    }
+
+    //SEED ACCOUNT ROLES
     using (var scope = app.Services.CreateScope())
     {
         var roleManager = scope.ServiceProvider
