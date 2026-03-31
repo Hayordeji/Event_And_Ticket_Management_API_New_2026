@@ -53,7 +53,7 @@ Module.Api             → Controllers, dependency injection
 | Authentication | ASP.NET Core Identity + JWT |
 | Mediator / CQRS | MediatR |
 | Logging | Serilog |
-| API Docs | Scalar UI + OpenAPI |
+| API Docs | OpenAPI |
 | Payments | Paystack + Flutterwave |
 | Email | Resend |
 | QR Encryption | AES-256-GCM (QRCoder) |
@@ -269,4 +269,4 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 ## 🙏 Acknowledgements
 
-Built with [.NET 10](https://dotnet.microsoft.com), [MediatR](https://github.com/jbogard/MediatR), [EF Core](https://docs.microsoft.com/ef/core/), [QuestPDF](https://www.questpdf.com), [QRCoder](https://github.com/codebude/QRCoder), [Resend](https://resend.com), [Scalar](https://scalar.com).
+Built with [.NET 10](https://dotnet.microsoft.com), [MediatR](https://github.com/jbogard/MediatR), [EF Core](https://docs.microsoft.com/ef/core/), [QuestPDF](https://www.questpdf.com), [QRCoder](https://github.com/codebude/QRCoder), [Resend](https://resend.com).

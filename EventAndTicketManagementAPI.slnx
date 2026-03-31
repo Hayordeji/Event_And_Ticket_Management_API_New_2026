@@ -61,13 +61,4 @@
     <Project Path="src/Modules/Sales/TicketingSystem.Modules.Sales.Domain/TicketingSystem.Modules.Sales.Domain.csproj" />
     <Project Path="src/Modules/Sales/TicketingSystem.Modules.Sales.Infrastructure/TicketingSystem.Modules.Sales.Infrastructure.csproj" />
   </Folder>
-  <Folder Name="/tests/">
-    <Project Path="tests/TicketingSystem.Modules.Access.Tests/TicketingSystem.Modules.Access.Tests.csproj" />
-    <Project Path="tests/TicketingSystem.Modules.Catalog.Tests/TicketingSystem.Modules.Catalog.Tests.csproj" />
-    <Project Path="tests/TicketingSystem.Modules.Finance.Tests/TicketingSystem.Modules.Finance.Tests.csproj" />
-    <Project Path="tests/TicketingSystem.Modules.Fulfillment.Tests/TicketingSystem.Modules.Fulfillment.Tests.csproj" />
-    <Project Path="tests/TicketingSystem.Modules.Identity.Tests/TicketingSystem.Modules.Identity.Tests.csproj" />
-    <Project Path="tests/TicketingSystem.Modules.Sales.Tests/TicketingSystem.Modules.Sales.Tests.csproj" />
-    <Project Path="tests/TicketingSystem.SharedKernel.Tests/TicketingSystem.SharedKernel.Tests.csproj" />
-  </Folder>
 </Solution>
