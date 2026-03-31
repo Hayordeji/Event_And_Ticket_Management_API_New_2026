@@ -1,0 +1,95 @@
+services:
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: ticketing_sqlserver
+    environment:
+      SA_PASSWORD: ${SA_PASSWORD}
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+    ports:
+      - "${SQL_SERVER_PORT}:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+      - ./scripts/init-databases.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ticketing_network
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'cat < /dev/tcp/localhost/1433 >/dev/null 2>&1 || exit 1'"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+
+  api:
+    image: ticketing-api:${ASPNETCORE_ENVIRONMENT:-Development}
+    container_name: ticketing_api
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - BUILD_CONFIGURATION=Release
+    ports:
+      - "${API_PORT}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+
+      # Connection Strings
+      ConnectionStrings__IdentityDb: "Server=sqlserver,1433;Database=TicketingSystem_Identity;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True"
+      ConnectionStrings__FinanceDb: "Server=sqlserver,1433;Database=TicketingSystem_Finance;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True"
+      ConnectionStrings__CatalogDb: "Server=sqlserver,1433;Database=TicketingSystem_Catalog;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True"
+      ConnectionStrings__SalesDb: "Server=sqlserver,1433;Database=TicketingSystem_Sales;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True"
+      ConnectionStrings__FulfillmentDb: "Server=sqlserver,1433;Database=TicketingSystem_Fulfillment;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True"
+      ConnectionStrings__AccessDb: "Server=sqlserver,1433;Database=TicketingSystem_Access;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True"
+
+      # JWT
+      Jwt__Secret: ${JWT_SECRET}
+      Jwt__Issuer: TicketingSystem
+      Jwt__Audience: TicketingSystemUsers
+      Jwt__ExpiryMinutes: "60"
+
+      # QR Encryption
+      QrEncryption__Key: ${QR_ENCRYPTION_KEY}
+
+      # Resend
+      Resend__ApiKey: ${RESEND_API_KEY}
+      Resend__From: ${RESEND_FROM}
+
+      # Paystack
+      PaymentGateways__Paystack__PublicKey: ${PAYSTACK_PUBLIC_KEY}
+      PaymentGateways__Paystack__SecretKey: ${PAYSTACK_SECRET_KEY}
+      PaymentGateways__Paystack__WebhookSecret: ${PAYSTACK_WEBHOOK_SECRET}
+      PaymentGateways__Paystack__BaseUrl: https://api.paystack.co
+
+      # Flutterwave
+      PaymentGateways__Flutterwave__PublicKey: ${FLUTTERWAVE_PUBLIC_KEY}
+      PaymentGateways__Flutterwave__SecretKey: ${FLUTTERWAVE_SECRET_KEY}
+      PaymentGateways__Flutterwave__EncryptionKey: ${FLUTTERWAVE_ENCRYPTION_KEY}
+      PaymentGateways__Flutterwave__WebhookSecretHash: ${FLUTTERWAVE_WEBHOOK_SECRET_HASH}
+      PaymentGateways__Flutterwave__BaseUrl: https://api.flutterwave.com/v3
+
+      #SeriLog
+      SeriLog__MinimumLevel__Default: ${SERILOG_MINIMUMLEVEL_DEFAULT}
+      SeriLog__MinimumLevel__Override__Microsoft: ${SERILOG_MINIMUMLEVEL_OVERRIDE_MICROSOFT}
+      SeriLog__MinimumLevel__Override__Microsoft.EntityFrameworkCore: ${SERILOG_MINIMUMLEVEL_OVERRIDE_MICROSOFT_ENTITYFRAMEWORKCORE}
+      SeriLog__MinimumLevel__Override__System: ${SERILOG_MINIMUMLEVEL_OVERRIDE_SYSTEM}
+
+      # CORS
+      AllowedOrigins__0: ${ALLOWED_ORIGIN_0}
+      AllowedOrigins__1: ${ALLOWED_ORIGIN_1}
+
+      # App
+      App__BaseUrl: ${APP_BASE_URL}
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    networks:
+      - ticketing_network
+
+volumes:
+  sqlserver_data:
+
+networks:
+  ticketing_network:
+    driver: bridge

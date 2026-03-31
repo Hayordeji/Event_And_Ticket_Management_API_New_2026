@@ -1,0 +1,67 @@
+# =============================================================================
+# .dockerignore — Exclude files from Docker build context
+# Place this file at solution root (same level as Dockerfile)
+# =============================================================================
+# Why this matters: Docker sends the entire build context to the daemon.
+# Without this, node_modules, bin/, obj/ etc bloat the context and slow
+# every single build — even when nothing relevant changed.
+# =============================================================================
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Build artifacts — these are regenerated inside the container
+**/bin/
+**/obj/
+
+# Test projects — never included in production image
+tests/
+
+# Local development files
+**/.vs/
+**/.vscode/
+**/.idea/
+*.user
+*.suo
+
+# User secrets — NEVER bake secrets into Docker image
+**/secrets.json
+**/*secrets*.json
+**/appsettings.Development.json
+
+# Docker files themselves (no need to copy into image)
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# README and docs
+*.md
+docs/
+
+# CI/CD configs
+.github/
+.gitlab-ci.yml
+azure-pipelines.yml
+
+# Scripts (not needed at runtime)
+scripts/
+
+# Coverage and test results
+**/TestResults/
+**/coverage/
+**/*.coverage
+
+# NuGet packages cache (restored fresh inside container)
+**/.nuget/
+**/packages/
+
+# NuGet lock files — contain Windows-specific paths baked in at restore time.
+# Must be excluded so the Linux container generates clean ones from scratch.
+**/packages.lock.json
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+desktop.ini

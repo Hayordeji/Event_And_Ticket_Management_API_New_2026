@@ -10,8 +10,10 @@ namespace TicketingSystem.Modules.Identity.Infrastructure.Seeders
 {
     public static class RoleSeeder
     {
+        
         public static async Task SeedAsync(RoleManager<IdentityRole<Guid>> roleManager)
         {
+
             var roles = new[]
             {
                 Roles.Admin,

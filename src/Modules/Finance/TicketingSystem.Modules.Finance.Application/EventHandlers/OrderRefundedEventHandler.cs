@@ -83,14 +83,14 @@ namespace TicketingSystem.Modules.Finance.Application.EventHandlers
                     Description: LedgerDescriptions.HostEarningsRefunded(notification.OrderNumber)),
 
                 new TransactionEntryRequest(
-                    AccountCode: "EXP-REFUNDS",
+                    AccountCode: AccountCodeValues.Platform,
                     Amount: platformCommission,
                     Currency: notification.Currency,
                     EntryType: EntryType.Debit,
                     Description: LedgerDescriptions.PlatformCommissionAbsorbed(notification.OrderNumber)),
 
                 new TransactionEntryRequest(
-                    AccountCode: "AST-GATEWAY",
+                    AccountCode: AccountCodeValues.PaymentGateWay,
                     Amount: notification.RefundAmount,
                     Currency: notification.Currency,
                     EntryType: EntryType.Credit,

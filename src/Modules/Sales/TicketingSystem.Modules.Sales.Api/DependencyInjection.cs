@@ -46,14 +46,14 @@ namespace TicketingSystem.Modules.Sales.Api
             services.AddHttpClient<IPaymentGatewayRefundService, PaystackRefundService>(client =>
             {
                 client.BaseAddress = new Uri("https://api.paystack.co/");
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", configuration["Paystack:SecretKey"]);
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", configuration["Paystack:SecretKey"]);
 
             });
 
             services.AddHttpClient<IPaymentGatewayRefundService, FlutterwaveRefundService>(client =>
             {
                 client.BaseAddress = new Uri("https://api.flutterwave.com/");
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", configuration["Flutterwave:SecretKey"]);
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", configuration["Flutterwave:SecretKey"]);
 
             });
             services.AddHttpClient<IPaymentGatewayService, PaystackService>(client =>

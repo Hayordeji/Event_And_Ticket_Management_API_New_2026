@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using TicketingSystem.Modules.Identity.Domain.Entities;
 using TicketingSystem.SharedKernel.Services;
 
 namespace TicketingSystem.Api.Services
@@ -20,8 +21,8 @@ namespace TicketingSystem.Api.Services
         {
             get
             {
-                var userIdClaim = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier);
-                return Guid.TryParse(userIdClaim?.Value, out var userId) ? userId : Guid.Empty;
+                var userIdClaim = _httpContextAccessor.HttpContext?.User.FindFirst("userId")?.Value;
+                return Guid.TryParse(userIdClaim, out var userId) ? userId : Guid.Empty;
             }
         }
 
