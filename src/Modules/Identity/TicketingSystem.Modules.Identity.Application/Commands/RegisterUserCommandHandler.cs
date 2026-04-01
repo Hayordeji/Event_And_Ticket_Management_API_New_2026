@@ -79,7 +79,7 @@ namespace TicketingSystem.Modules.Identity.Application.Commands
 
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
-                var verificationLink = $"https://89c7-102-90-103-26.ngrok-free.app/api/auth/confirm-email?email={user.Email}&token={encodedToken}";
+                var verificationLink = $"http://localhost:8080/api/auth/confirm-email?email={user.Email}&token={encodedToken}";
 
                 var emailResult = await _emailService.SendEmailVerificationAsync(
                     user.Email!, user.UserName!, verificationLink, cancellationToken);
